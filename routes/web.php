@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('Layouts.beranda');
+    return view('Layouts.auth.register');
 });
