@@ -42,5 +42,3 @@ document.querySelector(".hs-carousel-next").addEventListener("click", () => {
 
 // Initial update of active slide
 updateActiveSlide();
-
-//password

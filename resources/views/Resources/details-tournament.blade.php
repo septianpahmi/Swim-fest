@@ -63,13 +63,13 @@
         </ul>
     </nav>
     <section class="bg-white text-gray-800 p-6">
-        <div class="flex top-6 px-12 py-6 mb-6">
+        <div class="hidden md:block flex top-6 px-12 py-6 mb-6">
             <a href="#" class="text-[#023f5b]">
                 <img src="/image/icon/ArrowLeft.png" alt="">
             </a>
         </div>
         <!-- Container -->
-        <div class="container mx-auto justify-center flex flex-wrap lg:flex-nowrap gap-8">
+        <div class="container mx-auto justify-center md:flex md:flex-wrap lg:flex-nowrap gap-8 mb-6">
             <!-- Left Content: Image and Buttons -->
             <div class="rounded-lg">
                 <!-- Image -->
@@ -78,15 +78,16 @@
                 </div>
                 <!-- Buttons -->
                 <button
-                    class="w-full bg-red-400 text-white font-medium py-3 rounded-md mb-4 hover:bg-red-500 transition">
-                    Registrasi
+                    class="w-full flex items-center justify-between px-4 border border-[#023f5b] text-[#023f5b] font-medium py-3 mb-4 rounded-md hover:bg-[#023f5b] hover:text-white transition">
+                    <span><i class="fas fa-certificate"></i> Unduh Sertifikat</span>
                 </button>
                 <button
-                    class="w-full border border-[#023f5b] text-[#023f5b] font-medium py-3 rounded-md hover:bg-[#023f5b] hover:text-white transition">
-                    <i class="fas fa-square-phone"></i> Kontak
+                    class="w-full flex items-center justify-between px-4 border border-[#023f5b] text-[#023f5b] font-medium py-3 rounded-md hover:bg-[#023f5b] hover:text-white transition">
+                    <span><i class="fas fa-images"></i> Unduh Foto dan Video Perlombaan</span>
                 </button>
-            </div>
 
+            </div>
+            <hr class="md:hidden border border-b-2 mb-4">
             <!-- Right Content: Event Details -->
             <div class="w-full lg:w-2/3 space-y-6">
                 <!-- Header -->
@@ -96,43 +97,60 @@
                     <ul class="flex flex-wrap -mb-px ">
                         <li class="me-2 flex-1 text-center">
                             <a href="#"
-                                class="w-full inline-block p-4 border-b-2 rounded-t-lg text-[#023f5b] border-[#023f5b] hover:text-blue-600 hover:border-blue-600 active">Semua
-                                <span class="text-red-400 hover:text-red-600">3</span></a>
+                                class="w-full inline-block p-4 border-b-2 rounded-t-lg text-[#023f5b] border-[#023f5b] hover:text-blue-600 hover:border-blue-600 active">Detail
+                                Perlombaan</a>
                         </li>
                         <li class="me-2 flex-1 text-center">
                             <a href="#"
                                 class="w-full inline-block p-4 border-transparent border-b-2 hover:text-gray-600  rounded-t-lg"
-                                aria-current="page">Highlight</a>
+                                aria-current="page">Highlight Perlombaan</a>
                         </li>
                     </ul>
                 </div>
-                <hr class="border border-b-0 mb-2">
+                <hr class="md:hidden border border-b-2 mb-4">
                 <!-- Event Information -->
-                <div class="text-[#023f5b] space-y-2 text-lg">
-                    <div class="flex gap-4">
-                        <img src="/image/icon/calendar-dots0.svg" alt="">Tanggal
-                        <span class="ml-20">12 Desember, 2024 - 13 Desember, 2025</span>
-                    </div>
-                    <div class="flex gap-4">
+                <div class="text-[#023f5b] space-y-4 text-lg">
+                    <div class="md:flex gap-4">
                         <span>
-
-                            <img src="/image/icon/person-simple-swim0.svg" alt="">
+                            <img src="/image/icon/calendar-dots0.svg" class="mr-1 md:mr-2" alt="">
                         </span>
-                        Kategori
-                        <ul class=" ml-20">
-                            <li>50 Meter Gaya Dada Putra</li>
-                            <li>100 Meter Gaya Bebas Putra</li>
-                            <li>50 Meter Gaya Dada Putri</li>
-                            <li>100 Meter Gaya Bebas Putri</li>
+                        <span class="flex font-bold">
+                            Tanggal
+                        </span>
+                        <span class="md:ml-20">12 Desember, 2024 - 13 Desember, 2025</span>
+                    </div>
+                    <hr class="border border-b-0 mb-4">
+                    <div class="md:flex gap-4">
+                        <span>
+                            <img src="/image/icon/person-simple-swim0.svg" class="mr-1 md:mr-2" alt="">
+                        </span>
+                        <span class="font-bold">
+                            Kelas
+                        </span>
+                        <ul class="md:ml-24">
+                            <li>SD Kelas 1 : 50 Meter Gaya Dada Putra</li>
+                            <li>SD Kelas 1 : 100 Meter Gaya Bebas Putra</li>
+                            <li>SD Kelas 2 : 50 Meter Gaya Dada Putri</li>
+                            <li>SD Kelas 2 : 100 Meter Gaya Bebas Putri</li>
                         </ul>
                     </div>
-                    <div class="flex gap-4">
-                        <img src="/image/icon/map-pin-simple-line0.svg" alt="">Lokasi
-                        <a href="#" class="text-blue-500 hover:underline ml-24">Stadion Akuatik Gelora Bung
-                            Karno</a>
-                    </div>
-                </div>
+                    <hr class="border border-b-0 mb-4">
 
+                    <div class="md:flex gap-4">
+                        <span>
+                            <img src="/image/icon/map-pin-simple-line0.svg" class="mr-1 md:mr-2" alt="">
+                        </span>
+                        <span class="font-bold">
+                            Lokasi
+                        </span>
+                        <ul class="md:ml-24">
+                            <a href="#" class="text-blue-500 hover:underline ">Stadion Akuatik Gelora Bung
+                                Karno</a>
+                        </ul>
+                    </div>
+                    <hr class="border border-b-0 mb-4">
+                </div>
+                <hr class="md:hidden border border-b-2 mb-4">
                 <!-- Description -->
                 <div>
                     <h2 class="text-xl font-bold mb-2 text-gray-900">Deskripsi</h2>
@@ -143,7 +161,7 @@
                         Indonesia.
                     </p>
                 </div>
-
+                <hr class="md:hidden border border-b-2 mb-4">
                 <!-- Registration Steps -->
                 <div>
                     <h2 class="text-xl font-bold mb-2 text-gray-900">Cara Pendaftaran:</h2>
@@ -162,7 +180,7 @@
                         <li>Konfirmasi pendaftaran Anda via email maksimal 1x24 jam.</li>
                     </ol>
                 </div>
-
+                <hr class="md:hidden border border-b-2 mb-4">
                 <!-- Event Location -->
                 <div>
                     <h2 class="text-xl font-bold mb-2 text-gray-900">Alamat Lokasi Event:</h2>
@@ -171,7 +189,7 @@
                         Jl. Pintu Satu Senayan, Jakarta Pusat, DKI Jakarta
                     </p>
                 </div>
-
+                <hr class="md:hidden border border-b-2 mb-4">
                 <!-- General Information -->
                 <div>
                     <h2 class="text-xl font-bold mb-2 text-gray-900">Informasi Event Renang Secara Umum:</h2>
@@ -183,54 +201,35 @@
                         <li>Event ini mendukung perkembangan atlet renang di Indonesia.</li>
                     </ul>
                 </div>
+                <hr class="md:hidden border border-b-2 mb-4">
+                <!-- Dokumentasi -->
+                <div class="hidden md:block">
+                    <h2 class="text-xl font-bold mb-4 text-gray-900 ">Dokumentasi Foto & Video</h2>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="rounded-lg overflow-hidden shadow-md">
+                            <img src="/image/image 30.png" alt="Foto 1" class="w-[155px] h-[193px] object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-md">
+                            <img src="/image/image 31.png" alt="Foto 2" class="w-[155px] h-[193px] object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-md">
+                            <img src="/image/image 32.png" alt="Foto 3" class="w-[155px] h-[193px] object-cover">
+                        </div>
+                        <div class="relative rounded-lg overflow-hidden shadow-md">
+                            <img src="/image/image 33.png" alt="Foto 4" class="w-[155px] h-[193px] object-cover">
+                            <a href="#"
+                                class="absolute inset-0 bg-[#036E9F] bg-opacity-50 flex flex-col items-center justify-center text-white text-sm font-medium hover:bg-[#023f5b] hover:bg-opacity-70 transition">
+                                <i class="fas fa-lock mb-1"></i>
+                                <span>+106</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
-
-
-
-    {{-- footer --}}
-    <footer class="relative p-4 bg-[#023f5b] sm:p-6">
-        <div class="absolute bottom-[-14px] left-[-5px]">
-            <img src="/image/icon/bg-footer.png" alt="Wave Bottom Left" class="w-full object-cover">
-        </div>
-        <div class="relative mx-auto max-w-screen-xl py-2 px-12">
-            <div class="md:flex md:justify-between">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="flex items-center">
-                        <img src="/image/logo/logo-white.png" class="mr-3 ml-24 h-15" alt="SwimFest Logo" />
-                    </a>
-                </div>
-                <div class="mr-24">
-                    <div>
-                        <h2 class="mb-2 text-sm font-semibold text-white uppercase">Kontak</h2>
-                        <ul class="text-gray-600 dark:text-gray-400">
-                            <li class="flex mb-2">
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/whatsapp-logo0.svg" alt="">
-                                </a>
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/instagram-logo0.svg" alt="">
-                                </a>
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/youtube-logo0.svg" alt="">
-                                </a>
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/x-logo0.svg" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="relative px-4 py-3 w-full bg-[#036E9F] md:flex md:items-center md:justify-center z-10">
-        <span class="text-sm text-white sm:text-center">© 2024 <a href="#">Akuatik Indonesia</a>.
-            All
-            Rights Reserved.
-        </span>
-    </div>
+    @include('Partials.footer')
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
     <script src="/js/style.js"></script>
 </body>

@@ -2,18 +2,19 @@
 @include('Partials.navbar')
 <section class="relative bg-[#036e9f] overflow-hidden h-screen">
     <!-- Background Waves -->
-    <div class="absolute top-[-60px] right-[-50px] w-[250px] md:w-[543px] h-[200px] md:h-[458px]">
+    <div class="hidden md:block absolute top-[-60px] right-[-50px] w-[250px] md:w-[543px] h-[200px] md:h-[458px]">
         <img src="/image/icon/bg-hero-left0.svg" alt="Wave Top Right" class="w-full object-cover -rotate-180">
     </div>
 
-    <div class="absolute  top-[240px] left-[-100px] w-[250px] md:w-[543px]  md:h-[458px]">
+    <div class="hidden md:block absolute  top-[240px] left-[-100px] w-[250px] md:w-[543px]  md:h-[458px]">
         <img src="/image/icon/bg-hero-right0.svg" alt="Wave Bottom Left" class="w-full object-cover -rotate-180">
     </div>
 
     <!-- Content Container -->
-    <div class="relative container mx-auto flex flex-col-reverse md:flex-row items-center py-12 px-6 md:px-12 h-full">
+    <div
+        class="relative container mx-auto flex flex-col-reverse md:flex-row items-center py-24 md:pd-12 md:px-12 h-full">
         <!-- Left Text Content -->
-        <div class="text-white w-full md:w-1/2 text-center md:text-left">
+        <div class="hidden md:block text-white w-full md:w-1/2 text-center md:text-left">
             <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold mb-4 leading-tight">
                 SWIMFEST 2025
             </h1>
@@ -22,12 +23,12 @@
                 profesional. Kami percaya setiap perenang memiliki potensi besar yang layak untuk ditampilkan di
                 arena kompetisi.
             </p>
-            <a href="#"
+            <a href="{{ route('signup') }}"
                 class="inline-block bg-[#023f5b] text-white px-6 py-3 rounded-md hover:bg-[#022f44] transition mb-6 md:mb-20">
                 Daftar Sekarang
             </a>
             <!-- Navigation Buttons -->
-            <div class="flex justify-center md:justify-start space-x-4 items-center">
+            <div class="hidden md:block flex justify-center md:justify-start space-x-4 items-center">
                 <button>
                     <img src="/image/icon/arrow-circle-left0.svg" alt=""
                         class="h-10 w-10 text-white hover:text-gray-300">
@@ -40,11 +41,11 @@
         </div>
 
         <!-- Images -->
-        <div class="w-full md:w-1/2 flex space-x-4 ml-auto float-end -mr-40">
+        <div class="w-full md:w-1/2 flex justify-center space-x-4 ml-auto md:float-end -mr-40">
             <!-- Poster 1 -->
-            <img src="/image/image-400.png" alt="Poster 1" class="w-1/2 md:w-[45%] rounded-lg shadow-lg">
+            <img src="/image/image-400.png" alt="Poster 1" class="w-full md:w-[45%] rounded-lg shadow-lg">
             <!-- Poster 2 -->
-            <img src="/image/image-270.png" alt="Poster 2" class="w-1/2 md:w-[45%] rounded-lg shadow-lg">
+            <img src="/image/image-270.png" alt="Poster 2" class="w-full md:w-[45%] rounded-lg shadow-lg">
         </div>
     </div>
 </section>
@@ -56,7 +57,7 @@
         <!-- Logo on the left -->
         <div class="md:w-1/2 flex justify-center md:justify-start mb-2 md:mb-0">
             <img src="/image/logo/swimfest-primary-logo-11.png" alt="Logo"
-                class="object-cover h-[350px] max-w-[450px]">
+                class="hidden md:block object-cover h-[350px] max-w-[450px]">
         </div>
 
         <!-- Text content on the right -->
@@ -82,12 +83,12 @@
 </section>
 
 {{-- Turnament --}}
-<section class="relative bg-[#DAF3FF] overflow-hidden h-screen">
+<section class="relative bg-[#DAF3FF] overflow-hidden min-h-screen md:h-screen">
 
-    <div class="relative container mx-auto items-center py-12 px-12 md:px-20 h-full z-10">
-        <div class="flex top-6 justify-between py-12 px-12">
+    <div class="relative container mx-auto justify-center items-center py-12 px-12 md:px-20 h-full z-10">
+        <div class="md:flex md:top-6 md:justify-between py-12 md:px-12">
             <h1 class="text-3xl font-bold text-[#023f5b]">Turnamen</h1>
-            <a href="#" class="text-[#023f5b] font-semibold hover:underline">
+            <a href="#" class="hidden md:block text-[#023f5b] font-semibold hover:underline">
                 Lihat Semua >
             </a>
         </div>
@@ -95,7 +96,7 @@
             <!-- Poster/Gambar -->
             <div class="rounded-lg">
                 <img src="/image/image-250.png" alt="Trieste Estate 2016"
-                    class="object-cover rounded-lg w-auto max-w-[291px]" />
+                    class="object-cover rounded-lg w-auto max-w-full md:max-w-[291px]" />
             </div>
 
             <!-- Detail Turnamen -->
@@ -104,32 +105,32 @@
                     Aqua Blaze National Swimming 2024
                 </h2>
                 <div class="mb-6">
-                    <p class="flex text-gray-600 mb-4">
+                    <p class="md:flex text-gray-600 mb-4">
                         <span>
-                            <img src="/image/icon/calendar-dots0.svg" class="mr-4" alt="">
+                            <img src="/image/icon/calendar-dots0.svg" class="mr-1 md:mr-4" alt="">
                         </span>
-                        Tanggal
-                        <span class="ml-20">12 Desember, 2024 - 13 Desember, 2025</span>
+                        <span class="flex font-bold">Tanggal</span>
+                        <span class="md:ml-20">12 Desember, 2024 - 13 Desember, 2025</span>
                     </p>
-                    <p class="flex text-gray-600 mb-4">
+                    <p class="md:flex text-gray-600 mb-4">
                         <span>
-                            <img src="/image/icon/person-simple-swim0.svg" class="mr-4" alt="">
+                            <img src="/image/icon/person-simple-swim0.svg" class="mr-2 md:mr-4" alt="">
                         </span>
-                        Kategori
-                        <span class="ml-20">
-                            50 Meter Gaya Dada Putra<br />
-                            100 Meter Gaya Bebas Putra<br />
+                        <span class="flex font-bold">Kelas</span>
+                        <span class="md:ml-24">
+                            SD Kelas 1 : 50 Meter Gaya Dada Putra<br />
+                            SD Kelas 1 : 100 Meter Gaya Bebas Putra<br />
                             <a href="#" class="text-blue-500 hover:underline">2 Lainnya</a>
                         </span>
 
                     </p>
-                    <p class="flex text-gray-600 mb-4">
+                    <p class="md:flex text-gray-600 mb-4">
                         <span>
-                            <img src="/image/icon/map-pin-simple-line0.svg" class="mr-4" alt="">
+                            <img src="/image/icon/map-pin-simple-line0.svg" class="mr-1 md:mr-4" alt="">
                         </span>
-                        Lokasi
-                        <span class="ml-24">
-                            Stadion Akuatik Gelora Bung Karno<br />
+                        <span class="flex font-bold">Tanggal</span>
+                        <span class="md:ml-20">
+                            Stadion Akuatik Gelora Bung Karno
                             Jl. Pintu Satu Senayan, Jakarta Pusat, DKI Jakarta
                         </span>
                     </p>
@@ -145,9 +146,9 @@
 <section class="relative bg-colo-white overflow-hidden h-screen">
 
     <div class="relative container mx-auto items-center py-12 px-12 md:px-20 h-full z-10">
-        <div class="flex top-6 justify-between py-12 px-12">
+        <div class="md:flex md:top-6 md:justify-between py-12  md:px-12">
             <h1 class="text-3xl font-bold text-[#023f5b]">Galeri</h1>
-            <a href="#" class="text-[#023f5b] font-semibold hover:underline">
+            <a href="#" class="hidden md:block text-[#023f5b] font-semibold hover:underline">
                 Lihat Semua >
             </a>
         </div>
@@ -203,7 +204,7 @@
             </button>
         </div>
         <!-- End Slider -->
-        <div class="flex top-6 justify-center py-12 px-12">
+        <div class="hidden md:block flex top-6 text-center justify-center py-12 px-12">
             <h1 class="text-xl font-bold text-[#023f5b]">Aqua Velocity Championship 2025</h1>
         </div>
     </div>
@@ -212,34 +213,34 @@
 {{-- partner --}}
 <section class="relative bg-colo-white overflow-hidden h-screen">
 
-    <div class="relative container mx-auto items-center py-12 px-12 md:px-20 h-full z-10">
+    <div class="relative container mx-auto items-center py-6 px-6 md:py-12 md:px-20 h-full z-10">
         <div class="flex top-6 justify-between py-12 px-12">
             <h1 class="text-3xl font-bold text-[#023f5b]">Partner</h1>
         </div>
-        <div class="flex flex-wrap justify-center gap-8">
+        <div class="flex flex-wrap justify-center md:gap-8 gap-4">
             <!-- Partner Logo 1 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-80.png" alt="Partner 1" class="w-32 h-auto">
+                <img src="/image/partner/image-80.png" alt="Partner 1" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 2 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-90.png" alt="Partner 2" class="w-32 h-auto">
+                <img src="/image/partner/image-90.png" alt="Partner 2" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 3 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-100.png" alt="Partner 3" class="w-32 h-auto">
+                <img src="/image/partner/image-100.png" alt="Partner 3" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 4 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-130.png" alt="Partner 4" class="w-32 h-auto">
+                <img src="/image/partner/image-130.png" alt="Partner 4" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 5 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-140.png" alt="Partner 5" class="w-32 h-auto">
+                <img src="/image/partner/image-140.png" alt="Partner 5" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 6 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-210.png" alt="Partner 5" class="w-32 h-auto">
+                <img src="/image/partner/image-210.png" alt="Partner 5" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
         </div>
     </div>

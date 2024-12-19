@@ -25,7 +25,8 @@
                     class="block py-2 px-4 text-teal-800 hover:text-teal-600 border-b-2 border-teal-800">Beranda</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Turnamen</a>
+                <a href="{{ route('perlombaan') }}"
+                    class="block py-2 px-4 text-teal-800 hover:text-teal-600">Perlombaan</a>
             </li>
             <li>
                 <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Berita</a>
@@ -36,14 +37,28 @@
             <li>
                 <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Tentang</a>
             </li>
-            <li>
-                <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Login</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="block py-2 px-4 text-white bg-red-400 rounded-md text-center hover:bg-red-500 md:inline-block md:ml-4">
-                    Daftar Sekarang
-                </a>
-            </li>
+            @if (Auth::check())
+                <li>
+                    <!-- Logout Button -->
+                    <a href="{{ route('logout') }}"
+                        class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] rounded-full text-center hover:text-white hover:bg-[#023f5b] md:inline-block md:ml-4"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-right-from-bracket -rotate-180"></i> Log Out
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+            @else
+                <li>
+                    <a href="{{ route('signin') }}" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Login</a>
+                </li>
+                <li>
+                    <a href="{{ route('signup') }}"
+                        class="block py-2 px-4 text-white bg-red-400 rounded-md text-center hover:bg-red-500 md:inline-block md:ml-4">
+                        Daftar Sekarang
+                    </a>
+                </li>
+            @endif
         </ul>
     </nav>

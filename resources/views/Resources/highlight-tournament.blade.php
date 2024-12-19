@@ -63,13 +63,13 @@
         </ul>
     </nav>
     <section class="bg-white text-gray-800 p-6">
-        <div class="flex top-6 px-12 py-6 mb-6">
+        <div class="hidden md:block flex top-6 px-12 py-6 mb-6">
             <a href="#" class="text-[#023f5b]">
                 <img src="/image/icon/ArrowLeft.png" alt="">
             </a>
         </div>
         <!-- Container -->
-        <div class="container mx-auto justify-center flex flex-wrap lg:flex-nowrap gap-8">
+        <div class="container mx-auto justify-center md:flex md:flex-wrap lg:flex-nowrap gap-8">
             <!-- Left Content: Image and Buttons -->
             <div class="rounded-lg">
                 <!-- Image -->
@@ -98,12 +98,13 @@
                         <li class="me-2 flex-1 text-center">
                             <a href="#"
                                 class="w-full inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600">Detail
+                                Perlombaan
                             </a>
                         </li>
                         <li class="me-2 flex-1 text-center">
                             <a href="#"
-                                class="w-full inline-block p-4 text-[#023f5b] border-[#023f5b] border-transparent border-b-2 hover:text-blue-600 rounded-t-lg"
-                                aria-current="page">Highlight <span class="text-red-400 hover:text-red-600">3</span></a>
+                                class="w-full inline-block p-4 text-[#023f5b] border-[#023f5b] border-b-2 hover:border-blue-600 hover:text-blue-600 rounded-t-lg active"
+                                aria-current="page">Highlight Perlombaan</a>
                         </li>
                     </ul>
                 </div>
@@ -238,53 +239,9 @@
             </div>
         </div>
     </section>
-
-
-
-    {{-- footer --}}
-    <footer class="relative p-4 bg-[#023f5b] sm:p-6">
-        <div class="absolute bottom-[-14px] left-[-5px]">
-            <img src="/image/icon/bg-footer.png" alt="Wave Bottom Left" class="w-full object-cover">
-        </div>
-        <div class="relative mx-auto max-w-screen-xl py-2 px-12">
-            <div class="md:flex md:justify-between">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="flex items-center">
-                        <img src="/image/logo/logo-white.png" class="mr-3 ml-24 h-15" alt="SwimFest Logo" />
-                    </a>
-                </div>
-                <div class="mr-24">
-                    <div>
-                        <h2 class="mb-2 text-sm font-semibold text-white uppercase">Kontak</h2>
-                        <ul class="text-gray-600 dark:text-gray-400">
-                            <li class="flex mb-2">
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/whatsapp-logo0.svg" alt="">
-                                </a>
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/instagram-logo0.svg" alt="">
-                                </a>
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/youtube-logo0.svg" alt="">
-                                </a>
-                                <a href="#" class="mr-1">
-                                    <img src="/image/icon/x-logo0.svg" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="relative px-4 py-3 w-full bg-[#036E9F] md:flex md:items-center md:justify-center z-10">
-        <span class="text-sm text-white sm:text-center">© 2024 <a href="#">Akuatik Indonesia</a>.
-            All
-            Rights Reserved.
-        </span>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
     <script src="/js/style.js"></script>
+    @include('Partials.footer')
 </body>
 
 </html>
