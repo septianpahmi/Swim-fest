@@ -135,7 +135,8 @@
                         </span>
                     </p>
                 </div>
-                <a href="#" class="absolute bottom-6 text-[#023f5b] font-semibold hover:underline">
+                <a href="{{ route('detail.lomba') }}"
+                    class="absolute bottom-6 text-[#023f5b] font-semibold hover:underline">
                     Baca Selengkapnya >
                 </a>
             </div>

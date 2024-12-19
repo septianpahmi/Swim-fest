@@ -77,10 +77,12 @@
                     <img src="/image/image-250.png" alt="Trieste Estate" class="rounded-lg w-full shadow-lg">
                 </div>
                 <!-- Buttons -->
-                <button
-                    class="w-full bg-red-400 text-white font-medium py-3 rounded-md mb-4 hover:bg-red-500 transition">
-                    Registrasi
-                </button>
+                <a href="{{ route('registrasi.kategori') }}">
+                    <button
+                        class="w-full bg-red-400 text-white font-medium py-3 rounded-md mb-4 hover:bg-red-500 transition">
+                        Registrasi
+                    </button>
+                </a>
                 <button
                     class="w-full border border-[#023f5b] text-[#023f5b] font-medium py-3 rounded-md hover:bg-[#023f5b] hover:text-white transition">
                     <i class="fas fa-square-phone"></i> Kontak

@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\PerlombaanController;
+use App\Http\Controllers\RegistrasiKategoriController;
+use App\Http\Controllers\RegistrasiMandiriController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
@@ -16,4 +19,19 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/sign-up', [RegistrationController::class, 'index'])->name('signup');
 Route::post('/sign-up', [RegistrationController::class, 'register'])->name('register');
 
+Route::get('/auth/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
+
 Route::get('/Perlombaan', [PerlombaanController::class, 'index'])->name('perlombaan');
+Route::get('/Perlombaan/aqua-blaze-national-swimming-2024', [PerlombaanController::class, 'detail'])->name('detail.lomba');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/registrasi-kategori', [RegistrasiKategoriController::class, 'index'])->name('registrasi.kategori');
+    Route::get('/registrasi-kategori/mandiri', [RegistrasiKategoriController::class, 'mandiri'])->name('mandiri');
+    Route::get('/registrasi-kategori/kelompok', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
+
+    Route::post('/registrasi-kategori/mandiri/post', [RegistrasiMandiriController::class, 'post'])->name('mandiri.post');
+    Route::get('/registrasi-kategori/mandiri/file', [RegistrasiMandiriController::class, 'file'])->name('mandiri.file');
+    Route::post('/registrasi-kategori/mandiri/file/post', [RegistrasiMandiriController::class, 'uploadFile'])->name('mandiri.postFile');
+    Route::get('/registrasi-kategori/mandiri/pilih-kelas', [RegistrasiMandiriController::class, 'pilihKelas'])->name('mandiri.pilihKelas');
+});

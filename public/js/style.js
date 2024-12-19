@@ -42,3 +42,26 @@ document.querySelector(".hs-carousel-next").addEventListener("click", () => {
 
 // Initial update of active slide
 updateActiveSlide();
+
+document
+    .getElementById("selection-form")
+    .addEventListener("submit", function (e) {
+        const selectedCategory = document.querySelector(
+            'input[name="category"]:checked'
+        );
+        if (!selectedCategory) {
+            e.preventDefault();
+            alert("Silakan pilih kategori terlebih dahulu.");
+        } else {
+            // Dynamically set the action URL based on selection
+            if (selectedCategory.value === "mandiri") {
+                this.action = "/registrasi-kategori/mandiri";
+            } else if (selectedCategory.value === "kelompok") {
+                this.action = "/registrasi-kategori/kelompok";
+            }
+        }
+    });
+
+function goBack() {
+    window.history.back();
+}

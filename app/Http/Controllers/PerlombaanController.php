@@ -10,4 +10,9 @@ class PerlombaanController extends Controller
     {
         return view('Resources.tournament');
     }
+
+    public function detail()
+    {
+        return view('Resources.detail-tournament');
+    }
 }
