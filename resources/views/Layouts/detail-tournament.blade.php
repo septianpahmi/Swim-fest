@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail Tournament</title>
+    {{-- <link rel="stylesheet" href="/css/style.css"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    @vite('resources/css/app.css')
+</head>
+
+<body>
+    <nav class="flex justify-between items-center py-4 px-6 bg-[#023f5b] shadow-md">
+        <!-- Logo -->
+        <div class="flex items-center">
+            <img src="/image/logo/logo-white.png" alt="Logo" class="h-10 mr-2">
+        </div>
+
+        <!-- Hamburger Menu (Tombol di Mobile) -->
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-white focus:outline-none">
+                <!-- Ikon Hamburger -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menu Items -->
+        <ul id="menu"
+            class="hidden md:flex md:space-x-6 md:ml-auto absolute md:static top-16 left-0 w-full md:w-auto bg-[#023f5b] md:bg-transparent shadow-md md:shadow-none">
+            <li>
+                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600 ">Beranda</a>
+            </li>
+            <li>
+                <a href="#"
+                    class="block py-2 px-4 text-white hover:text-teal-600 border-b-2 border-white">Turnamen</a>
+            </li>
+            <li>
+                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Berita</a>
+            </li>
+            <li>
+                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Galeri</a>
+            </li>
+            <li>
+                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Tentang</a>
+            </li>
+            <li>
+                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Login</a>
+            </li>
+            <li>
+                <a href="#"
+                    class="block py-2 px-4 text-white bg-red-400 rounded-md text-center hover:bg-red-500 md:inline-block md:ml-4">
+                    Daftar Sekarang
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <section class="bg-white text-gray-800 p-6">
+        <div class="flex top-6 px-12 py-6 mb-6">
+            <a href="#" class="text-[#023f5b]">
+                <img src="/image/icon/ArrowLeft.png" alt="">
+            </a>
+        </div>
+        <!-- Container -->
+        <div class="container mx-auto justify-center flex flex-wrap lg:flex-nowrap gap-8">
+            <!-- Left Content: Image and Buttons -->
+            <div class="rounded-lg">
+                <!-- Image -->
+                <div class="mb-6">
+                    <img src="/image/image-250.png" alt="Trieste Estate" class="rounded-lg w-full shadow-lg">
+                </div>
+                <!-- Buttons -->
+                <button
+                    class="w-full bg-red-400 text-white font-medium py-3 rounded-md mb-4 hover:bg-red-500 transition">
+                    Registrasi
+                </button>
+                <button
+                    class="w-full border border-[#023f5b] text-[#023f5b] font-medium py-3 rounded-md hover:bg-[#023f5b] hover:text-white transition">
+                    <i class="fas fa-square-phone"></i> Kontak
+                </button>
+            </div>
+
+            <!-- Right Content: Event Details -->
+            <div class="w-full lg:w-2/3 space-y-6">
+                <!-- Header -->
+                <h1 class="text-3xl font-bold text-[#023f5b]">Aqua Blaze National Swimming 2024</h1>
+                <hr class="border border-b-0 mt-4">
+                <div class="text-lg font-medium text-gray-500 border-b border-gray-200 mb-2 w-full">
+                    <ul class="flex flex-wrap -mb-px ">
+                        <li class="me-2 flex-1 text-center">
+                            <a href="#"
+                                class="w-full inline-block p-4 border-b-2 rounded-t-lg text-[#023f5b] border-[#023f5b] hover:text-blue-600 hover:border-blue-600 active">Semua
+                                <span class="text-red-400 hover:text-red-600">3</span></a>
+                        </li>
+                        <li class="me-2 flex-1 text-center">
+                            <a href="#"
+                                class="w-full inline-block p-4 border-transparent border-b-2 hover:text-gray-600  rounded-t-lg"
+                                aria-current="page">Highlight</a>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="border border-b-0 mb-2">
+                <!-- Event Information -->
+                <div class="text-[#023f5b] space-y-2 text-lg">
+                    <div class="flex gap-4">
+                        <img src="/image/icon/calendar-dots0.svg" alt="">Tanggal
+                        <span class="ml-20">12 Desember, 2024 - 13 Desember, 2025</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <span>
+
+                            <img src="/image/icon/person-simple-swim0.svg" alt="">
+                        </span>
+                        Kategori
+                        <ul class=" ml-20">
+                            <li>50 Meter Gaya Dada Putra</li>
+                            <li>100 Meter Gaya Bebas Putra</li>
+                            <li>50 Meter Gaya Dada Putri</li>
+                            <li>100 Meter Gaya Bebas Putri</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-4">
+                        <img src="/image/icon/map-pin-simple-line0.svg" alt="">Lokasi
+                        <a href="#" class="text-blue-500 hover:underline ml-24">Stadion Akuatik Gelora Bung
+                            Karno</a>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-gray-900">Deskripsi</h2>
+                    <p class="text-gray-800 text-lg leading-relaxed">
+                        Aqua Blaze National Swimming 2024 adalah turnamen renang nasional yang mempertemukan perenang
+                        terbaik dari berbagai kategori usia, mulai dari anak-anak hingga dewasa. Event ini dirancang
+                        untuk mengasah kemampuan atlet dan menjalin solidaritas antar komunitas renang di seluruh
+                        Indonesia.
+                    </p>
+                </div>
+
+                <!-- Registration Steps -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-gray-900">Cara Pendaftaran:</h2>
+                    <ol class="list-decimal ml-5 space-y-1 text-gray-800 text-lg">
+                        <li>Kunjungi website resmi Aqua Blaze di <a href="#"
+                                class="text-blue-500 hover:underline">www.aquablazenationalswim.com</a></li>
+                        <li>Klik menu "Daftar Sekarang" dan isi formulir pendaftaran online.</li>
+                        <li>Upload dokumen yang diperlukan, seperti:
+                            <ul class="list-disc ml-6">
+                                <li>Sertifikat kesehatan</li>
+                                <li>Kartu Identitas (KTP/Kartu Pelajar)</li>
+                                <li>Pas foto ukuran 3x4</li>
+                            </ul>
+                        </li>
+                        <li>Pilih kategori lomba dan bayar biaya pendaftaran melalui metode yang tersedia.</li>
+                        <li>Konfirmasi pendaftaran Anda via email maksimal 1x24 jam.</li>
+                    </ol>
+                </div>
+
+                <!-- Event Location -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-gray-900">Alamat Lokasi Event:</h2>
+                    <p class="text-gray-800 text-lg">
+                        Stadion Akuatik Gelora Bung Karno <br>
+                        Jl. Pintu Satu Senayan, Jakarta Pusat, DKI Jakarta
+                    </p>
+                </div>
+
+                <!-- General Information -->
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-gray-900">Informasi Event Renang Secara Umum:</h2>
+                    <ul class="list-disc ml-5 space-y-1 text-gray-800 text-lg">
+                        <li>Renang adalah olahraga yang menggabungkan kekuatan, teknik, dan ketahanan fisik.</li>
+                        <li>Turnamen ini melibatkan berbagai gaya seperti gaya bebas, gaya dada, punggung, dan
+                            kupu-kupu.</li>
+                        <li>Peserta bersaing untuk mencetak waktu terbaik di setiap kategori usia.</li>
+                        <li>Event ini mendukung perkembangan atlet renang di Indonesia.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {{-- footer --}}
+    <footer class="relative p-4 bg-[#023f5b] sm:p-6">
+        <div class="absolute bottom-[-14px] left-[-5px]">
+            <img src="/image/icon/bg-footer.png" alt="Wave Bottom Left" class="w-full object-cover">
+        </div>
+        <div class="relative mx-auto max-w-screen-xl py-2 px-12">
+            <div class="md:flex md:justify-between">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="flex items-center">
+                        <img src="/image/logo/logo-white.png" class="mr-3 ml-24 h-15" alt="SwimFest Logo" />
+                    </a>
+                </div>
+                <div class="mr-24">
+                    <div>
+                        <h2 class="mb-2 text-sm font-semibold text-white uppercase">Kontak</h2>
+                        <ul class="text-gray-600 dark:text-gray-400">
+                            <li class="flex mb-2">
+                                <a href="#" class="mr-1">
+                                    <img src="/image/icon/whatsapp-logo0.svg" alt="">
+                                </a>
+                                <a href="#" class="mr-1">
+                                    <img src="/image/icon/instagram-logo0.svg" alt="">
+                                </a>
+                                <a href="#" class="mr-1">
+                                    <img src="/image/icon/youtube-logo0.svg" alt="">
+                                </a>
+                                <a href="#" class="mr-1">
+                                    <img src="/image/icon/x-logo0.svg" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="relative px-4 py-3 w-full bg-[#036E9F] md:flex md:items-center md:justify-center z-10">
+        <span class="text-sm text-white sm:text-center">© 2024 <a href="#">Akuatik Indonesia</a>.
+            All
+            Rights Reserved.
+        </span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
+    <script src="/js/style.js"></script>
+</body>
+
+</html>

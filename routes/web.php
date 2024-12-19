@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('Layouts.auth.register');
+    return view('Layouts.highlight-tournament');
 });
