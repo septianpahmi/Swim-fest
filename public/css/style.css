@@ -1,0 +1,19 @@
+/* Default card style */
+.radio-card {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* When the radio button is checked */
+input[type="radio"]:checked + .radio-card {
+    background-color: #023f5b;
+    /* Blue background */
+    color: white;
+    /* White text */
+}
+
+/* Card hover style */
+.radio-card:hover {
+    background-color: #023f5b;
+    /* Darker blue on hover */
+    color: white;
+}
