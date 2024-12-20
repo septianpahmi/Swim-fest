@@ -81,7 +81,8 @@
                             </span>
                         </p>
                     </div>
-                    <a href="#" class="absolute bottom-6 text-blue-500 font-semibold hover:underline">
+                    <a href="{{ route('detail.lomba', ['slug' => $item->eventId->slug]) }}"
+                        class="absolute bottom-6 text-blue-500 font-semibold hover:underline">
                         Lihat Detail >
                     </a>
                 </div>

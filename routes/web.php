@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegistrationController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\RingkasanController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PerlombaanController;
-use App\Http\Controllers\RegistrasiKategoriController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegistrasiMandiriController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegistrasiKategoriController;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
@@ -34,4 +36,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/registrasi-kategori/mandiri/file/{slug}', [RegistrasiMandiriController::class, 'file'])->name('mandiri.file');
     Route::post('/registrasi-kategori/mandiri/file/post/{slug}', [RegistrasiMandiriController::class, 'uploadFile'])->name('mandiri.postFile');
     Route::get('/registrasi-kategori/mandiri/pilih-kelas/{slug}', [RegistrasiMandiriController::class, 'pilihKelas'])->name('mandiri.pilihKelas');
+    Route::post('/registrasi-kategori/mandiri/pilih-kelas/post/{slug}', [RegistrasiMandiriController::class, 'postKelasMandiri'])->name('mandiri.postKelas');
+
+    Route::get('/registrasi-kategori/mandiri/ringkasan/{slug}', [RingkasanController::class, 'RingkasanMandiri'])->name('mandiri.Ringkasan');
+    Route::get('/registrasi-kategori/mandiri/ringkasan-pembayaran/{slug}', [RingkasanController::class, 'RingkasanPembayaranMandiri'])->name('mandiri.RingkasanPembayaran');
+    Route::get('/registrasi-kategori/mandiri/checkout-process/{slug}', [RingkasanController::class, 'checkoutProcess'])->name('checkoutProcess');
+
+    Route::get('/registrasi-kategori/mandiri/checkout/{slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('/registrasi-kategori/mandiri/transaction-succes/{id}/{slug}', [CheckoutController::class, 'successTransaction'])->name('success-transaction');
 });

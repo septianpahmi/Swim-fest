@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('registration_id');
             $table->integer('payment_method')->nullable();
-            $table->string('reff_id', 25)->nullable();
+            $table->string('reff_id')->nullable();
             $table->integer('sub_total');
             $table->integer('fee');
             $table->integer('diskon');

@@ -7,6 +7,9 @@ use App\Models\Participants;
 use Illuminate\Http\Request;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
+use App\Models\participant_categories;
+use App\Models\Participant_registrations;
+use App\Models\Registrations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -78,7 +81,7 @@ class RegistrasiMandiriController extends Controller
         $participantData['file_raport'] = $raportPath;
         $participantData['file_akte'] = $aktePath;
 
-        Participants::create($participantData);
+        $participant = Participants::create($participantData);
         Session::forget('participant_data');
 
         $event = Events::where('slug', $slug)->first();
@@ -90,6 +93,19 @@ class RegistrasiMandiriController extends Controller
         if (!$categoryEvent) {
             return redirect()->back()->with('error', 'Category event not found.');
         }
+        $registration = Registrations::create([
+            'user_id' => Auth::user()->id,
+            'event_id' => $event->id,
+            'no_registration' => strtoupper(bin2hex(random_bytes(5))),
+            'type' => 'mandiri',
+            'status' => 'Pending',
+        ]);
+
+        $participantRegistration = Participant_registrations::create([
+            'registration_id' => $registration->id,
+            'participan_id' => $participant->id,
+        ]);
+        Session::put('participant_registration_id', $participantRegistration->id);
         return redirect('/registrasi-kategori/mandiri/pilih-kelas/' . $slug);
     }
 
@@ -98,5 +114,40 @@ class RegistrasiMandiriController extends Controller
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
         return view('Resources.pilih-kelas', compact('event'));
+    }
+
+    public function postKelasMandiri(Request $request, $slug)
+    {
+        $eventId = Events::where('slug', $slug)->select('id');
+        $categoryEvent = Category_events::where('event_id', $eventId)->first();
+        if (!$categoryEvent) {
+            return redirect()->route('home')->with('error', 'Kategori event tidak ditemukan.');
+        }
+        $participantRegistrationId = Session::get('participant_registration_id');
+
+        if (!$participantRegistrationId) {
+            return redirect()->route('home')->with('error', 'Data registrasi peserta tidak ditemukan.');
+        }
+        $validator = Validator::make($request->all(), [
+            'no_participant.*' => 'required|string|size:2',
+            'last_record.*' => 'nullable|numeric',
+            'price.*' => 'nullable|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        foreach ($request->no_participant as $index => $noParticipant) {
+            participant_categories::create([
+                'participant_registration_id' => $participantRegistrationId,
+                'category_event_id' => $categoryEvent->id,
+                'no_participant' => $noParticipant,
+                'price' => $categoryEvent->price ?? null,
+                'record' => null,
+                'last_record' => $request->last_record[$index] ?? null,
+            ]);
+        }
+        return redirect('/registrasi-kategori/mandiri/ringkasan/' . $slug);
     }
 }

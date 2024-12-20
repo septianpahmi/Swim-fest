@@ -13,11 +13,12 @@ class Payments extends Model
     protected $fillable = [
         'registration_id',
         'payment_method',
-        'ref_id',
+        'reff_id',
+        'sub_total',
         'fee',
         'diskon',
         'grand_total',
-        'paid_at',
+        // 'paid_at',
     ];
 
     public function registration()
