@@ -30,27 +30,33 @@
                             class="mt-1 mb-3 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
 
                             <!-- Label untuk file input -->
-                            <label for="file-input-1" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
+                            <label for="file_akte" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                                 <i class="fas fa-paperclip mr-2"></i>
                                 <span class="font-semibold">Akta Kelahiran</span>
                             </label>
-                            <p id="file-name-1" class="text-gray-400 text-sm ml-5">No file chosen</p>
-                            <input type="file" accept=".pdf" id="file-input-1" name="file_akte"
+                            <p id="file-name-1" class="text-gray-400 text-sm ml-5">File max 5MB</p>
+                            <input type="file" accept=".pdf" id="file_akte" name="file_akte"
                                 class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer"
                                 onchange="updateFileName(1)" required>
+                            @error('file_akte')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div
                             class="mt-1 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <label for="file-input-2" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
+                            <label for="file_raport" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                                 <i class="fas fa-paperclip mr-2"></i>
                                 <span class="font-semibold">Upload Rapor</span>
                             </label>
-                            <p id="file-name-2" class="text-gray-400 text-sm ml-5">No file chosen</p>
+                            <p id="file-name-2" class="text-gray-400 text-sm ml-5">File max 5MB</p>
 
-                            <input type="file" id="file-input-2" accept=".pdf" name="file_raport"
+                            <input type="file" id="file_raport" accept=".pdf" name="file_raport"
                                 class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer"
                                 onchange="updateFileName(2)" required>
+                            @error('file_raport')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <!-- Buttons -->
                         <hr class="border border-b-0 mb-8">

@@ -20,7 +20,7 @@
                     <img src="/image/logo/swimfest-primary-logo-10.png" class="mb-6 h-8 sm:h-10" alt="">
                     <h1 class="mb-2 text-2xl sm:text-3xl font-bold text-gray-800">DAFTAR AKUN</h1>
                     <p class="mb-4 text-sm sm:text-base text-gray-800">Masukan kredensial Anda untuk mengakses akun.</p>
-                    <a href="{{ route('google.redircet') }}"
+                    <a href="{{ route('google.redirect') }}"
                         class="w-full inline-flex items-center justify-center gap-2 font-medium rounded-lg border border-gray-300 text-gray-800 px-4 py-2 sm:py-3"
                         id="LoginGoogle" type="submit">
                         <img src="/image/icon/google.png" class="h-4" alt="">
@@ -68,6 +68,22 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="relative">
+                            <label for="password_confirmation"
+                                class="block text-sm font-medium text-gray-700 sm:mb-2">Konfirmasi Password</label>
+                            <div class="relative">
+                                <input id="password_confirmation" name="password_confirmation" type="password"
+                                    placeholder="Confirm your password"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-2 sm:py-3 text-gray-800 placeholder-gray-500">
+                                <button type="button" id="togglerePassword"
+                                    class="absolute inset-y-0 right-3 flex items-center text-gray-400">
+                                    <i class="fa-solid fa-eye" id="repasswordIcon"></i>
+                                </button>
+                            </div>
+                            @error('password_confirmation')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <button type="submit"
                             class="w-full bg-red-400 hover:bg-red-500 text-white rounded-lg px-4 py-2 sm:py-3 font-medium">
                             Daftar
@@ -98,6 +114,19 @@
 
             passwordIcon.classList.toggle("fa-eye");
             passwordIcon.classList.toggle("fa-eye-slash");
+        });
+    </script>
+    <script>
+        const togglerePassword = document.getElementById("togglerePassword");
+        const repasswordInput = document.getElementById("password_confirmation");
+        const repasswordIcon = document.getElementById("repasswordIcon");
+
+        togglerePassword.addEventListener("click", () => {
+            const type = repasswordInput.type === "password" ? "text" : "password";
+            repasswordInput.type = type;
+
+            repasswordIcon.reclassList.toggle("fa-eye");
+            repasswordIcon.reclassList.toggle("fa-eye-slash");
         });
     </script>
 </body>

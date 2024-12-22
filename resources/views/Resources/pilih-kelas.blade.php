@@ -22,14 +22,13 @@
                         <!-- Form Awal -->
                         <div class="form-template">
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
+                                <label id="kelas"
+                                    class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
                                 <select id="kelas" name="category_event_id[]"
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
                                     <option value="" selected>Pilih Kelas</option>
                                     <option value="{{ $event->id }}">{{ $event->categoryClass->classes->class_name }}
-                                        :
-                                        {{ $event->categoryClass->category->category_name }}
                                     </option>
                                 </select>
                             </div>
@@ -39,8 +38,8 @@
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
                                     <option value="" selected>Pilih Nomor</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
+                                    <option value="{{ $event->categoryClass->category->id }}">
+                                        {{ $event->categoryClass->category->category_name }}</option>
                                 </select>
                             </div>
                             <div class="mb-4">
@@ -77,11 +76,20 @@
 <script>
     document.getElementById('add-swim-number').addEventListener('click', function(event) {
         event.preventDefault();
+
         const formContainer = document.getElementById('form-container');
         const formTemplate = document.querySelector('.form-template');
 
         const newForm = formTemplate.cloneNode(true);
 
+        const classLabel = newForm.querySelector('label[id="kelas"]');
+        if (classLabel) {
+            classLabel.remove();
+        }
+        const classSelect = newForm.querySelector('select[id="kelas"]');
+        if (classSelect) {
+            classSelect.remove();
+        }
         newForm.querySelectorAll('input, select').forEach(input => {
             if (input.tagName === 'SELECT') {
                 input.selectedIndex = 0;
@@ -89,6 +97,8 @@
                 input.value = '';
             }
         });
+
+        // Tambahkan tombol hapus
         const removeButton = document.createElement('button');
         removeButton.type = 'button';
         removeButton.innerHTML = '<i class="fas fa-trash"></i>';
@@ -103,6 +113,7 @@
         newForm.style.position = 'relative';
         newForm.appendChild(removeButton);
 
+        // Tambahkan form baru ke container
         formContainer.appendChild(newForm);
     });
 </script>
