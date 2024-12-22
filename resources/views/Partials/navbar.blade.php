@@ -32,22 +32,18 @@
                 <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Berita</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Galeri</a>
+                <a href="{{ route('galeri') }}" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Galeri</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Tentang</a>
+                <a href="/tentang" class="block py-2 px-4 text-teal-800 hover:text-teal-600">Tentang</a>
             </li>
             @if (Auth::check())
                 <li>
-                    <!-- Logout Button -->
-                    <a href="{{ route('logout') }}"
-                        class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] rounded-full text-center hover:text-white hover:bg-[#023f5b] md:inline-block md:ml-4"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-right-from-bracket -rotate-180"></i> Log Out
+                    <!-- Profil Button -->
+                    <a href="{{ route('profil') }}"
+                        class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] rounded-full text-center hover:text-white hover:bg-[#023f5b] md:inline-block md:ml-4">
+                        <i class="fas fa-user"></i> Profil
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
                 </li>
             @else
                 <li>
@@ -60,5 +56,6 @@
                     </a>
                 </li>
             @endif
+
         </ul>
     </nav>

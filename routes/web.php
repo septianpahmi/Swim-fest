@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\RingkasanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PerlombaanController;
@@ -56,3 +59,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/registrasi-kategori/mandiri/checkout/{slug}', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::get('/registrasi-kategori/mandiri/transaction-succes/{id}/{slug}', [CheckoutController::class, 'successTransaction'])->name('success-transaction');
 });
+
+Route::get('/highlight', [HighlightController::class, 'index'])->name('highlight');
+
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
+
+Route::get('/tentang', function () {
+    return view('resources.tentang.tentang');
+});
+
+Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+Route::get('/profil/pertandingan', [ProfilController::class, 'pertandingan'])->name('pertandingan');
+Route::get('/profi;/keamanan', [ProfilController::class, 'keamanan'])->name('keamanan');

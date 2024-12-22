@@ -36,20 +36,20 @@
         <ul id="menu"
             class="hidden md:flex md:space-x-6 md:ml-auto absolute md:static top-16 left-0 w-full md:w-auto bg-[#023f5b] md:bg-transparent shadow-md md:shadow-none">
             <li>
-                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600 ">Beranda</a>
+                <a href="{{ route('beranda') }}" class="block py-2 px-4 text-white hover:text-teal-600 ">Beranda</a>
             </li>
             <li>
-                <a href="#"
+                <a href="{{ route('perlombaan') }}"
                     class="block py-2 px-4 text-white hover:text-teal-600 border-b-2 border-white">Turnamen</a>
             </li>
             <li>
                 <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Berita</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Galeri</a>
+                <a href="{{ route('galeri') }}" class="block py-2 px-4 text-white hover:text-teal-600">Galeri</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Tentang</a>
+                <a href="/tentang" class="block py-2 px-4 text-white hover:text-teal-600">Tentang</a>
             </li>
             <li>
                 <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Login</a>
@@ -64,7 +64,7 @@
     </nav>
     <section class="bg-white text-gray-800 p-6">
         <div class="hidden md:block flex top-6 px-12 py-6 mb-6">
-            <a href="#" class="text-[#023f5b]">
+            <a href="javascript:history.back()" class="text-[#023f5b]">
                 <img src="/image/icon/ArrowLeft.png" alt="">
             </a>
         </div>
@@ -102,7 +102,7 @@
                                 Perlombaan</a>
                         </li>
                         <li class="me-2 flex-1 text-center">
-                            <a href="#"
+                            <a href="{{ route('highlight') }}"
                                 class="w-full inline-block p-4 border-transparent border-b-2 hover:text-gray-600  rounded-t-lg"
                                 aria-current="page">Highlight Perlombaan</a>
                         </li>
