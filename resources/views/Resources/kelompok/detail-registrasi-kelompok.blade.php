@@ -26,41 +26,47 @@
                 <!-- Nama -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Nama</p>
-                    <p class="text-gray-500">{{ $reg->participant_name }}</p>
+                    <p class="text-gray-500">{{ $reg->participantId->participant_name }}</p>
                 </div>
 
                 <!-- Jenis Kelamin -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Jenis Kelamin</p>
-                    <p class="text-gray-500">{{ $reg->gender == 'L' ? 'Laki-laki' : 'Perempuan' }}</p>
+                    <p class="text-gray-500">{{ $reg->participantId->gender == 'L' ? 'Laki-laki' : 'Perempuan' }}</p>
                 </div>
 
                 <!-- Tanggal Lahir -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Tanggal Lahir</p>
-                    <p class="text-gray-500">{{ Carbon\Carbon::parse($reg->birth_date)->translatedFormat('d F Y') }}</p>
+                    <p class="text-gray-500">
+                        {{ Carbon\Carbon::parse($reg->participantId->date_of_birth)->translatedFormat('d F Y') }}</p>
                 </div>
 
                 <!-- Alamat -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Alamat</p>
                     <p class="text-gray-500">
-                        {{ strtoupper($reg->address) }}, {{ strtoupper($reg->district) }}, {{ strtoupper($reg->city) }},
-                        {{ strtoupper($reg->provinsi) }}
+                        {{ strtoupper($reg->participantId->address) }}, {{ strtoupper($reg->participantId->district) }},
+                        {{ strtoupper($reg->participantId->city) }},
+                        {{ strtoupper($reg->participantId->provinsi) }}
                     </p>
                 </div>
 
                 <!-- Asal Sekolah -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Asal Sekolah</p>
-                    <p class="text-gray-500">{{ $reg->school }}</p>
+                    <p class="text-gray-500">{{ $reg->participantId->school }}</p>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Email</p>
-                    <p class="text-gray-500">{{ $reg->email }}</p>
+                    <p class="text-gray-500">{{ $reg->participantId->email }}</p>
                 </div>
+                {{-- <div class="mb-6">
+                    <p class="text-sm font-medium text-[#023f5b]">Kelas Dan Ketgori</p>
+                    <p class="text-gray-500">{{ $pc->categoryEvent->categoryClass->category->category_name }}</p>
+                </div> --}}
             </div>
             <hr class="border border-b-0 mt-6">
             <!-- Buttons -->
@@ -69,7 +75,8 @@
                     class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8">
                     Kembali
                 </button>
-                <form action="{{ route('kelompok.listdetail', $event->eventId->slug) }}" method="GET">
+                <form action="{{ route('kelompok.listdetail', $event->eventId->slug) }}" method="GET"
+                    class="md:w-full">
                     <button
                         class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
                         SIMPAN
@@ -81,7 +88,7 @@
 </section>
 <script>
     function goBack() {
-        window.route('kelompok');
+        window.route('kelompok.pilihKelas');
     }
 </script>
 @include('Partials.footer')

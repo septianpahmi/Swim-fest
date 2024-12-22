@@ -12,30 +12,21 @@
 
             <!-- Peserta Input -->
             <div id="peserta-list" class="space-y-4">
-                <div class="flex items-center justify-between border-2 border-grey p-4 rounded-2xl peserta">
-                    <div class="flex items-center space-x-2">
-                        <img src="image/icon/icon-peserta.png" alt="">
-                        <span class="text-[#023f5b] text-lg font-bold">Nama Peserta 1</span>
+                @foreach ($list as $lists)
+                    <div class="flex items-center justify-between border-2 border-grey p-4 rounded-2xl peserta">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[#023f5b] text-lg font-bold"><i class="fas fa-user"></i>
+                                {{ $lists->participant_name }}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 ">
+                            <button url="" type="button" class="text-[#023f5b] hover:text-blue-800 status"><i
+                                    class="fas fa-pencil"></i></button>
+                            <button url="{{ route('kelompok.remove', $lists->id) }}" type="button"
+                                data-id="{{ $lists->id }}" class="text-red-400 hover:text-red-600 delete"><i
+                                    class="fas fa-trash"></i></button>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <img src="image/icon/icon-pensil.png" alt="" class="edit-peserta cursor-pointer"
-                            data-id="1">
-                        <img src="image/icon/icon-sampah.png" alt="" class="hapus-peserta cursor-pointer"
-                            data-id="1">
-                    </div>
-                </div>
-                <div class="flex items-center justify-between border-2 border-gray p-4 rounded-2xl peserta">
-                    <div class="flex items-center space-x-2">
-                        <img src="image/icon/icon-peserta.png" alt="">
-                        <span class="text-[#023f5b] text-lg font-bold">Nama Peserta 2</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <img src="image/icon/icon-pensil.png" alt="" class="edit-peserta cursor-pointer"
-                            data-id="2">
-                        <img src="image/icon/icon-sampah.png" alt="" class="hapus-peserta cursor-pointer"
-                            data-id="2">
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <!-- Tambah Peserta -->
@@ -46,69 +37,30 @@
                         <img src="image/icon/icon-tambah-peserta.png" alt="">
                     </div>
                     <div class="ml-2">
-                        <span class="text-[#023f5b] text-lg font-bold">Tambah Nomor Peserta</span>
+                        <a href="{{ route('kelompok', $event->eventId->slug) }}" type="button"
+                            class="text-[#023f5b] text-lg font-bold"><i class="fas fa-user-plus"></i> Tambah Nomor
+                            Peserta</a>
                     </div>
                 </button>
             </div>
 
-            <hr class="border-2 border-grey mt-4 mb-4">
+            <hr class="border-b-1 border-grey mt-4 mb-4">
 
             <!-- Buttons -->
-            <div class="flex flex-row">
-                <button
-                    class="basis-1/2 mr-2 w-full py-3 px-6 text-[#023f5b] border-2 border-gray rounded-lg font-semibold text-lg hover:text-white hover:bg-gray-500">
+            <div class="flex flex-col sm:flex-row justify-between mt-6">
+                <button onclick="goBack()"
+                    class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8">
                     Kembali
                 </button>
-                <button
-                    class="basis-1/4 ml-2 w-full py-3 px-6 text-white bg-red-500 rounded-lg font-semibold hover:bg-red-600"
-                    onclick="window.location.href = '#';">
-                    SELANJUTNYA
-                </button>
+                <form action="{{ route('kelompok.checkoutProccess', $event->eventId->slug) }}" method="GET"
+                    class="md:w-full">
+                    <button
+                        class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
+                        SELANJUTNYA
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 </section>
 @include('Partials.footer')
-
-<script>
-    // Inisialisasi daftar peserta
-    const pesertaList = document.getElementById('peserta-list');
-    let pesertaCount = 2;
-
-    // Tambah Peserta
-    document.getElementById('tambah-peserta').addEventListener('click', () => {
-        pesertaCount++;
-        const pesertaDiv = document.createElement('div');
-        pesertaDiv.className = 'flex items-center justify-between border-2 border-gray p-4 rounded-2xl peserta';
-        pesertaDiv.innerHTML = `
-            <div class="flex items-center space-x-2">
-                <img src="image/icon/icon-peserta.png" alt="">
-                <span class="text-[#023f5b] text-lg font-bold">Nama Peserta ${pesertaCount}</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <img src="image/icon/icon-pensil.png" alt="" class="edit-peserta cursor-pointer" data-id="${pesertaCount}">
-                <img src="image/icon/icon-sampah.png" alt="" class="hapus-peserta cursor-pointer" data-id="${pesertaCount}">
-            </div>
-        `;
-        pesertaList.appendChild(pesertaDiv);
-    });
-
-    // Hapus Peserta
-    pesertaList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('hapus-peserta')) {
-            const pesertaDiv = e.target.closest('.peserta');
-            pesertaList.removeChild(pesertaDiv);
-        }
-    });
-
-    // Edit Peserta
-    pesertaList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('edit-peserta')) {
-            const pesertaName = e.target.closest('.peserta').querySelector('span');
-            const newName = prompt('Masukkan nama baru:', pesertaName.textContent);
-            if (newName) {
-                pesertaName.textContent = newName;
-            }
-        }
-    });
-</script>

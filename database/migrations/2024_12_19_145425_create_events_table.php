@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('brosure')->nullable();
             $table->text('description');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

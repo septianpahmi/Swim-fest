@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('diskon');
             $table->integer('grand_total');
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('registration_id')->references('id')->on('registrations')->onDelete('cascade');
         });
     }

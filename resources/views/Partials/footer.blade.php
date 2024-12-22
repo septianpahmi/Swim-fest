@@ -45,11 +45,11 @@
             © 2024 <a href="#" class="hover:underline">Akuatik Indonesia</a>. All Rights Reserved.
         </span>
     </div>
-
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
     <script src="/js/style.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         $('.delete').click(function() {
             var dataid = $(this).attr('data-id');
@@ -95,7 +95,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    {{-- <script src="toastr.js"></script> --}}
+    <script src="toastr.js"></script>
     <script>
         @if (Session::has('success'))
             Swal.fire({
