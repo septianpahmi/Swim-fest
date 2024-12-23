@@ -20,7 +20,7 @@
                     <img src="/image/logo/swimfest-primary-logo-10.png" class="mb-6 h-8 sm:h-10" alt="">
                     <h1 class="mb-2 text-2xl sm:text-3xl font-bold text-gray-800">DAFTAR AKUN</h1>
                     <p class="mb-4 text-sm sm:text-base text-gray-800">Masukan kredensial Anda untuk mengakses akun.</p>
-                    <a href="{{ route('google.redircet') }}"
+                    <a href="{{ route('google.redirect') }}"
                         class="w-full inline-flex items-center justify-center gap-2 font-medium rounded-lg border border-gray-300 text-gray-800 px-4 py-2 sm:py-3"
                         id="LoginGoogle" type="submit">
                         <img src="/image/icon/google.png" class="h-4" alt="">
