@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('type', 10);
             $table->string('status', 25);
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
         });

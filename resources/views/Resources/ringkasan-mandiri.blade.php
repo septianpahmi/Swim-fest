@@ -19,13 +19,13 @@
                     <div>
                         <label class="block text-sm font-medium text-[#023f5b] mb-2">Nomor Renang</label>
                         <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
-                            {{ $item->no_participant }}</p>
+                            {{ $item->categoryEvent->categoryClass->category->category_name }}</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
                         <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
-                            {{ $item->categoryEvent->categoryClass->classes->class_name }} :
-                            {{ $item->categoryEvent->categoryClass->category->category_name }}</p>
+                            {{ $item->categoryEvent->categoryClass->classes->class_name }}
+                        </p>
                     </div>
                     <hr class="border-b-1 border-grey mb-4 mt-6">
                 @endforeach

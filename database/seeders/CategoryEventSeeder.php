@@ -20,12 +20,12 @@ class CategoryEventSeeder extends Seeder
         ]);
         Category_events::create([
             'event_id' => '2',
-            'category_class_id' => '1',
+            'category_class_id' => '2',
             'price' => '400000',
         ]);
         Category_events::create([
             'event_id' => '2',
-            'category_class_id' => '2',
+            'category_class_id' => '3',
             'price' => '1000000',
         ]);
     }

@@ -51,7 +51,7 @@ class RingkasanController extends Controller
             'fee' => $total,
             'diskon' => 0,
             'grand_total' => $grand,
-            // 'paid_at' => null,
+            // 'paid_at' => Carbon,
         ]);
         \Midtrans\Config::$serverKey = config('midtrans.serverKey');
         \Midtrans\Config::$isProduction = false;

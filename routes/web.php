@@ -3,14 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RingkasanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PerlombaanController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\RegistrationController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegistrasiMandiriController;
 use App\Http\Controllers\RegistrasiKategoriController;
+use App\Http\Controllers\RegistrasiKelompokController;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
@@ -30,7 +31,17 @@ Route::get('/Perlombaan/{slug}', [PerlombaanController::class, 'detail'])->name(
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/registrasi-kategori/{slug}', [RegistrasiKategoriController::class, 'index'])->name('registrasi.kategori');
     Route::get('/registrasi-kategori/mandiri/{slug}', [RegistrasiKategoriController::class, 'mandiri'])->name('mandiri');
-    Route::get('/registrasi-kategori/kelompok', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
+    Route::post('/registrasi-kategori/getKabupaten', [RegistrasiKategoriController::class, 'getKabupaten'])->name('getKabupaten');
+    Route::post('/registrasi-kategori/getKecamatan', [RegistrasiKategoriController::class, 'getKecamatan'])->name('getKecamatan');
+
+    Route::get('/registrasi-kategori/kelompok/{slug}', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
+    Route::post('/registrasi-kategori/kelomok/post/{slug}', [RegistrasiKelompokController::class, 'post'])->name('kelompok.post');
+    Route::get('/registrasi-kategori/kelompok/pilih-kelas/{slug}', [RegistrasiKelompokController::class, 'pilihKelas'])->name('kelompok.pilihKelas');
+    Route::post('/registrasi-kategori/kelompok/pilih-kelas/post/{slug}', [RegistrasiKelompokController::class, 'postKelas'])->name('kelompok.postKelas');
+    Route::get('/registrasi-kategori/kelompok/detail/{slug}', [RegistrasiKelompokController::class, 'regisDetail'])->name('kelompok.detail');
+    Route::get('/registrasi-kategori/kelompok/remove/{id}', [RegistrasiKelompokController::class, 'remove'])->name('kelompok.remove');
+    Route::get('/registrasi-kategori/kelompok/list-detail/{slug}', [RegistrasiKelompokController::class, 'listDetail'])->name('kelompok.listdetail');
+    Route::get('/registrasi-kategori/kelompok/checkout-proccess/{slug}', [RegistrasiKelompokController::class, 'checkoutProccess'])->name('kelompok.checkoutProccess');
 
     Route::post('/registrasi-kategori/mandiri/post/{slug}', [RegistrasiMandiriController::class, 'post'])->name('mandiri.post');
     Route::get('/registrasi-kategori/mandiri/file/{slug}', [RegistrasiMandiriController::class, 'file'])->name('mandiri.file');

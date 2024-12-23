@@ -7,6 +7,19 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## installation
+- php artisan migrate
+- php artisan db:seed --class=RoleSeeder
+- php artisan db:seed --class=ClassSeeder
+- php artisan db:seed --class=CategorySeeder
+- php artisan db:seed --class=CategoryClassSeeder
+- php artisan db:seed --class=EventSeeder
+- php artisan db:seed --class=CategoryEventSeeder
+- php artisan db:seed --class=IndoRegionProvinceSeeder
+- php artisan db:seed --class=IndoRegionRegencySeeder
+- php artisan db:seed --class=IndoRegionDistrictSeeder
+- php artisan db:seed --class=IndoRegionVillageSeeder
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

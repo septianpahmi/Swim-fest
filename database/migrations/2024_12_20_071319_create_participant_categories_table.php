@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('record')->nullable();
             $table->integer('last_record')->nullable();
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('participant_registration_id')->references('id')->on('participant_registrations')->onDelete('cascade');
             $table->foreign('category_event_id')->references('id')->on('category_events')->onDelete('cascade');
         });

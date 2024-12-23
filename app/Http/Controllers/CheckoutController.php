@@ -42,7 +42,10 @@ class CheckoutController extends Controller
         }
 
         $participantCategories = participant_categories::where('participant_registration_id', $participantRegistrationId)->get();
-
+        $registration = Registrations::where('id', $participantRegistrationId)->first();
+        $registration->update([
+            'status' => 'Success'
+        ]);
         $nomor = $participantCategories->count();
         $payment = Payments::find($id);
         return view('Resources.transaction-success', compact('event', 'payment', 'nomor'));

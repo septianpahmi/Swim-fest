@@ -62,8 +62,8 @@ class RegistrasiMandiriController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'file_raport' => 'required|file|mimes:pdf|max:2048',
-            'file_akte' => 'required|file|mimes:pdf|max:2048',
+            'file_raport' => 'required|file|mimes:pdf|max:5120',
+            'file_akte' => 'required|file|mimes:pdf|max:5120',
         ]);
 
         // dd($request->all());
@@ -129,7 +129,7 @@ class RegistrasiMandiriController extends Controller
             return redirect()->route('home')->with('error', 'Data registrasi peserta tidak ditemukan.');
         }
         $validator = Validator::make($request->all(), [
-            'no_participant.*' => 'required|string|size:2',
+            'no_participant.*' => 'required|string',
             'last_record.*' => 'nullable|numeric',
             'price.*' => 'nullable|numeric',
         ]);

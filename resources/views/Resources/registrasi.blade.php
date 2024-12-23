@@ -79,7 +79,7 @@
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#023f5b',
             });
-            return false;
+            return false; 
         } else {
             const eventSlug = "{{ $event->eventId->slug }}"; // Pass the slug from Blade to JavaScript
             if (selectedCategory.value === 'mandiri') {

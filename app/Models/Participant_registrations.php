@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Participant_registrations extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'registration_id',
         'participan_id',
     ];
 
-    public function registration()
+    public function registrationId()
     {
         return $this->belongsTo(Registrations::class, 'registration_id');
     }
 
-    public function participant()
+    public function participantId()
     {
-        return $this->belongsTo(Participants::class, 'participant_id');
+        return $this->belongsTo(Participants::class, 'participan_id');
     }
 }

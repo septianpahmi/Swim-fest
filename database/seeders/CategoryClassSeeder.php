@@ -18,6 +18,14 @@ class CategoryClassSeeder extends Seeder
             'class_id' => '1',
         ]);
         Category_classes::create([
+            'category_id' => '1',
+            'class_id' => '2',
+        ]);
+        Category_classes::create([
+            'category_id' => '2',
+            'class_id' => '1',
+        ]);
+        Category_classes::create([
             'category_id' => '2',
             'class_id' => '2',
         ]);

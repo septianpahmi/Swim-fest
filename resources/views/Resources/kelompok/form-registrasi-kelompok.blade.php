@@ -10,29 +10,34 @@
         <div class="relative max-w-4xl mx-auto bg-white rounded-2xl shadow-lg py-8 px-8">
             <!-- Header Form -->
             <div class="w-full mb-8">
-                <h3 class="text-2xl text-[#023f5b] font-bold mb-4">2/6</h3>
-                <div class="mb-10">
-                    @include('Partials.progress-bar')
+                <div class="flex justify-between">
+                    <h3 class="text-lg font-bold text-[#023f5b] mb-2">
+                        Pendaftaran Kelompok
+                    </h3>
+                    <h3 class="text-lg text-[#023f5b] font-bold mb-4">2/6</h3>
                 </div>
-                <h2 class="text-3xl font-bold text-[#023f5b]">
-                    Data Diri
-                </h2>
+                <div class="mb-10">
+                    @include('Partials.progress-bar-kelompok')
+                </div>
             </div>
             <hr class="border border-b-0 mb-8">
+            <h3 class="text-2xl font-semibold text-[#023f5b] mb-6">
+                Informasi Pribadi
+            </h3>
             <!-- Form Section -->
-            <form action="{{ route('mandiri.post', $event->eventId->slug) }}" method="post" class="space-y-6"
+            <form action="{{ route('kelompok.post', $event->eventId->slug) }}" method="POST" class="space-y-6"
                 enctype="multipart/form-data">
                 @csrf
-                <!-- Nama -->
                 <div>
                     <label for="nama" class="block text-sm font-semibold text-gray-800">Nama</label>
                     <input type="text" placeholder="Taufik Hidayat" id="nama" name="participant_name"
                         class="mt-1 font-semibold p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
-                    @error('nama')
+                    @error('partifipant_nama')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <!-- Jenis Kelamin -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Jenis Kelamin</label>
@@ -47,6 +52,9 @@
                                 class="h-4 w-4 text-blue-600 rounded-full focus:ring-blue-500">
                             <label for="perempuan" class="ml-2 text-sm text-gray-800">Perempuan</label>
                         </div>
+                        @error('gender')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -107,16 +115,19 @@
                             <option value="11">11</option>
                             <option value="12">12</option>
                         </select>
-                        <input type="number" placeholder="Tahun" name="years"
+                        <input type="number" id="year" min="1900" name="year" placeholder="Tahun"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            min="4" required>
+                            required>
+                        @error('date_of_birth')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- Alamat -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Alamat</label>
-                    <input type="text" placeholder="Alamat" name="address"
+                    <input type="text" name="address" placeholder="Alamat"
                         class="mb-2 w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <div class="grid grid-cols-2 gap-2">
@@ -140,32 +151,73 @@
                             <option value="" selected>Pilih Kacamatan</option>
                             <option value=""></option>
                         </select>
-                        <input type="number" id="zip_code" placeholder="Kode POS" name="zip_code"
+                        <input type="number" name="zip_code" placeholder="Kode POS"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
-                        @error('zip_code')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
                     </div>
+                    @error('address')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                    @error('zip_code')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Asal Sekolah dan Email -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800">Asal Sekolah</label>
-                    <input type="text" placeholder="Nama Sekolah" name="school"
-                        class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        required>
+                    <input type="text" name="school" placeholder="Nama Sekolah"
+                        class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    @error('school')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
-                    <input type="email" placeholder="example@gmail.com" name="email"
-                        class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        required>
+                    <input type="email" name="email" placeholder="example@gmail.com"
+                        class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    @error('email')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- Lampiran --}}
+                <div>
+                    <label class="block text-sm font-semibold text-gray-800">Lampiran</label>
+                    <div
+                        class="mt-1 mb-3 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+
+                        <!-- Label untuk file input -->
+                        <label for="file-input-1" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
+                            <i class="fas fa-paperclip mr-2"></i>
+                            <span class="font-semibold">Akta Kelahiran</span>
+                        </label>
+                        <p id="file-name-1" class="text-gray-400 text-sm ml-5">Max size 5MB</p>
+                        <input type="file" accept=".pdf" id="file-input-1" name="file_akte"
+                            class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(1)">
+                        @error('file_akte')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div
+                        class="mt-1 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <label for="file-input-2" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
+                            <i class="fas fa-paperclip mr-2"></i>
+                            <span class="font-semibold">Upload Raport</span>
+                        </label>
+                        <p id="file-name-2" class="text-gray-400 text-sm ml-5">Max size 5MB</p>
+
+                        <input type="file" accept=".pdf" id="file-input-2" name="file_raport"
+                            class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(2)">
+                        @error('file_raport')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
                 <hr class="border border-b-0 mb-8">
                 <!-- Buttons -->
                 <div class="flex flex-col sm:flex-row justify-between mt-20">
-                    <button type="button"
-                        class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8"
-                        onclick="goBack()">
+                    <button onclick="goBack()"
+                        class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8">
                         Kembali
                     </button>
                     <button
@@ -177,6 +229,19 @@
         </div>
     </div>
 </section>
+<script>
+    function goBack() {
+        window.route('registrasi.kategori');
+    }
+</script>
+<script>
+    function updateFileName(inputNumber) {
+        const fileInput = document.querySelectorAll('input[type="file"]')[inputNumber - 1];
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : 'No file chosen';
+        const fileNameParagraph = document.getElementById(`file-name-${inputNumber}`);
+        fileNameParagraph.textContent = fileName;
+    }
+</script>
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
 <script>
@@ -229,5 +294,4 @@
         })
     });
 </script>
-{{-- <script src="/js/address.js"></script> --}}
 @include('Partials.footer')
