@@ -5,9 +5,14 @@
         <div class="relative max-w-2xl mx-auto bg-white rounded-2xl shadow-lg py-8 px-8">
             <!-- Header Form -->
             <div class="w-full mb-8">
-                <h3 class="text-2xl text-[#023f5b] font-bold mb-4">6/6</h3>
-                <div class="mb-4">
-                    @include('Partials.progress-bar')
+                <div class="flex justify-between">
+                    <h3 class="text-lg font-bold text-[#023f5b] mb-2">
+                        Pendaftaran Kelompok
+                    </h3>
+                    <h3 class="text-lg text-[#023f5b] font-bold mb-4">6/6</h3>
+                </div>
+                <div class="mb-10">
+                    @include('Partials.progress-bar-kelompok')
                 </div>
                 <h3 class="text-xl font-bold text-[#023f5b] mb-2">
                     Ringkasan
@@ -60,9 +65,11 @@
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
         // SnapToken acquired from previous step
-        snap.pay('{{ $checkout->reff_id }}', {
+        snap.pay('{{ $checkout['reff_id'] }}', {
             // Optional
             onSuccess: function(result) {
+                var paymentMethod = result.payment_method;
+
                 window.location.href =
                     "{{ route('success-transaction', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);

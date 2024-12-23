@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Regency;
+use App\Models\District;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
-use App\Models\District;
-use App\Models\Regency;
+use Illuminate\Support\Facades\Session;
 
 class RegistrasiKategoriController extends Controller
 {
@@ -31,14 +32,23 @@ class RegistrasiKategoriController extends Controller
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
         $provinsi = Province::all();
+
         return view('Resources.kelompok.form-registrasi-kelompok', compact('provinsi', 'event'));
     }
-
+    public function addPesertaKelompok($slug)
+    {
+        $eventId = Events::where('slug', $slug)->select('id');
+        $event = Category_events::where('event_id', $eventId)->first();
+        $provinsi = Province::all();
+        $data = Session::get('form_kelompok', []);
+        return view('Resources.kelompok.form-addPeserta', compact('provinsi', 'event'));
+    }
     public function getKabupaten(Request $request)
     {
         $id_provinsi = $request->id_provinsi;
         $prov = Province::where('name', $id_provinsi)->first();
         $kabupaten = Regency::where('province_id', $prov->id)->get();
+        echo "<option value=''>Pilih Kabupaten/ Kota</option>";
         foreach ($kabupaten as $kab) {
             echo "<option value='$kab->name'>$kab->name</option>";
         }
@@ -48,6 +58,7 @@ class RegistrasiKategoriController extends Controller
         $id_kabupaten = $request->id_kabupaten;
         $kab = Regency::where('name', $id_kabupaten)->first();
         $kecamatan = District::where('regency_id', $kab->id)->get();
+        echo "<option value=''>Pilih Kecamatan</option>";
         foreach ($kecamatan as $kec) {
             echo "<option value='$kec->name'>$kec->name</option>";
         }

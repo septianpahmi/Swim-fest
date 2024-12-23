@@ -5,25 +5,36 @@
         <div class="relative max-w-2xl mx-auto bg-white rounded-2xl shadow-lg py-8 px-8">
             <!-- Header Form -->
             <div class="w-full mb-8">
-                <h2 class="text-2xl font-bold text-[#023f5b] mb-2">
-                    Pendaftaran Kelompok
-                </h2>
+                <div class="flex justify-between">
+                    <h3 class="text-lg font-bold text-[#023f5b] mb-2">
+                        Pendaftaran Kelompok
+                    </h3>
+                    <h3 class="text-lg text-[#023f5b] font-bold mb-4">5/6</h3>
+                </div>
+                <div class="mb-10">
+                    @include('Partials.progress-bar-kelompok')
+                </div>
             </div>
-
             <!-- Peserta Input -->
             <div id="peserta-list" class="space-y-4">
-                @foreach ($list as $lists)
+                @foreach ($peserta as $index => $pesertas)
                     <div class="flex items-center justify-between border-2 border-grey p-4 rounded-2xl peserta">
                         <div class="flex items-center space-x-2">
-                            <span class="text-[#023f5b] text-lg font-bold"><i class="fas fa-user"></i>
-                                {{ $lists->participant_name }}</span>
+                            <span class="text-[#023f5b] text-lg font-bold">
+                                <i class="fas fa-user"></i> {{ $pesertas['participant_name'] }}
+                            </span>
                         </div>
-                        <div class="flex items-center space-x-2 ">
-                            <button url="" type="button" class="text-[#023f5b] hover:text-blue-800 status"><i
-                                    class="fas fa-pencil"></i></button>
-                            <button url="{{ route('kelompok.remove', $lists->id) }}" type="button"
-                                data-id="{{ $lists->id }}" class="text-red-400 hover:text-red-600 delete"><i
-                                    class="fas fa-trash"></i></button>
+                        <div class="flex items-center space-x-2">
+                            <button url="" type="button" class="text-[#023f5b] hover:text-blue-800 status">
+                                <i class="fas fa-pencil"></i>
+                            </button>
+                            @if ($index > 0)
+                                <a href="{{ route('kelompok.remove', $pesertas['participant_name']) }}" type="button"
+                                    data-id="{{ $pesertas['participant_name'] }}"
+                                    class="text-red-400 hover:text-red-600 delete">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -37,13 +48,12 @@
                         <img src="image/icon/icon-tambah-peserta.png" alt="">
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('kelompok', $event->eventId->slug) }}" type="button"
+                        <a href="{{ route('addPesertaKelompok', $event->eventId->slug) }}" type="button"
                             class="text-[#023f5b] text-lg font-bold"><i class="fas fa-user-plus"></i> Tambah Nomor
                             Peserta</a>
                     </div>
                 </button>
             </div>
-
             <hr class="border-b-1 border-grey mt-4 mb-4">
 
             <!-- Buttons -->
@@ -63,4 +73,5 @@
         </div>
     </div>
 </section>
+
 @include('Partials.footer')

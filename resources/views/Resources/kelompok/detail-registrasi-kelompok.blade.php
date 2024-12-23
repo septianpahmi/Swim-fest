@@ -14,7 +14,7 @@
                     <h3 class="text-lg font-bold text-[#023f5b] mb-2">
                         Pendaftaran Kelompok
                     </h3>
-                    <h3 class="text-lg text-[#023f5b] font-bold mb-4">2/6</h3>
+                    <h3 class="text-lg text-[#023f5b] font-bold mb-4">4/6</h3>
                 </div>
                 <div class="mb-10">
                     @include('Partials.progress-bar-kelompok')
@@ -24,49 +24,74 @@
             <!-- Form Fields -->
             <div class="space-y-4">
                 <!-- Nama -->
+
+
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Nama</p>
-                    <p class="text-gray-500">{{ $reg->participantId->participant_name }}</p>
+                    @foreach ($reg as $regs)
+                        <p class="text-gray-500">{{ $regs['participant_name'] }}</p>
+                    @endforeach
                 </div>
-
                 <!-- Jenis Kelamin -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Jenis Kelamin</p>
-                    <p class="text-gray-500">{{ $reg->participantId->gender == 'L' ? 'Laki-laki' : 'Perempuan' }}</p>
+                    @foreach ($reg as $regs)
+                        <p class="text-gray-500">{{ $regs['gender'] == 'l' ? 'Laki-laki' : 'Perempuan' }}</p>
+                    @endforeach
                 </div>
 
                 <!-- Tanggal Lahir -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Tanggal Lahir</p>
-                    <p class="text-gray-500">
-                        {{ Carbon\Carbon::parse($reg->participantId->date_of_birth)->translatedFormat('d F Y') }}</p>
+                    @foreach ($reg as $regs)
+                        <p class="text-gray-500">
+                            {{ Carbon\Carbon::parse($regs['date_of_birth'])->translatedFormat('d F Y') }}</p>
+                    @endforeach
                 </div>
 
                 <!-- Alamat -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Alamat</p>
-                    <p class="text-gray-500">
-                        {{ strtoupper($reg->participantId->address) }}, {{ strtoupper($reg->participantId->district) }},
-                        {{ strtoupper($reg->participantId->city) }},
-                        {{ strtoupper($reg->participantId->provinsi) }}
-                    </p>
+                    @foreach ($reg as $regs)
+                        <p class="text-gray-500">
+                            {{ strtoupper($regs['address']) }}, {{ strtoupper($regs['district']) }},
+                            {{ strtoupper($regs['city']) }},
+                            {{ strtoupper($regs['province']) }}
+                        </p>
+                    @endforeach
                 </div>
 
                 <!-- Asal Sekolah -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Asal Sekolah</p>
-                    <p class="text-gray-500">{{ $reg->participantId->school }}</p>
+                    @foreach ($reg as $regs)
+                        <p class="text-gray-500">{{ $regs['school'] }}</p>
+                    @endforeach
                 </div>
 
                 <!-- Email -->
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Email</p>
-                    <p class="text-gray-500">{{ $reg->participantId->email }}</p>
+                    @foreach ($reg as $regs)
+                        <p class="text-gray-500">{{ $regs['email'] }}</p>
+                    @endforeach
                 </div>
-                {{-- <div class="mb-6">
+                <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Kelas Dan Ketgori</p>
-                    <p class="text-gray-500">{{ $pc->categoryEvent->categoryClass->category->category_name }}</p>
-                </div> --}}
+                    @foreach ($kelas as $kel)
+                        <p class="text-gray-500">{{ $kel['no_participant'] }}</p>
+                    @endforeach
+                </div>
+                <div class="mb-6">
+                    <p class="text-sm font-medium text-[#023f5b]">Catatan waktu terakhir</p>
+                    @foreach ($kelas as $kel)
+                        @if (isset($kelas['last_record']))
+                            <p class="text-gray-500">{{ $kel['last_record'] }} Detik</p>
+                        @else
+                            <p class="text-gray-500">Tidak ada Catatan waktu terakhir.</p>
+                        @endif
+                    @endforeach
+                </div>
             </div>
             <hr class="border border-b-0 mt-6">
             <!-- Buttons -->

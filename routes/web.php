@@ -35,11 +35,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/registrasi-kategori/getKecamatan', [RegistrasiKategoriController::class, 'getKecamatan'])->name('getKecamatan');
 
     Route::get('/registrasi-kategori/kelompok/{slug}', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
+    Route::get('/registrasi-kategori/add-peserta/{slug}', [RegistrasiKategoriController::class, 'addPesertaKelompok'])->name('addPesertaKelompok');
     Route::post('/registrasi-kategori/kelomok/post/{slug}', [RegistrasiKelompokController::class, 'post'])->name('kelompok.post');
+    Route::post('/registrasi-kategori/add-peserta/post/{slug}', [RegistrasiKelompokController::class, 'addPesertaPost'])->name('addPeserta.post');
     Route::get('/registrasi-kategori/kelompok/pilih-kelas/{slug}', [RegistrasiKelompokController::class, 'pilihKelas'])->name('kelompok.pilihKelas');
+    Route::get('/registrasi-kategori/kelompok/add-kelas/{slug}', [RegistrasiKelompokController::class, 'newKelas'])->name('kelompok.newKelas');
     Route::post('/registrasi-kategori/kelompok/pilih-kelas/post/{slug}', [RegistrasiKelompokController::class, 'postKelas'])->name('kelompok.postKelas');
+    Route::post('/registrasi-kategori/kelompok/add-kelas/post/{slug}', [RegistrasiKelompokController::class, 'postnewKelas'])->name('kelompok.postKelasnew');
     Route::get('/registrasi-kategori/kelompok/detail/{slug}', [RegistrasiKelompokController::class, 'regisDetail'])->name('kelompok.detail');
-    Route::get('/registrasi-kategori/kelompok/remove/{id}', [RegistrasiKelompokController::class, 'remove'])->name('kelompok.remove');
+    Route::get('/registrasi-kategori/kelompok/remove/{participantName}', [RegistrasiKelompokController::class, 'remove'])->name('kelompok.remove');
     Route::get('/registrasi-kategori/kelompok/list-detail/{slug}', [RegistrasiKelompokController::class, 'listDetail'])->name('kelompok.listdetail');
     Route::get('/registrasi-kategori/kelompok/checkout-proccess/{slug}', [RegistrasiKelompokController::class, 'checkoutProccess'])->name('kelompok.checkoutProccess');
 

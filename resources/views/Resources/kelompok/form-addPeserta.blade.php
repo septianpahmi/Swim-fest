@@ -25,7 +25,7 @@
                 Informasi Pribadi
             </h3>
             <!-- Form Section -->
-            <form action="{{ route('kelompok.post', $event->eventId->slug) }}" method="POST" class="space-y-6"
+            <form action="{{ route('addPeserta.post', $event->eventId->slug) }}" method="POST" class="space-y-6"
                 enctype="multipart/form-data">
                 @csrf
                 <div>
