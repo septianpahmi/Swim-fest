@@ -131,13 +131,13 @@
                         <select id="city" name="city"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
-                            <option value="" selected>Pilih Kabupaten</option>
+                            <option value="" selected>Pilih Kabupaten/ Kota</option>
                             <option value=""></option>
                         </select>
                         <select id="district" name="district"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
-                            <option value="" selected>Pilih Kacamatan</option>
+                            <option value="" selected>Pilih Kcamatan</option>
                             <option value=""></option>
                         </select>
                         <input type="number" id="zip_code" placeholder="Kode POS" name="zip_code"

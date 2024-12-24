@@ -32,22 +32,27 @@ class CheckoutController extends Controller
         return view('Resources.checkout', compact('event', 'payment', 'nomor'));
     }
 
-    public function successTransaction($id, $slug)
+    public function successTransaction(Request $request, $id, $slug)
     {
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
-        $participantRegistrationId = Session::get('participant_registration_id');
-        if (!$participantRegistrationId) {
-            return redirect()->route('home')->with('error', 'Data registrasi peserta tidak ditemukan.');
-        }
 
-        $participantCategories = participant_categories::where('participant_registration_id', $participantRegistrationId)->get();
-        $registration = Registrations::where('id', $participantRegistrationId)->first();
-        $registration->update([
-            'status' => 'Success'
-        ]);
-        $nomor = $participantCategories->count();
+        $classCategory = Session::get('category_event_id');
+        $registrations = Session::get('registration');
+        foreach ($registrations as $registrationData) {
+            $registrationData['status'] = 'Success';
+            // $existingRegistration = Registrations::where('no_registration', $registrationData['no_registration'])->first();
+            // if ($existingRegistration) {
+
+            //     $registrationData['no_registration'] = strtoupper(bin2hex(random_bytes(5)));
+            // }
+            $registration = Registrations::updated($registrationData);
+        }
+        $paymentMethod = $request->input('payment_method');
+        $nomor = count($classCategory);
         $payment = Payments::find($id);
+        $payment->payment_method = $paymentMethod;
+        $payment->save();
         return view('Resources.transaction-success', compact('event', 'payment', 'nomor'));
     }
 }
