@@ -11,6 +11,7 @@ use App\Models\Category_events;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\participant_categories;
+use App\Models\Participant_registrations;
 use Illuminate\Support\Facades\Session;
 
 class RingkasanController extends Controller
@@ -19,7 +20,9 @@ class RingkasanController extends Controller
     {
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
-        $participantCategory = participant_categories::where('participant_registration_id', $event->id)->get();
+        $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->first();
+        $registrasions = Participant_registrations::where('registration_id', $registrasi->id)->first();
+        $participantCategory = participant_categories::where('participant_registration_id', $registrasions->id)->get();
         return view('Resources.ringkasan-mandiri', compact('event', 'participantCategory'));
     }
 

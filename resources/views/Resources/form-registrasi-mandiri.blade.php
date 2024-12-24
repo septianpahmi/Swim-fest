@@ -107,7 +107,7 @@
                             <option value="11">11</option>
                             <option value="12">12</option>
                         </select>
-                        <input type="number" placeholder="Tahun" name="years"
+                        <input type="number" placeholder="Tahun" name="year"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             min="4" required>
                     </div>

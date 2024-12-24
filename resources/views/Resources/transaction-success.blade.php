@@ -26,7 +26,7 @@
 
             <div class="w-full mb-8">
                 <h3 class="text-xl font-bold text-[#023f5b] mb-2">
-                    Rincian Pembayarn
+                    Rincian Pembayaran
                 </h3>
             </div>
 
@@ -38,17 +38,17 @@
                     <div class="flex justify-between">
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.300.000</p>
+                                {{ number_format($payment->sub_total, 0, '.', '.') }}</p>
                         </div>
                         <div>
-                            {{ number_format($payment->sub_total, 0, '.', '.') }}</p>
+                            Rp. {{ number_format($payment->fee, 0, '.', '.') }}</p>
                         </div>
                     </div>
                     <p class="w-full rounded-lg text-sm text-gray-400 ">{{ $nomor }} Nomor</p>
                 </div>
 
                 <!-- Form Fields -->
-                <div>
+                {{-- <div>
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Admin</label>
                     <div class="flex justify-between">
                         <div>
@@ -58,7 +58,7 @@
                             <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.300.000</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div>
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Metode Pembayaran</label>
                     <div class="flex justify-between">

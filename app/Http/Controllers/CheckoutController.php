@@ -9,6 +9,7 @@ use App\Models\Registrations;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
 use App\Models\participant_categories;
+use App\Models\Participant_registrations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -37,19 +38,19 @@ class CheckoutController extends Controller
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
 
-        $classCategory = Session::get('category_event_id');
-        $registrations = Session::get('registration');
-        foreach ($registrations as $registrationData) {
-            $registrationData['status'] = 'Success';
-            // $existingRegistration = Registrations::where('no_registration', $registrationData['no_registration'])->first();
-            // if ($existingRegistration) {
+        $registrations = Registrations::where('user_id', Auth::id())->where('event_id', $event->id)->first();
+        $registrations->status = "Success";
+        $registrations->save();
+        $participantRegistrations = Participant_registrations::where('registration_id', $registrations->id)->get();
+        $participantCategories = collect();
 
-            //     $registrationData['no_registration'] = strtoupper(bin2hex(random_bytes(5)));
-            // }
-            $registration = Registrations::updated($registrationData);
+        foreach ($participantRegistrations as $registration) {
+            $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
+            $participantCategories = $participantCategories->merge($categories);
         }
+        $nomor = $participantCategories->count();
+
         $paymentMethod = $request->input('payment_method');
-        $nomor = count($classCategory);
         $payment = Payments::find($id);
         $payment->payment_method = $paymentMethod;
         $payment->save();

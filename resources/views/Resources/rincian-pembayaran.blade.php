@@ -16,23 +16,25 @@
             <hr class="border-b-1 border-grey mb-4">
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
                     <div class="flex justify-between">
+                        <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
                                 {{ number_format($price, 0, '.', '.') }}
                             </p>
                         </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <p class="rounded-lg text-sm text-gray-500 ">{{ $kelas }} Nomor</p>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
                                 {{ number_format($total, 0, '.', '.') }}
                             </p>
                         </div>
                     </div>
-                    <p class="w-full rounded-lg text-sm text-gray-500 ">{{ $nomor }} Nomor</p>
                 </div>
 
-                <hr class="border-b-1 border-grey mb-4 mt-6">
+                {{-- <hr class="border-b-1 border-grey mb-4 mt-6">
                 <div>
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Admin</label>
                     <div class="flex justify-between">
@@ -43,7 +45,7 @@
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp. 300.000</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <hr class="border-b-1 border-grey mb-4 mt-6">
 

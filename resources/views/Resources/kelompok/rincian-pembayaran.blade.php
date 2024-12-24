@@ -23,7 +23,24 @@
                 <div>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Biaya Pendaftaran
+                            <p class="block text-sm font-semibold text-[#023f5b] mb-2 ">Biaya Pendaftaran
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ $nomor }} Peserta
+                            </p>
+                        </div>
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
+                                {{ number_format($price, 0, '.', '.') }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-3">
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ $kelas }} Nomor
                             </p>
                         </div>
                         <div>
@@ -32,7 +49,6 @@
                             </p>
                         </div>
                     </div>
-                    <p class="w-full rounded-lg text-sm text-gray-500 ">X{{ $nomor }} Peserta</p>
                 </div>
 
                 <hr class="border-b-1 border-grey mb-4 mt-6">

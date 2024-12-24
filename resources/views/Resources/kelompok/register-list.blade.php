@@ -17,24 +17,25 @@
             </div>
             <!-- Peserta Input -->
             <div id="peserta-list" class="space-y-4">
-                @foreach ($peserta as $index => $pesertas)
+                @foreach ($peserta as $pesertas)
                     <div class="flex items-center justify-between border-2 border-grey p-4 rounded-2xl peserta">
                         <div class="flex items-center space-x-2">
                             <span class="text-[#023f5b] text-lg font-bold">
-                                <i class="fas fa-user"></i> {{ $pesertas['participant_name'] }}
+                                <i class="fas fa-user"></i> {{ $pesertas->participant_name }}
                             </span>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <button url="" type="button" class="text-[#023f5b] hover:text-blue-800 status">
+                            <button url="{{ route('editKelompok', [$pesertas->id, $event->eventId->slug]) }}"
+                                data-id="{{ $pesertas->id }}" type="button"
+                                class="text-[#023f5b] hover:text-blue-800 status">
                                 <i class="fas fa-pencil"></i>
                             </button>
-                            @if ($index > 0)
-                                <a href="{{ route('kelompok.remove', $pesertas['participant_name']) }}" type="button"
-                                    data-id="{{ $pesertas['participant_name'] }}"
-                                    class="text-red-400 hover:text-red-600 delete">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            @endif
+
+                            <a href="{{ route('kelompok.remove', [$pesertas->id, $event->eventId->slug]) }}"
+                                type="button" data-id="{{ $pesertas->id }}"
+                                class="text-red-400 hover:text-red-600 delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </div>
                     </div>
                 @endforeach
@@ -48,7 +49,7 @@
                         <img src="image/icon/icon-tambah-peserta.png" alt="">
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('addPesertaKelompok', $event->eventId->slug) }}" type="button"
+                        <a href="{{ route('kelompok', $event->eventId->slug) }}" type="button"
                             class="text-[#023f5b] text-lg font-bold"><i class="fas fa-user-plus"></i> Tambah Nomor
                             Peserta</a>
                     </div>

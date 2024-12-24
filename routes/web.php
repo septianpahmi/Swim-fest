@@ -35,16 +35,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/registrasi-kategori/getKecamatan', [RegistrasiKategoriController::class, 'getKecamatan'])->name('getKecamatan');
 
     Route::get('/registrasi-kategori/kelompok/{slug}', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
-    Route::get('/registrasi-kategori/add-peserta/{slug}', [RegistrasiKategoriController::class, 'addPesertaKelompok'])->name('addPesertaKelompok');
+    Route::get('/registrasi-kategori/edit-peserta/{id}/{slug}', [RegistrasiKategoriController::class, 'editKelompok'])->name('editKelompok');
     Route::post('/registrasi-kategori/kelomok/post/{slug}', [RegistrasiKelompokController::class, 'post'])->name('kelompok.post');
-    Route::post('/registrasi-kategori/add-peserta/post/{slug}', [RegistrasiKelompokController::class, 'addPesertaPost'])->name('addPeserta.post');
+    Route::post('/registrasi-kategori/edit-peserta/post/{id}/{slug}', [RegistrasiKelompokController::class, 'editPesertaPost'])->name('editPeserta.post');
     Route::get('/registrasi-kategori/kelompok/pilih-kelas/{slug}', [RegistrasiKelompokController::class, 'pilihKelas'])->name('kelompok.pilihKelas');
     Route::get('/registrasi-kategori/kelompok/add-kelas/{slug}', [RegistrasiKelompokController::class, 'newKelas'])->name('kelompok.newKelas');
     Route::post('/registrasi-kategori/kelompok/pilih-kelas/post/{slug}', [RegistrasiKelompokController::class, 'postKelas'])->name('kelompok.postKelas');
     Route::post('/registrasi-kategori/kelompok/add-kelas/post/{slug}', [RegistrasiKelompokController::class, 'postnewKelas'])->name('kelompok.postKelasnew');
     Route::get('/registrasi-kategori/kelompok/detail/{slug}', [RegistrasiKelompokController::class, 'regisDetail'])->name('kelompok.detail');
-    Route::get('/registrasi-kategori/kelompok/remove/{participantName}', [RegistrasiKelompokController::class, 'remove'])->name('kelompok.remove');
     Route::get('/registrasi-kategori/kelompok/list-detail/{slug}', [RegistrasiKelompokController::class, 'listDetail'])->name('kelompok.listdetail');
+    Route::get('/registrasi-kategori/kelompok/remove/{id}/{slug}', [RegistrasiKelompokController::class, 'remove'])->name('kelompok.remove');
     Route::get('/registrasi-kategori/kelompok/checkout-proccess/{slug}', [RegistrasiKelompokController::class, 'checkoutProccess'])->name('kelompok.checkoutProccess');
 
     Route::post('/registrasi-kategori/mandiri/post/{slug}', [RegistrasiMandiriController::class, 'post'])->name('mandiri.post');
@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/registrasi-kategori/mandiri/pilih-kelas/post/{slug}', [RegistrasiMandiriController::class, 'postKelasMandiri'])->name('mandiri.postKelas');
 
     Route::get('/registrasi-kategori/mandiri/ringkasan/{slug}', [RingkasanController::class, 'RingkasanMandiri'])->name('mandiri.Ringkasan');
-    Route::get('/registrasi-kategori/mandiri/ringkasan-pembayaran/{slug}', [RingkasanController::class, 'RingkasanPembayaranMandiri'])->name('mandiri.RingkasanPembayaran');
+    Route::get('/registrasi-kategori/mandiri/ringkasan-pembayaran/{slug}', [RegistrasiMandiriController::class, 'RingkasanPembayaranMandiri'])->name('mandiri.RingkasanPembayaran');
     Route::get('/registrasi-kategori/mandiri/checkout-process/{slug}', [RingkasanController::class, 'checkoutProcess'])->name('checkoutProcess');
 
     Route::get('/registrasi-kategori/mandiri/checkout/{slug}', [CheckoutController::class, 'checkout'])->name('checkout');

@@ -28,65 +28,62 @@
 
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Nama</p>
-                    @foreach ($reg as $regs)
-                        <p class="text-gray-500">{{ $regs['participant_name'] }}</p>
-                    @endforeach
+                    <p class="text-gray-500">{{ $reg->participant_name }}</p>
+
                 </div>
                 <!-- Jenis Kelamin -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Jenis Kelamin</p>
-                    @foreach ($reg as $regs)
-                        <p class="text-gray-500">{{ $regs['gender'] == 'l' ? 'Laki-laki' : 'Perempuan' }}</p>
-                    @endforeach
+                    <p class="text-gray-500">{{ $reg->gender == 'l' ? 'Laki-laki' : 'Perempuan' }}</p>
+
                 </div>
 
                 <!-- Tanggal Lahir -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Tanggal Lahir</p>
-                    @foreach ($reg as $regs)
-                        <p class="text-gray-500">
-                            {{ Carbon\Carbon::parse($regs['date_of_birth'])->translatedFormat('d F Y') }}</p>
-                    @endforeach
+                    <p class="text-gray-500">
+                        {{ Carbon\Carbon::parse($reg->date_of_birth)->translatedFormat('d F Y') }}</p>
+
                 </div>
 
                 <!-- Alamat -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Alamat</p>
-                    @foreach ($reg as $regs)
-                        <p class="text-gray-500">
-                            {{ strtoupper($regs['address']) }}, {{ strtoupper($regs['district']) }},
-                            {{ strtoupper($regs['city']) }},
-                            {{ strtoupper($regs['province']) }}
-                        </p>
-                    @endforeach
+                    <p class="text-gray-500">
+                        {{ strtoupper($reg->address) }}, {{ strtoupper($reg->district) }},
+                        {{ strtoupper($reg->city) }},
+                        {{ strtoupper($reg->province) }}
+                    </p>
+
                 </div>
 
                 <!-- Asal Sekolah -->
                 <div class="mb-3">
                     <p class="text-sm font-medium text-[#023f5b]">Asal Sekolah</p>
-                    @foreach ($reg as $regs)
-                        <p class="text-gray-500">{{ $regs['school'] }}</p>
-                    @endforeach
+                    <p class="text-gray-500">{{ $reg->school }}</p>
+
                 </div>
 
                 <!-- Email -->
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Email</p>
-                    @foreach ($reg as $regs)
-                        <p class="text-gray-500">{{ $regs['email'] }}</p>
-                    @endforeach
+                    <p class="text-gray-500">{{ $reg->email }}</p>
+
                 </div>
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Kelas Dan Ketgori</p>
-                    @foreach ($kelas as $kel)
-                        <p class="text-gray-500">{{ $kel['no_participant'] }}</p>
+                    @foreach ($kelas as $categories)
+                        <p class="text-gray-500">
+                            {{ $categories->categoryEvent->categoryClass->classes->class_name }} :
+                            {{ $categories->categoryEvent->categoryClass->category->category_name }}
+                        </p>
                     @endforeach
                 </div>
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Catatan waktu terakhir</p>
                     @foreach ($kelas as $kel)
-                        @if (isset($kelas['last_record']))
-                            <p class="text-gray-500">{{ $kel['last_record'] }} Detik</p>
+                        @if (!isset($kelas->last_record))
+                            <p class="text-gray-500">{{ $kel->last_record . ' Detik' }}</p>
                         @else
                             <p class="text-gray-500">Tidak ada Catatan waktu terakhir.</p>
                         @endif
