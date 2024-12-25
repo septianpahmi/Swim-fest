@@ -26,7 +26,6 @@
                 <i class="fas fa-square-phone"></i> Kontak
             </button>
         </div>
-        <!-- Right Content: Event Details -->
         <hr class="md:hidden border border-b-2 mb-4">
         <div class="w-full lg:w-2/3 space-y-6">
             <!-- Header -->
@@ -93,8 +92,10 @@
                 <p class="text-gray-800 text-lg leading-relaxed">
                     {{ $event->eventId->description }}
                 </p>
+
             </div>
             <hr class="md:hidden border border-b-2 mb-4">
+
             <!-- Registration Steps -->
             <div>
                 <h2 class="text-xl font-bold mb-2 text-gray-900">Cara Pendaftaran:</h2>

@@ -78,10 +78,13 @@
     document.getElementById('pay-button').onclick = function() {
         // SnapToken acquired from previous step
         snap.pay('{{ $checkout->reff_id }}', {
-            // Optional
             onSuccess: function(result) {
-                window.location.href =
-                    "{{ route('success-transaction', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
+                console.log(result);
+                var paymentMethod = result.payment_type;
+                var redirectUrl =
+                    "{{ route('success-transaction-mandiri', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
+                redirectUrl += "?payment_method=" + encodeURIComponent(paymentMethod);
+                window.location.href = redirectUrl;
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             },
             // Optional

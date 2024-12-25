@@ -108,16 +108,17 @@ class RegistrasiMandiriController extends Controller
 
     public function pilihKelas($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
-
-        return view('Resources.pilih-kelas', compact('event'));
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
+        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get();
+        return view('Resources.pilih-kelas', compact('event', 'kelas', 'category'));
     }
 
     public function postKelasMandiri(Request $request, $slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
         if (!$event) {
             return redirect()->route('home')->with('error', 'Kategori event tidak ditemukan.');
         }
@@ -137,7 +138,7 @@ class RegistrasiMandiriController extends Controller
         $participant = Participants::create($dataToSave);
         $registration = Registrations::create([
             'user_id' => Auth::user()->id,
-            'event_id' => $event->id,
+            'event_id' => $eventId->id,
             'no_registration' => strtoupper(bin2hex(random_bytes(5))),
             'type' => 'Mandiri',
             'status' => 'Pending',
@@ -169,15 +170,17 @@ class RegistrasiMandiriController extends Controller
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
         $user = Auth::user();
-        $registrasi = Registrations::where('user_id', Auth::id())->first();
-        $peserta = Participants::where('user_id', Auth::id())->get();
-        $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
+        $registrasi = Registrations::where('user_id', Auth::id())->where('status', 'Pending')->where('type', 'Mandiri')->first();
+        if ($registrasi) {
+            $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
+            $peserta = Participants::whereIn('id', $participanRegistration->pluck('participan_id'))->get();
 
-        $participantCategories = collect();
+            $participantCategories = collect();
 
-        foreach ($participanRegistration as $registration) {
-            $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
-            $participantCategories = $participantCategories->merge($categories);
+            foreach ($participanRegistration as $registration) {
+                $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
+                $participantCategories = $participantCategories->merge($categories);
+            }
         }
         $kelas = $participantCategories->count();
         $price = $kelas > 0 ? $participantCategories->sum('price') / $kelas : 0;

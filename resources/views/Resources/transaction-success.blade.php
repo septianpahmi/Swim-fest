@@ -63,7 +63,8 @@
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Metode Pembayaran</label>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">QRIS</p>
+                            <p class="w-full rounded-lg text-sm text-gray-400 ">
+                                {{ strtoupper($payment->payment_method) }}</p>
                         </div>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-400 ">

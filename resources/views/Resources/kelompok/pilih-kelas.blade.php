@@ -33,8 +33,11 @@
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
                                     <option value="" selected>Pilih Kelas</option>
-                                    <option value="{{ $event->id }}">{{ $event->categoryClass->classes->class_name }}
-                                    </option>
+                                    @foreach ($kelas as $kel)
+                                        <option value="{{ $kel->id }}">
+                                            {{ $kel->categoryClass->classes->class_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-4">
@@ -43,8 +46,11 @@
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
                                     <option value="" selected>Pilih Nomor</option>
-                                    <option value="{{ $event->categoryClass->category->id }}">
-                                        {{ $event->categoryClass->category->category_name }}</option>
+                                    @foreach ($category as $categorys)
+                                        <option value="{{ $categorys->categoryClass->category->id }}">
+                                            {{ $categorys->categoryClass->category->category_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-4">
@@ -78,6 +84,7 @@
         </div>
     </div>
 </section>
+
 <script>
     document.getElementById('add-swim-number').addEventListener('click', function(event) {
         event.preventDefault();
@@ -88,13 +95,10 @@
         const newForm = formTemplate.cloneNode(true);
 
         const classLabel = newForm.querySelector('label[id="kelas"]');
-        if (classLabel) {
-            classLabel.remove();
-        }
+        if (classLabel) classLabel.remove();
         const classSelect = newForm.querySelector('select[id="kelas"]');
-        if (classSelect) {
-            classSelect.remove();
-        }
+        if (classSelect) classSelect.remove();
+
         newForm.querySelectorAll('input, select').forEach(input => {
             if (input.tagName === 'SELECT') {
                 input.selectedIndex = 0;
@@ -103,13 +107,23 @@
             }
         });
 
-        // Tambahkan tombol hapus
+        const selectedNomors = Array.from(formContainer.querySelectorAll('select[name="no_participant[]"]'))
+            .map(select => select.value);
+
+        const selectNomor = newForm.querySelector('select[name="no_participant[]"]');
+        if (selectNomor) {
+            selectNomor.querySelectorAll('option').forEach(option => {
+                if (selectedNomors.includes(option.value)) {
+                    option.setAttribute('hidden', 'hidden');
+                }
+            });
+        }
+
         const removeButton = document.createElement('button');
         removeButton.type = 'button';
         removeButton.innerHTML = '<i class="fas fa-trash"></i>';
         removeButton.classList.add('remove-form', 'absolute', 'top-[-20px]', 'right-0', 'px-6', 'py-2',
-            'text-red-400', 'hover:text-red-500',
-        );
+            'text-red-400', 'hover:text-red-500');
 
         removeButton.addEventListener('click', function() {
             newForm.remove();
@@ -118,10 +132,10 @@
         newForm.style.position = 'relative';
         newForm.appendChild(removeButton);
 
-        // Tambahkan form baru ke container
         formContainer.appendChild(newForm);
     });
 </script>
+
 <script>
     function goBack() {
         window.route('kelompok');

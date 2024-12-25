@@ -70,14 +70,22 @@
                     <p class="text-gray-500">{{ $reg->email }}</p>
 
                 </div>
-                <div class="mb-6">
-                    <p class="text-sm font-medium text-[#023f5b]">Kelas Dan Ketgori</p>
-                    @foreach ($kelas as $categories)
-                        <p class="text-gray-500">
-                            {{ $categories->categoryEvent->categoryClass->classes->class_name }} :
-                            {{ $categories->categoryEvent->categoryClass->category->category_name }}
-                        </p>
-                    @endforeach
+                <p class="text-sm font-medium text-[#023f5b]">Kelas dan Kategori</p>
+                <div class="flex">
+                    <div>
+                        @foreach ($kelas as $class)
+                            <p class="text-gray-500">
+                                {{ $class->categoryEvent->categoryClass->classes->class_name }} :
+                            </p>
+                        @endforeach
+                    </div>
+                    <div class="ml-6">
+                        @foreach ($category as $categories)
+                            <p class="text-gray-500">
+                                {{ $categories->category_name }}
+                            </p>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Catatan waktu terakhir</p>

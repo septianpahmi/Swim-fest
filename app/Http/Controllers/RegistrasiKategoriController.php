@@ -28,14 +28,14 @@ class RegistrasiKategoriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
-        $userRegistered = Registrations::where('event_id', $eventId)
-            ->where('user_id', Auth::user()->id)
-            ->exists();
+        // $userRegistered = Registrations::where('event_id', $eventId)
+        //     ->where('user_id', Auth::user()->id)
+        //     ->exists();
 
-        if ($userRegistered) {
-            return redirect()->back()
-                ->with('error', 'You have already registered for this event.');
-        }
+        // if ($userRegistered) {
+        //     return redirect()->back()
+        //         ->with('error', 'You have already registered for this event.');
+        // }
         $provinsi = Province::orderBy('name', 'asc')->get();
         return view('Resources.form-registrasi-mandiri', compact('event', 'provinsi'));
     }
@@ -43,14 +43,14 @@ class RegistrasiKategoriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
-        $userRegistered = Registrations::where('event_id', $eventId)
-            ->where('user_id', Auth::user()->id)
-            ->exists();
+        // $userRegistered = Registrations::where('event_id', $eventId)
+        //     ->where('user_id', Auth::user()->id)
+        //     ->exists();
 
-        if ($userRegistered) {
-            return redirect()->back()
-                ->with('error', 'You have already registered for this event.');
-        }
+        // if ($userRegistered) {
+        //     return redirect()->back()
+        //         ->with('error', 'You have already registered for this event.');
+        // }
         $provinsi = Province::orderBy('name', 'asc')->get();
         return view('Resources.kelompok.form-registrasi-kelompok', compact('provinsi', 'event'));
     }

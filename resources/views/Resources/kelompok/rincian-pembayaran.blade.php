@@ -80,24 +80,18 @@
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
-        // SnapToken acquired from previous step
         snap.pay('{{ $checkout['reff_id'] }}', {
-            // Optional
             onSuccess: function(result) {
-                var paymentMethod = result.payment_method;
-
                 window.location.href =
                     "{{ route('success-transaction', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             },
-            // Optional
             onPending: function(result) {
-                /* You may add your own js here, this is just example */
+                console.log('Payment Pending:', result);
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             },
-            // Optional
             onError: function(result) {
-                /* You may add your own js here, this is just example */
+                console.log('Payment Error:', result);
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             }
         });

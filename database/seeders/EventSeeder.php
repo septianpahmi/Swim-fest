@@ -25,7 +25,7 @@ class EventSeeder extends Seeder
 
         Events::create([
             'event_name' => 'Festival Akuatik Indonesia 2024',
-            'slug' => 'festival-akuatik-undonesia-2024',
+            'slug' => 'festival-akuatik-indonesia-2024',
             'start_date' => '2024/12/30',
             'end_date' => '2025/01/15',
             'venue' => 'Stadion Aquatik Gelora Bung Karno Jl. Pintu Satu Senayan, Jakarta Pusat, DKI Jakarta',

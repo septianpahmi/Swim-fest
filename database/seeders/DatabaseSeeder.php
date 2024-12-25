@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
             CategoryClassSeeder::class,
             EventSeeder::class,
             CategoryEventSeeder::class,
+            IndoRegionProvinceSeeder::class,
+            IndoRegionRegencySeeder::class,
+            IndoRegionDistrictSeeder::class,
         ]);
     }
 }
