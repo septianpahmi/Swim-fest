@@ -199,7 +199,7 @@ class RegistrasiMandiriController extends Controller
             ]);
 
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-            \Midtrans\Config::$isProduction = false;
+            \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
             \Midtrans\Config::$isSanitized = true;
             \Midtrans\Config::$is3ds = true;
 

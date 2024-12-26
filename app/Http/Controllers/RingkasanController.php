@@ -61,7 +61,7 @@ class RingkasanController extends Controller
             'paid_at' => Carbon::now(),
         ]);
         \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
         $params = array(
