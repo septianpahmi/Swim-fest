@@ -15,34 +15,36 @@
             </div>
             <hr class="border-b-1 border-grey mb-4">
             <div class="space-y-4">
-                @foreach ($participantCategory as $item)
-                    <div>
-                        <label class="block text-sm font-medium text-[#023f5b] mb-2">Nomor Renang</label>
+                <div>
+                    <label class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
+                    @foreach ($kelas as $kel)
                         <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
-                            {{ $item->categoryEvent->categoryClass->category->category_name }}
+                            {{ $kel->categoryEvent->categoryClass->classes->class_name }}
                         </p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
+                    @endforeach
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-[#023f5b] mb-2">Nomor Renang</label>
+                    @foreach ($category as $item)
                         <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
-                            {{ $item->categoryEvent->categoryClass->classes->class_name }}
+                            {{ $item->category_name }}
                         </p>
-                    </div>
-                    <hr class="border-b-1 border-grey mb-4 mt-6">
-                @endforeach
-                <form action="{{ route('mandiri.RingkasanPembayaran', $event->eventId->slug) }}" method="get">
-                    <div class="flex flex-col sm:flex-row justify-between mt-6">
-                        <button type="button"
-                            class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8"
-                            onclick="goBack()">
-                            Kembali
-                        </button>
+                    @endforeach
+                </div>
+                <hr class="border-b-1 border-grey mb-4 mt-6">
+                <div class="flex flex-col sm:flex-row justify-between mt-6">
+                    <button type="button"
+                        class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8"
+                        onclick="goBack()">
+                        Kembali
+                    </button>
+                    <form action="{{ route('mandiri.RingkasanPembayaran', $event->eventId->slug) }}" method="get">
                         <button
                             class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
                             Selanjutnya
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
 </section>
 

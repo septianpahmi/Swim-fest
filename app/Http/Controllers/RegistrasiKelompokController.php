@@ -42,7 +42,7 @@ class RegistrasiKelompokController extends Controller
             'district' => 'required|string|max:30',
             'zip_code' => 'required|string|max:5',
             'school' => 'required|string|max:60',
-            'email' => 'required|string|unique:participants|email|max:255',
+            'email' => 'required|string|email|max:255',
             'file_raport' => 'required|max:5120',
             'file_akte' => 'required|max:5120',
         ]);
@@ -228,8 +228,8 @@ class RegistrasiKelompokController extends Controller
 
     public function regisDetail($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
         $reg = Participants::where('user_id', Auth::id())->latest()->first();
         $registration = Participant_registrations::where('participan_id', $reg->id)->first();
         $categories = Participant_categories::where('participant_registration_id',  $registration->id)->pluck('no_participant')->toArray();

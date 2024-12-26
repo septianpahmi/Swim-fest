@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Events;
 use App\Models\Payments;
 use Midtrans\Notification;
@@ -40,7 +41,6 @@ class CheckoutController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
 
         $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->first();
-
         $registrations->status = "Success";
         $registrations->save();
         $participantRegistrations = Participant_registrations::where('registration_id', $registrations->id)->get();
@@ -63,12 +63,13 @@ class CheckoutController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
 
         $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->where('event_id', $eventId->id)->first();
+        if (!$registrations) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan atau sudah diproses.');
+        }
         $registrations->status = "Success";
         $registrations->save();
-
         $participantRegistrations = Participant_registrations::where('registration_id', $registrations->id)->get();
         $participantCategories = collect();
-
         foreach ($participantRegistrations as $registration) {
             $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
             $participantCategories = $participantCategories->merge($categories);

@@ -69,7 +69,6 @@ class RegistrasiMandiriController extends Controller
             'school' => $request->school,
             'email' => $request->email,
         ];
-        // dd($data);
         Session::put('participant_data', $data);
         return redirect('/registrasi-kategori/mandiri/file/' . $slug);
     }
@@ -90,7 +89,6 @@ class RegistrasiMandiriController extends Controller
             'file_akte' => 'required|file|mimes:pdf|max:5120',
         ]);
 
-        // dd($request->all());
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -163,8 +161,8 @@ class RegistrasiMandiriController extends Controller
     }
     public function RingkasanPembayaranMandiri(Request $request, $slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
 
         if (!$event) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
@@ -198,7 +196,6 @@ class RegistrasiMandiriController extends Controller
                 'fee' => $total,
                 'diskon' => 0,
                 'grand_total' => $grand,
-                'paid_at' => Carbon::now(),
             ]);
 
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');

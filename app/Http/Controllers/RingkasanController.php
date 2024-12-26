@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Events;
 use App\Models\Payments;
+use App\Models\Categories;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Registrations;
@@ -11,25 +13,27 @@ use App\Models\Category_events;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\participant_categories;
-use App\Models\Participant_registrations;
 use Illuminate\Support\Facades\Session;
+use App\Models\Participant_registrations;
 
 class RingkasanController extends Controller
 {
     public function RingkasanMandiri($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
-        $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->where('status', 'Pending')->first();
         $registrasions = Participant_registrations::where('registration_id', $registrasi->id)->first();
-        $participantCategory = participant_categories::where('participant_registration_id', $registrasions->id)->get();
-        return view('Resources.ringkasan-mandiri', compact('event', 'participantCategory'));
+        $participantCategory = participant_categories::where('participant_registration_id', $registrasions->id)->pluck('no_participant')->toArray();
+        $category = Categories::whereIn('id', $participantCategory)->get();
+        $kelas = Participant_categories::where('participant_registration_id',  $registrasions->id)->get();
+        return view('Resources.ringkasan-mandiri', compact('event', 'category', 'kelas'));
     }
 
     public function RingkasanPembayaranMandiri($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
         if (!$event) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
@@ -54,7 +58,7 @@ class RingkasanController extends Controller
             'fee' => $total,
             'diskon' => 0,
             'grand_total' => $grand,
-            // 'paid_at' => Carbon,
+            'paid_at' => Carbon::now(),
         ]);
         \Midtrans\Config::$serverKey = config('midtrans.serverKey');
         \Midtrans\Config::$isProduction = false;
@@ -73,7 +77,6 @@ class RingkasanController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $checkout->reff_id = $snapToken;
         $checkout->save();
-        // return redirect()->route('checkout', $checkout->id);
         return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'nomor', 'price', 'total', 'grand'));
     }
 

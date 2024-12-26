@@ -77,13 +77,16 @@
                 {{-- </form> --}}
             </div>
 </section>
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+<script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
         snap.pay('{{ $checkout['reff_id'] }}', {
             onSuccess: function(result) {
-                window.location.href =
-                    "{{ route('success-transaction', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
+                var paymentMethod = result.payment_type;
+                var redirectUrl =
+                    "{{ route('success-transaction-mandiri', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
+                redirectUrl += "?payment_method=" + encodeURIComponent(paymentMethod);
+                window.location.href = redirectUrl;
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             },
             onPending: function(result) {
