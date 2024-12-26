@@ -50,6 +50,33 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="block text-sm font-semibold text-[#023f5b] mb-2 ">Biaya Lain - Lain
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Biaya Admin
+                            </p>
+                        </div>
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
+                                {{ number_format($admin, 0, '.', '.') }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Pajak
+                        </div>
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">2%</p>
+                        </div>
+                    </div>
+                </div>
 
                 <hr class="border-b-1 border-grey mb-4 mt-6">
 
@@ -59,7 +86,7 @@
                     </div>
                     <div>
                         <h3 class="w-full text-xl rounded-lg font-semibold text-md font-semibold text-[#023f5b] ">
-                            Rp. {{ number_format($total, 0, '.', '.') }}</h3>
+                            Rp. {{ number_format($grand, 0, '.', '.') }}</h3>
                     </div>
                 </div>
                 {{-- <form action="{{ route('checkout', $event->eventId->slug) }}" method="GET"> --}}
@@ -84,7 +111,7 @@
             onSuccess: function(result) {
                 var paymentMethod = result.payment_type;
                 var redirectUrl =
-                    "{{ route('success-transaction-mandiri', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
+                    "{{ route('success-transaction', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
                 redirectUrl += "?payment_method=" + encodeURIComponent(paymentMethod);
                 window.location.href = redirectUrl;
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);

@@ -34,18 +34,27 @@
                     </div>
                 </div>
 
-                {{-- <hr class="border-b-1 border-grey mb-4 mt-6">
+                <hr class="border-b-1 border-grey mb-4 mt-6">
                 <div>
-                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Admin</label>
+                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Lain - Lain</label>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp. 300.000</p>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Admin
                         </div>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp. 300.000</p>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
+                                {{ number_format($admin, 0, '.', '.') }}</p>
                         </div>
                     </div>
-                </div> --}}
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Pajak
+                        </div>
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">2%</p>
+                        </div>
+                    </div>
+                </div>
 
                 <hr class="border-b-1 border-grey mb-4 mt-6">
 
@@ -58,7 +67,7 @@
                             Rp. {{ number_format($grand, 0, '.', '.') }}</h3>
                     </div>
                 </div>
-                {{-- <form action="{{ route('checkout', $event->eventId->slug) }}" method="GET"> --}}
+
                 <div class="flex flex-col sm:flex-row justify-between mt-6">
                     <button type="button"
                         class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8"

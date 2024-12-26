@@ -75,7 +75,7 @@
                     <div>
                         @foreach ($kelas as $class)
                             <p class="text-gray-500">
-                                {{ $class->categoryEvent->categoryClass->classes->class_name }} :
+                                {{ $class->class_name }} :
                             </p>
                         @endforeach
                     </div>
@@ -89,12 +89,8 @@
                 </div>
                 <div class="mb-6">
                     <p class="text-sm font-medium text-[#023f5b]">Catatan waktu terakhir</p>
-                    @foreach ($kelas as $kel)
-                        @if (!isset($kelas->last_record))
-                            <p class="text-gray-500">{{ $kel->last_record . ' Detik' }}</p>
-                        @else
-                            <p class="text-gray-500">Tidak ada Catatan waktu terakhir.</p>
-                        @endif
+                    @foreach ($record as $rec)
+                        <p class="text-gray-500">{{ $rec->last_record . ' Detik' }}</p>
                     @endforeach
                 </div>
             </div>

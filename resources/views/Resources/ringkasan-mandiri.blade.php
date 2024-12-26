@@ -19,7 +19,7 @@
                     <label class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
                     @foreach ($kelas as $kel)
                         <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
-                            {{ $kel->categoryEvent->categoryClass->classes->class_name }}
+                            {{ $kel->class_name }}
                         </p>
                     @endforeach
                 </div>
@@ -38,7 +38,8 @@
                         onclick="goBack()">
                         Kembali
                     </button>
-                    <form action="{{ route('mandiri.RingkasanPembayaran', $event->eventId->slug) }}" method="get">
+                    <form action="{{ route('mandiri.RingkasanPembayaran', $event->eventId->slug) }}" method="get"
+                        class="w-full">
                         <button
                             class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
                             Selanjutnya

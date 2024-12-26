@@ -1,61 +1,46 @@
-@include('partials.header')
-@include('partials.nav-blue')
-<section class="relative bg-color-white">
-    <div class="flex flex-col-2 relative container mx-auto items-center px-6 mt-6 md:px-20 h-full z-10">
-        <div class="w-1/2 p-6">
-            <h2 class="text-3xl font-bold text-[#023f5b] mb-6">Profil</h2>
-            <!-- Sidebar Menu -->
-            <aside class="bg-white w-1/2 lg:w-1/4 p-6">
-                <ul class="space-y-4">
-                    <li>
-                        <a href="{{ route('pertandingan') }}" class="flex items-center space-x-4 p-2 rounded-md hover:bg-gray-100">
-                            <img src="/image/icon/blue-swim.png" alt="" class="w-6 h-6">
-                            <span class="text-lg text-[#023f5b] font-semibold">Pertandingan</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('profil') }}" class="flex items-center space-x-4 p-2 rounded-md hover:bg-gray-100">
-                            <img src="/image/icon/icon-peserta.png" alt="" class="w-6 h-6">
-                            <span class="text-lg text-[#023f5b] font-medium">Profil</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center space-x-4 p-2 rounded-md hover:bg-gray-100">
-                            <img src="/image/icon/gembok.png" alt="" class="w-6 h-6">
-                            <span class="text-lg text-[#023f5b] font-medium">Keamanan</span>
-                        </a>
-                    </li>
-                    <li>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                        <a href="{{ route('logout') }}" 
-                            class="flex items-center space-x-4 p-2 rounded-md hover:bg-gray-100"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <img src="/image/icon/keluar.png" alt="Keluar" class="w-6 h-6">
-                            <span class="text-lg text-[#023f5b] font-medium">Keluar</span>
-                        </a>
-                    </li>
-                </ul>
-            </aside>
+<form action="{{ route('resetPassword', $user->id) }}" method="POST" class="space-y-4">
+    @csrf
+    <div class="relative">
+        <label for="email" class="block text-sm font-medium text-gray-700 sm:mb-2">Email</label>
+        <div class="relative">
+            <input id="email" name="email" type="email" value="{{ $user->email }}"
+                placeholder="e.g taufikhidayat@gmail.com"
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 sm:py-3 text-gray-800 placeholder-gray-500">
         </div>
-
-        <!-- Main Content -->
-        <main class="bg-white flex-1 p-6 w-1/2">
-            <form class="space-y-4">
-                <div>
-                    <label class="block text-gray-700 font-medium mb-1">Email</label>
-                    <input type="email" value="Taufiq Hidayat" class="w-full border border-gray-300 rounded-md p-2">
-                </div>
-        
-                <div>
-                    <label class="block text-gray-700 font-medium mb-1">password</label>
-                    <input type="password" value="1995-12-19" class="w-full border border-gray-300 rounded-md p-2">
-                </div>
-                
-                <button type="submit" class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600">Simpan</button>
-            </form>
-        </main>
+        @error('email')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
     </div>
-</section>
-@include('partials.footer')
+
+    <div class="relative">
+        <label for="password" class="block text-sm font-medium text-gray-700 sm:mb-2">Password</label>
+        <div class="relative">
+            <input id="password" name="password" type="password" placeholder="Your password"
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 sm:py-3 text-gray-800 placeholder-gray-500">
+            <button type="button" id="togglePassword"
+                class="absolute inset-y-0 right-3 flex items-center text-gray-400">
+                <i class="fa-solid fa-eye" id="passwordIcon"></i>
+            </button>
+        </div>
+        @error('password')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
+    </div>
+
+    <button type="submit"
+        class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 w-full mt-6">Simpan</button>
+</form>
+
+<script>
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    const passwordIcon = document.getElementById("passwordIcon");
+
+    togglePassword.addEventListener("click", () => {
+        const type = passwordInput.type === "password" ? "text" : "password";
+        passwordInput.type = type;
+
+        passwordIcon.classList.toggle("fa-eye");
+        passwordIcon.classList.toggle("fa-eye-slash");
+    });
+</script>

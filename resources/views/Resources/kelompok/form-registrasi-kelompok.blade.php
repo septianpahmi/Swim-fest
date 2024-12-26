@@ -191,7 +191,7 @@
                             <span class="font-semibold">Akta Kelahiran</span>
                         </label>
                         <p id="file-name-1" class="text-gray-400 text-sm ml-5">Max size 5MB</p>
-                        <input type="file" accept=".pdf" id="file-input-1" name="file_akte"
+                        <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-1" name="file_akte"
                             class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(1)">
                         @error('file_akte')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -202,11 +202,11 @@
                         class="mt-1 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <label for="file-input-2" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                             <i class="fas fa-paperclip mr-2"></i>
-                            <span class="font-semibold">Upload Raport</span>
+                            <span class="font-semibold">Upload Raport Terakhir</span>
                         </label>
                         <p id="file-name-2" class="text-gray-400 text-sm ml-5">Max size 5MB</p>
 
-                        <input type="file" accept=".pdf" id="file-input-2" name="file_raport"
+                        <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-2" name="file_raport"
                             class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(2)">
                         @error('file_raport')
                             <span class="text-red-500 text-sm">{{ $message }}</span>

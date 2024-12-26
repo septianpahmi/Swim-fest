@@ -39,10 +39,9 @@
             @if (Auth::check())
                 <li>
                     <!-- Logout Button -->
-                    <a href="{{ route('logout') }}"
-                        class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] md:rounded-full text-center hover:text-[#023f5b] md:inline-block md:ml-4"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-right-from-bracket -rotate-180"></i> Log Out
+                    <a href="{{ route('profile', Auth::id()) }}"
+                        class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] md:rounded-full text-center hover:bg-[#023f5b] hover:text-white md:inline-block md:ml-4">
+                        <i class="fas fa-user-circle"></i> Profile
                     </a>
                 </li>
             @else
@@ -59,3 +58,14 @@
 
         </ul>
     </nav>
+    {{-- <li>
+        <!-- Logout Button -->
+        <a href="{{ route('logout') }}"
+            class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] md:rounded-full text-center hover:text-[#023f5b] md:inline-block md:ml-4"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-right-from-bracket -rotate-180"></i> Log Out
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </li> --}}

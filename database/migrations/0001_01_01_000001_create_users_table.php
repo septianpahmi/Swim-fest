@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('google_refresh_token')->nullable();
             $table->string('name');
             $table->string('email')->unique();
+            $table->char('gender', 1)->nullable();
+            $table->string('phone', 13)->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('role_id');

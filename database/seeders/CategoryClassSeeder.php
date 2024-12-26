@@ -13,21 +13,68 @@ class CategoryClassSeeder extends Seeder
      */
     public function run(): void
     {
-        Category_classes::create([
-            'category_id' => '1',
-            'class_id' => '1',
-        ]);
-        Category_classes::create([
-            'category_id' => '1',
-            'class_id' => '2',
-        ]);
-        Category_classes::create([
-            'category_id' => '2',
-            'class_id' => '1',
-        ]);
-        Category_classes::create([
-            'category_id' => '2',
-            'class_id' => '2',
-        ]);
+        $categories = [
+            'BEBAS',
+            'DADA',
+            'KUPU',
+            'PUNGGUNG',
+            'KAKI BEBAS PAPAN',
+            'KAKI DADA PAPAN',
+            'KAKI BEBAS PAPAN + FINS',
+            'BEBAS + FINS',
+            'KUPU + FINS',
+            'PUNGGUNG + FINS'
+        ];
+
+        $levels = [
+            'TK',
+            'SD Kelas 1',
+            'SD Kelas 2',
+            'SD Kelas 3',
+            'SD Kelas 4',
+            'SD Kelas 5',
+            'SD Kelas 6',
+            'SMP Kelas 1',
+            'SMP Kelas 2',
+            'SMP Kelas 3'
+        ];
+        $categoryIdMap = [
+            'BEBAS' => 1,
+            'DADA' => 2,
+            'KUPU' => 3,
+            'PUNGGUNG' => 4,
+            'KAKI BEBAS PAPAN' => 5,
+            'KAKI DADA PAPAN' => 6,
+            'KAKI BEBAS PAPAN + FINS' => 7,
+            'BEBAS + FINS' => 8,
+            'KUPU + FINS' => 9,
+            'PUNGGUNG + FINS' => 10,
+        ];
+        $classIdMap = [
+            'TK' => 1,
+            'SD Kelas 1' => 2,
+            'SD Kelas 2' => 3,
+            'SD Kelas 3' => 4,
+            'SD Kelas 4' => 5,
+            'SD Kelas 5' => 6,
+            'SD Kelas 6' => 7,
+            'SMP Kelas 1' => 8,
+            'SMP Kelas 2' => 9,
+            'SMP Kelas 3' => 10
+        ];
+
+        foreach ($levels as $level) {
+            foreach ($categories as $category) {
+                if (($level === 'TK' || strpos($level, 'SD Kelas') !== false && (int)substr($level, -1) <= 2) &&
+                    in_array($category, ['KUPU', 'PUNGGUNG', 'KUPU + FINS', 'PUNGGUNG + FINS'])
+                ) {
+                    continue;
+                }
+                Category_classes::create([
+                    'category_id' => $categoryIdMap[$category],
+                    'class_id' => $classIdMap[$level],
+                ]);
+            }
+        }
     }
 }

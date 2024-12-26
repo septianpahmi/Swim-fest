@@ -85,16 +85,16 @@ class RegistrasiMandiriController extends Controller
             return redirect()->back()->with('error', 'Category event not found.');
         }
         $validator = Validator::make($request->all(), [
-            'file_raport' => 'required|file|mimes:pdf|max:5120',
-            'file_akte' => 'required|file|mimes:pdf|max:5120',
+            'file_raport' => 'required|mimes:pdf,jpg,jpeg||max:5120',
+            'file_akte' => 'required|mimes:pdf,jpg,jpeg||max:5120',
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        $raportPath = $request->file('file_raport')->store('kelompok/raports', 'public');
-        $aktePath = $request->file('file_akte')->store('kelompok/akte', 'public');
+        $raportPath = $request->file('file_raport')->store('mandiri/raports', 'public');
+        $aktePath = $request->file('file_akte')->store('mandiri/akte', 'public');
 
         $file = [
             'file_raport' => $raportPath,
@@ -109,7 +109,7 @@ class RegistrasiMandiriController extends Controller
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
         $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
-        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get();
+        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');
         return view('Resources.pilih-kelas', compact('event', 'kelas', 'category'));
     }
 
@@ -118,7 +118,7 @@ class RegistrasiMandiriController extends Controller
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
         if (!$event) {
-            return redirect()->route('home')->with('error', 'Kategori event tidak ditemukan.');
+            return redirect()->back()->with('error', 'Kategori event tidak ditemukan.');
         }
 
         $validator = Validator::make($request->all(), [
@@ -147,10 +147,11 @@ class RegistrasiMandiriController extends Controller
             'participan_id' => $participant->id,
         ]);
         Session::put('participant_registration_id', $participantRegistration->id);
+        $class = $request->category_event_id;
         foreach ($request->no_participant as $index => $noParticipant) {
             participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
-                'category_event_id' => $event->id,
+                'category_event_id' => $class,
                 'no_participant' => $noParticipant,
                 'price' => $event->price ?? null,
                 'record' => null,
@@ -184,7 +185,9 @@ class RegistrasiMandiriController extends Controller
         $price = $kelas > 0 ? $participantCategories->sum('price') / $kelas : 0;
         $nomor = $peserta->count();
         $total = $price * $kelas;
-        $grand = $total;
+        $admin = 5000;
+        $tax = $total * 0.02;
+        $grand = $total + $admin + $tax;
         $existingCheckout = Payments::where('registration_id', $registrasi->id)->first();
         if ($existingCheckout) {
             $checkout = $existingCheckout;
@@ -218,6 +221,6 @@ class RegistrasiMandiriController extends Controller
             $checkout->save();
         }
         Session::put('checkout', $checkout);
-        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'kelas', 'nomor', 'price', 'total', 'grand'));
+        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand'));
     }
 }

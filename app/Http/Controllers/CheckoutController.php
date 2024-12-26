@@ -40,7 +40,10 @@ class CheckoutController extends Controller
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
 
-        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->first();
+        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('status', 'Pending')->where('event_id', $eventId->id)->first();
+        if (!$registrations) {
+            return redirect()->route('profile', ['id' => Auth::id()])->with('error', 'Anda sudah melakukan pembayaran.');
+        }
         $registrations->status = "Success";
         $registrations->save();
         $participantRegistrations = Participant_registrations::where('registration_id', $registrations->id)->get();
@@ -50,21 +53,22 @@ class CheckoutController extends Controller
             $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
             $participantCategories = $participantCategories->merge($categories);
         }
+        $admin = 5000;
         $paymentMethod = $request->query('payment_method');
         $nomor = $participantCategories->count();
         $payment = Payments::find($id);
         $payment->payment_method = $paymentMethod;
         $payment->save();
-        return view('Resources.transaction-success', compact('event', 'payment', 'nomor'));
+        return view('Resources.transaction-success', compact('event', 'admin', 'payment', 'nomor'));
     }
     public function successTransactionMandiri(Request $request, $id, $slug)
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
 
-        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->where('event_id', $eventId->id)->first();
+        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->where('status', 'Pending')->where('event_id', $eventId->id)->first();
         if (!$registrations) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan atau sudah diproses.');
+            return redirect()->route('profile', ['id' => Auth::id()])->with('error', 'Anda sudah melakukan pembayaran.');
         }
         $registrations->status = "Success";
         $registrations->save();
@@ -74,12 +78,12 @@ class CheckoutController extends Controller
             $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
             $participantCategories = $participantCategories->merge($categories);
         }
-
+        $admin = 5000;
         $nomor = $participantCategories->count();
         $paymentMethod = $request->query('payment_method');
         $payment = Payments::find($id);
         $payment->payment_method = $paymentMethod;
         $payment->save();
-        return view('Resources.transaction-success', compact('event', 'payment', 'nomor'));
+        return view('Resources.transaction-success', compact('event', 'payment', 'admin', 'nomor'));
     }
 }

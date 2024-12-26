@@ -7,11 +7,13 @@ use App\Models\Events;
 use App\Models\Regency;
 use App\Models\District;
 use App\Models\Province;
+use App\Models\Categories;
 use App\Models\Participants;
 use Illuminate\Http\Request;
 use App\Models\Registrations;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
+use App\Models\Category_classes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -89,4 +91,15 @@ class RegistrasiKategoriController extends Controller
             echo "<option value='$kec->name'>$kec->name</option>";
         }
     }
+
+    // public function getCategories(Request $request)
+    // {
+    //     $category_event_id = $request->category_event_id;
+    //     $kelas = Category_classes::where('class_id', $category_event_id)->pluck('category_id')->toArray();
+    //     $category = Categories::whereIn('id', $kelas)->get();
+    //     echo "<option value=''>Pilih Nomor</option>";
+    //     foreach ($category as $cat) {
+    //         echo "<option value='$cat->name'>$cat->category_name</option>";
+    //     }
+    // }
 }

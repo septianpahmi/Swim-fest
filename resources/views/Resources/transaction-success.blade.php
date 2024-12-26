@@ -41,24 +41,34 @@
                                 {{ number_format($payment->sub_total, 0, '.', '.') }}</p>
                         </div>
                         <div>
-                            Rp. {{ number_format($payment->fee, 0, '.', '.') }}</p>
+                            <p class="w-full rounded-lg text-sm text-gray-400 ">
+                                Rp. {{ number_format($payment->fee, 0, '.', '.') }}</p>
                         </div>
                     </div>
                     <p class="w-full rounded-lg text-sm text-gray-400 ">{{ $nomor }} Nomor</p>
                 </div>
 
                 <!-- Form Fields -->
-                {{-- <div>
-                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Admin</label>
+                <div>
+                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Lain - Lain</label>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.300.000</p>
+                            <p class="w-full rounded-lg text-sm text-gray-400 ">Biaya Admin</p>
                         </div>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.300.000</p>
+                            <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.
+                                {{ number_format($admin, 0, '.', '.') }}</p>
                         </div>
                     </div>
-                </div> --}}
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-400 ">Pajak</p>
+                        </div>
+                        <div>
+                            <p class="w-full rounded-lg text-sm text-gray-400 ">2%</p>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Metode Pembayaran</label>
                     <div class="flex justify-between">
@@ -74,7 +84,7 @@
                 </div>
 
                 <hr class="border-b-1 border-grey mt-4 mb-4">
-                <form action="{{ route('beranda') }}">
+                <form action="{{ route('profile', Auth::id()) }}">
                     <button
                         class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
                         Beranda

@@ -83,7 +83,7 @@
 </section>
 
 {{-- Turnament --}}
-<section class="relative bg-[#DAF3FF] overflow-hidden min-h-screen md:h-screen">
+{{-- <section class="relative bg-[#DAF3FF] overflow-hidden min-h-screen md:h-screen">
 
     <div class="relative container mx-auto justify-center items-center py-12 px-12 md:px-20 h-full z-10">
         <div class="md:flex md:top-6 md:justify-between py-12 md:px-12">
@@ -143,9 +143,9 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 {{-- galeri --}}
-<section class="relative bg-colo-white overflow-hidden h-screen">
+{{-- <section class="relative bg-colo-white overflow-hidden h-screen">
 
     <div class="relative container mx-auto items-center py-12 px-12 md:px-20 h-full z-10">
         <div class="md:flex md:top-6 md:justify-between py-12  md:px-12">
@@ -211,7 +211,7 @@
         </div>
     </div>
 
-</section>
+</section> --}}
 {{-- partner --}}
 <section class="relative bg-colo-white overflow-hidden h-screen">
 

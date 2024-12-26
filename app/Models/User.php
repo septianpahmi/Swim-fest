@@ -24,8 +24,11 @@ class User extends Authenticatable
         'google_refresh_token',
         'name',
         'email',
+        'gender',
+        'phone',
+        'date_of_birth',
         'password',
-        'role_id'
+        'role_id',
     ];
     public function role()
     {

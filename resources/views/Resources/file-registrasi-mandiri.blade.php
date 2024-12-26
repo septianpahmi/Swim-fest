@@ -35,7 +35,7 @@
                                 <span class="font-semibold">Akta Kelahiran</span>
                             </label>
                             <p id="file-name-1" class="text-gray-400 text-sm ml-5">File max 5MB</p>
-                            <input type="file" accept=".pdf" id="file_akte" name="file_akte"
+                            <input type="file" accept=".pdf, .jpg, .jpeg" id="file_akte" name="file_akte"
                                 class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer"
                                 onchange="updateFileName(1)" required>
                             @error('file_akte')
@@ -47,11 +47,11 @@
                             class="mt-1 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <label for="file_raport" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                                 <i class="fas fa-paperclip mr-2"></i>
-                                <span class="font-semibold">Upload Rapor</span>
+                                <span class="font-semibold">Upload Rapor Terakhir</span>
                             </label>
                             <p id="file-name-2" class="text-gray-400 text-sm ml-5">File max 5MB</p>
 
-                            <input type="file" id="file_raport" accept=".pdf" name="file_raport"
+                            <input type="file" id="file_raport" accept=".pdf, .jpg, .jpeg" name="file_raport"
                                 class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer"
                                 onchange="updateFileName(2)" required>
                             @error('file_raport')

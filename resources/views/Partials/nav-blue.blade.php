@@ -39,14 +39,10 @@
             @if (Auth::check())
                 <li>
                     <!-- Logout Button -->
-                    <a href="{{ route('logout') }}"
-                        class="block py-2 px-4 text-white border border-white md:rounded-full text-center hover:text-white hover:bg-gray-300 md:inline-block md:ml-4"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-right-from-bracket -rotate-180"></i> Log Out
+                    <a href="{{ route('profile', Auth::id()) }}"
+                        class="block py-2 px-4 text-white border border-white md:rounded-full text-center hover:bg-white hover:text-[#023f5b] md:inline-block md:ml-4">
+                        <i class="fas fa-user-circle"></i> Profile
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
                 </li>
             @else
                 <li>

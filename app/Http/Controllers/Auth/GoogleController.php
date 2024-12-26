@@ -29,7 +29,7 @@ class GoogleController extends Controller
                 'password' => Hash::make('4123543564'),
                 'google_token' => $googleUser->token,
                 'google_refresh_token' => $googleUser->refreshToken,
-                'role_id' => 1,
+                'role_id' => 2,
             ]);
 
             Auth::login($user);

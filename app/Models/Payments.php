@@ -18,7 +18,6 @@ class Payments extends Model
         'fee',
         'diskon',
         'grand_total',
-        // 'paid_at',
     ];
 
     public function registration()

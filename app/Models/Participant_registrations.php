@@ -24,4 +24,9 @@ class Participant_registrations extends Model
     {
         return $this->belongsTo(Participants::class, 'participan_id');
     }
+
+    public function participantCategories()
+    {
+        return $this->hasMany(Participant_categories::class, 'participant_registration_id');
+    }
 }

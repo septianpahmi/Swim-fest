@@ -1,4 +1,5 @@
 @include('Partials.header')
+
 @include('Partials.nav-blue')
 <section class="bg-white text-gray-800 p-6">
     <div class="hidden md:block flex top-6 px-12 py-6 mb-6">
@@ -8,13 +9,11 @@
     </div>
     <!-- Container -->
     <div class="container mx-auto justify-center md:flex md:flex-wrap lg:flex-nowrap gap-8 mb-6">
-        <!-- Left Content: Image and Buttons -->
         <div class="rounded-lg">
             <!-- Image -->
             <div class="mb-6">
-                <img src="/image/image-250.png" alt="Trieste Estate" class="rounded-lg w-full shadow-lg">
+                <img src="/image/swimfest-2025.jpeg" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
             </div>
-            <!-- Buttons -->
             <a href="{{ route('registrasi.kategori', $event->eventId->slug) }}">
                 <button
                     class="w-full bg-red-400 text-white font-medium py-3 rounded-md mb-4 hover:bg-red-500 transition">
@@ -66,9 +65,19 @@
                     <span class="font-bold">
                         Kelas
                     </span>
-                    <ul class="md:ml-24">
-                        <li>{{ $event->categoryClass->classes->class_name }} :
-                            {{ $event->categoryClass->category->category_name }}</li>
+                    <ul class="md:ml-24" id="category-list">
+                        @foreach ($categoryClass as $index => $cat)
+                            @if ($index < 3)
+                                <li class="category-item">
+                                    {{ $cat->classes->class_name }} : {{ $cat->category->category_name }}
+                                </li>
+                            @endif
+                        @endforeach
+                        @if ($categoryClass->count() > 3)
+                            <button id="read-more" class="text-blue-500 hover:underline"
+                                onclick="showAllCategories()">Baca
+                                Selengkapnya</button>
+                        @endif
                     </ul>
                 </div>
                 <hr class="border border-b-0 mb-4">
@@ -119,8 +128,7 @@
             <div>
                 <h2 class="text-xl font-bold mb-2 text-gray-900">Alamat Lokasi Event:</h2>
                 <p class="text-gray-800 text-lg">
-                    Stadion Akuatik Gelora Bung Karno <br>
-                    Jl. Pintu Satu Senayan, Jakarta Pusat, DKI Jakarta
+                    {{ $event->eventId->venue }}
                 </p>
             </div>
             <hr class="md:hidden border border-b-2 mb-4">
@@ -139,8 +147,3 @@
     </div>
 </section>
 @include('Partials.footer')
-<script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
-<script src="/js/style.js"></script>
-</body>
-
-</html>

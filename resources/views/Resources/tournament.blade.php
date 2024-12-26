@@ -34,7 +34,7 @@
                 class="relative max-w-5xl mx-auto bg-white rounded-lg shadow-md overflow-hidden md:flex py-2 px-2 mb-12">
                 <!-- Poster/Gambar -->
                 <div class="rounded-lg">
-                    <img src="/image/poster1.png" alt="Trieste Estate 2016"
+                    <img src="/image/swimfest-2025.jpeg" alt="Trieste Estate 2016"
                         class="object-cover rounded-lg w-auto w-full md:max-w-[291px]" />
                 </div>
 

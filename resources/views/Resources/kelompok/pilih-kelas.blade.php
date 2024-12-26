@@ -29,12 +29,12 @@
                             <div class="mb-4">
                                 <label id="kelas"
                                     class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
-                                <select id="kelas" name="category_event_id[]"
+                                <select id="kelas" name="category_event_id"
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
                                     <option value="" selected>Pilih Kelas</option>
                                     @foreach ($kelas as $kel)
-                                        <option value="{{ $kel->id }}">
+                                        <option value="{{ $kel->categoryClass->classes->id }}">
                                             {{ $kel->categoryClass->classes->class_name }}
                                         </option>
                                     @endforeach

@@ -23,7 +23,7 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/'); // Ganti dengan route tujuan setelah login berhasil
+            return redirect()->intended('/registrasi-kategori/swimfest-2025');
         }
 
         return back()->withErrors([

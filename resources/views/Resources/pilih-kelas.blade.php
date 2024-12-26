@@ -24,12 +24,12 @@
                             <div class="mb-4">
                                 <label id="kelas"
                                     class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
-                                <select id="kelas" name="category_event_id[]"
+                                <select id="kelas" name="category_event_id"
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
                                     <option value="" selected>Pilih Kelas</option>
                                     @foreach ($kelas as $kel)
-                                        <option value="{{ $kel->id }}">
+                                        <option value="{{ $kel->categoryClass->classes->id }}">
                                             {{ $kel->categoryClass->classes->class_name }}
                                         </option>
                                     @endforeach
@@ -60,7 +60,7 @@
                     <div class="mt-6 mb-4">
                         <button id="add-swim-number"
                             class="w-full py-3 px-6 border-2 p-1 border-solid border-grey text-[#023f5b] rounded-lg text-center font-semibold hover:bg-[#012f44] hover:text-white">
-                            <i class="fas fa-user-plus"></i> Tambah Nomor Renang
+                            <i class="fas fa-user-plus"></i> Ayo Tambah Nomor Renang
                         </button>
                     </div>
                     <!-- Buttons -->

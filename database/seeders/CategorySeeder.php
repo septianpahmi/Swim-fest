@@ -13,13 +13,24 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Categories::create([
-            'category_name' => '50 Meter Gaya Dada Putra',
-            'status' => true,
-        ]);
-        Categories::create([
-            'category_name' => '100 Meter Gaya Dada Putra',
-            'status' => true,
-        ]);
+        $categories = [
+            'BEBAS',
+            'DADA',
+            'KUPU',
+            'PUNGGUNG',
+            'KAKI BEBAS PAPAN',
+            'KAKI DADA PAPAN',
+            'KAKI BEBAS PAPAN + FINS',
+            'BEBAS + FINS',
+            'KUPU + FINS',
+            'PUNGGUNG + FINS'
+        ];
+
+        foreach ($categories as $category) {
+            Categories::create([
+                'category_name' => $category,
+                'status' => true,
+            ]);
+        }
     }
 }

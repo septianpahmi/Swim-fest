@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Events;
+use App\Models\Classes;
 use App\Models\Payments;
 use App\Models\Categories;
 use App\Models\Participants;
@@ -99,8 +100,8 @@ class RegistrasiKelompokController extends Controller
             'zip_code' => 'required|string|max:5',
             'school' => 'required|string|max:60',
             'email' => 'required|string|email|max:255',
-            'file_raport' => 'required|max:5120',
-            'file_akte' => 'required|max:5120',
+            'file_raport' => 'required|mimes:pdf,jpg,jpeg|max:5120',
+            'file_akte' => 'required|mimes:pdf,jpg,jpeg|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -139,7 +140,7 @@ class RegistrasiKelompokController extends Controller
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
         $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
-        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get();
+        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');;
         return view('Resources.kelompok.pilih-kelas', compact('event', 'kelas', 'category'));
     }
     // public function newKelas($slug)
@@ -181,10 +182,11 @@ class RegistrasiKelompokController extends Controller
             'registration_id' => $registration->id,
             'participan_id'   => $participant->id,
         ]);
+        $class = $request->category_event_id;
         foreach ($request->no_participant as $index => $noParticipant) {
             $participanCetgory = Participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
-                'category_event_id' => $event->id,
+                'category_event_id' => $class,
                 'no_participant' => $noParticipant,
                 'price' => $event->price ?? null,
                 'record' => null,
@@ -234,8 +236,10 @@ class RegistrasiKelompokController extends Controller
         $registration = Participant_registrations::where('participan_id', $reg->id)->first();
         $categories = Participant_categories::where('participant_registration_id',  $registration->id)->pluck('no_participant')->toArray();
         $category = Categories::whereIn('id', $categories)->get();
-        $kelas = Participant_categories::where('participant_registration_id',  $registration->id)->get();
-        return view('Resources.kelompok.detail-registrasi-kelompok', compact('event', 'reg', 'category', 'kelas'));
+        $kelasEvent = Participant_categories::where('participant_registration_id',  $registration->id)->pluck('category_event_id')->toArray();
+        $kelas = Classes::whereIn('id', $kelasEvent)->get();
+        $record = Participant_categories::where('participant_registration_id',  $registration->id)->get();
+        return view('Resources.kelompok.detail-registrasi-kelompok', compact('event', 'reg', 'category', 'record', 'kelas'));
     }
 
     public function listDetail($slug)
@@ -263,22 +267,22 @@ class RegistrasiKelompokController extends Controller
         }
         $user = Auth::user();
         $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->where('status', 'Pending')->first();
-        if ($registrasi) {
-            $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
-            $peserta = Participants::whereIn('id', $participanRegistration->pluck('participan_id'))->get();
+        $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
+        $peserta = Participants::whereIn('id', $participanRegistration->pluck('participan_id'))->get();
 
-            $participantCategories = collect();
+        $participantCategories = collect();
 
-            foreach ($participanRegistration as $registration) {
-                $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
-                $participantCategories = $participantCategories->merge($categories);
-            }
+        foreach ($participanRegistration as $registration) {
+            $categories = Participant_categories::where('participant_registration_id', $registration->id)->get();
+            $participantCategories = $participantCategories->merge($categories);
         }
         $kelas = $participantCategories->count();
         $price = $kelas > 0 ? $participantCategories->sum('price') / $kelas : 0;
         $nomor = $peserta->count();
         $total = $price * $kelas;
-        $grand = $total;
+        $admin = 5000;
+        $tax = $total * 0.02;
+        $grand = $total + $admin + $tax;
         $existingCheckout = Payments::where('registration_id', $registrasi->id)->first();
         if ($existingCheckout) {
             $checkout = $existingCheckout;
@@ -290,7 +294,6 @@ class RegistrasiKelompokController extends Controller
                 'fee' => $total,
                 'diskon' => 0,
                 'grand_total' => $grand,
-                'paid_at' => Carbon::now(),
             ]);
 
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
@@ -313,7 +316,7 @@ class RegistrasiKelompokController extends Controller
             $checkout->save();
         }
         Session::put('checkout', $checkout);
-        return view('Resources.kelompok.rincian-pembayaran', compact('checkout', 'event', 'kelas', 'nomor', 'price', 'total', 'grand'));
+        return view('Resources.kelompok.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand'));
     }
 
     public function remove($id, $slug)

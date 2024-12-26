@@ -28,4 +28,13 @@ class participant_categories extends Model
     {
         return $this->belongsTo(Category_events::class, 'category_event_id');
     }
+
+    public function classId()
+    {
+        return $this->hasMany(Classes::class, 'id');
+    }
+    public function categoryId()
+    {
+        return $this->hasMany(Categories::class, 'id');
+    }
 }

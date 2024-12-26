@@ -13,13 +13,24 @@ class ClassSeeder extends Seeder
      */
     public function run(): void
     {
-        Classes::create([
-            'class_name' => 'SDN Kelas 1 ',
-            'status' => true,
-        ]);
-        Classes::create([
-            'class_name' => 'SMP Kelas 1 ',
-            'status' => true,
-        ]);
+        $classes = [
+            'TK',
+            'SD Kelas 1',
+            'SD Kelas 2',
+            'SD Kelas 3',
+            'SD Kelas 4',
+            'SD Kelas 5',
+            'SD Kelas 6',
+            'SMP Kelas 1',
+            'SMP Kelas 2',
+            'SMP Kelas 3',
+        ];
+
+        foreach ($classes as $class) {
+            Classes::create([
+                'class_name' => $class,
+                'status' => true,
+            ]);
+        }
     }
 }

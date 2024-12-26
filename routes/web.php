@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/registrasi-kategori/mandiri/{slug}', [RegistrasiKategoriController::class, 'mandiri'])->name('mandiri');
     Route::post('/registrasi-kategori/getKabupaten', [RegistrasiKategoriController::class, 'getKabupaten'])->name('getKabupaten');
     Route::post('/registrasi-kategori/getKecamatan', [RegistrasiKategoriController::class, 'getKecamatan'])->name('getKecamatan');
+    // Route::post('/registrasi-kategori/getCategory', [RegistrasiKategoriController::class, 'getCategories'])->name('getCategory');
 
     Route::get('/registrasi-kategori/kelompok/{slug}', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
     Route::get('/registrasi-kategori/edit-peserta/{id}/{slug}', [RegistrasiKategoriController::class, 'editKelompok'])->name('editKelompok');
@@ -63,6 +64,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/registrasi-kategori/mandiri/checkout/{slug}', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::get('/registrasi-kategori/kelompok/transaction-succes/{id}/{slug}', [CheckoutController::class, 'successTransaction'])->name('success-transaction');
     Route::get('/registrasi-kategori/mandiri/transaction-succes/{id}/{slug}', [CheckoutController::class, 'successTransactionMandiri'])->name('success-transaction-mandiri');
+
+    Route::get('/profile/{id}', [ProfilController::class, 'index'])->name('profile');
+    Route::post('/profile/reset-password/{id}', [ProfilController::class, 'resetPassword'])->name('resetPassword');
+    Route::post('/profile/update/{id}', [ProfilController::class, 'updateProfil'])->name('updateProfil');
 });
 
 Route::get('/highlight', [HighlightController::class, 'index'])->name('highlight');
@@ -73,6 +78,5 @@ Route::get('/tentang', function () {
     return view('resources.tentang.tentang');
 });
 
-Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
 Route::get('/profil/pertandingan', [ProfilController::class, 'pertandingan'])->name('pertandingan');
 Route::get('/profi;/keamanan', [ProfilController::class, 'keamanan'])->name('keamanan');
