@@ -38,4 +38,8 @@ class participant_categories extends Model
     {
         return $this->hasMany(Categories::class, 'id');
     }
+    public function categories()
+    {
+        return $this->hasMany(Categories::class, 'id', 'no_participant');
+    }
 }

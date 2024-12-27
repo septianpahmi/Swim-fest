@@ -155,14 +155,14 @@
                 <a href="{{ route('beranda') }}" class="block py-2 px-4 text-white hover:text-teal-600 ">Beranda</a>
             </li>
             <li>
-                <a href="{{ route('perlombaan') }}"
-                    class="block py-2 px-4 text-white hover:text-teal-600">Turnamen</a>
+                <a href="{{ route('perlombaan') }}" class="block py-2 px-4 text-white hover:text-teal-600">Turnamen</a>
             </li>
             <li>
                 <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Berita</a>
             </li>
             <li>
-                <a href="{{ route('galeri') }}" class="block py-2 px-4 text-white hover:text-teal-600 border-b-2 border-white">Galeri</a>
+                <a href="{{ route('galeri') }}"
+                    class="block py-2 px-4 text-white hover:text-teal-600 border-b-2 border-white">Galeri</a>
             </li>
             <li>
                 <a href="/tentang" class="block py-2 px-4 text-white hover:text-teal-600">Tentang</a>
@@ -208,9 +208,13 @@
             <div class="mb-8 mt-8">
                 <h3 class="text-2xl mb-2 font-bold text-[#023f5b]">Aqua Velocity Championship 2025</h3>
                 <p class="text-gray-600 leading-loose">
-                    Jakarta, 11 Desember 2024-Aqua Blaze National Swimming 2024 resmi dimulai hari ini di Stadion Akuatik Gelora Bung Karno. Turnamen yang menjadi panggung bagi perenang muda berbakat dari seluruh penjuru Indonesia ini menarik perhatian banyak penggemar olahraga air.
+                    Jakarta, 11 Desember 2024-Aqua Blaze National Swimming 2024 resmi dimulai hari ini di Stadion
+                    Akuatik Gelora Bung Karno. Turnamen yang menjadi panggung bagi perenang muda berbakat dari seluruh
+                    penjuru Indonesia ini menarik perhatian banyak penggemar olahraga air.
                     <br>
-                    Event ini mengelompokkan peserta dalam berbagai kategori usia, mulai dari anak-anak hingga dewasa, dan mempertandingkan semua gaya renang, termasuk gaya bebas, dada, punggung, dan kupu-kupu. Hari pertama turnamen dipenuhi sorakan penonton yang menyaksikan ketegangan setiap babak penyisihan.
+                    Event ini mengelompokkan peserta dalam berbagai kategori usia, mulai dari anak-anak hingga dewasa,
+                    dan mempertandingkan semua gaya renang, termasuk gaya bebas, dada, punggung, dan kupu-kupu. Hari
+                    pertama turnamen dipenuhi sorakan penonton yang menyaksikan ketegangan setiap babak penyisihan.
                 </p>
             </div>
 
@@ -227,31 +231,31 @@
             </div>
         </div>
     </section>
-    
-    
+
+
     @include('Partials.footer')
-    
+
     <script>
         const track = document.querySelector('.carousel-track');
         const prevButton = document.getElementById('prev');
         const nextButton = document.getElementById('next');
         let index = 0;
-    
+
         const updateCarousel = () => {
             const offset = -index * 220;
             track.style.transform = `translateX(${offset}px)`;
         };
-    
+
         nextButton.addEventListener('click', () => {
             index = (index + 1) % track.children.length;
             updateCarousel();
         });
-    
+
         prevButton.addEventListener('click', () => {
             index = (index - 1 + track.children.length) % track.children.length;
             updateCarousel();
         });
-    
+
         setInterval(() => {
             index = (index + 1) % track.children.length;
             updateCarousel();
@@ -260,4 +264,3 @@
 </body>
 
 </html>
-
