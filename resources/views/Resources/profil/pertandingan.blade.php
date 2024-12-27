@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('detail.lomba', $event->eventIds->slug) }}"
+                                    <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
                                         class="text-black text-xl font-semibold ml-12">&gt;</a>
                                 </div>
                             </div>
