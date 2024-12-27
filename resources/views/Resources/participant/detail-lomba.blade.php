@@ -93,7 +93,7 @@
                         <div>: {{ $item->no_renang }}</div>
                         <div></div>
                         <div class="font-bold">Kelas</div>
-                        <div>: @foreach ($category as $c)
+                        <div>: @foreach ($item->categories as $c)
                                 {{ $c->category_name }}
                             @endforeach
                         </div>
