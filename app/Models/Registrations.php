@@ -40,8 +40,8 @@ class Registrations extends Model
 
 
     // kiki
-    public function participant_registrations()
-    {
-        return $this->hasMany(Participant_registrations::class, 'registration_id', 'id');
-    }
+    // public function participant_registrations()
+    // {
+    //     return $this->hasMany(Participant_registrations::class, 'registration_id', 'id');
+    // }
 }
