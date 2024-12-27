@@ -34,10 +34,14 @@ class GoogleController extends Controller
 
             Auth::login($user);
 
-            return redirect('/');
+            // return redirect('/');
+
+
+            return redirect()->intended('/registrasi-kategori/swimfest-2025');
         }
         Auth::login($regisUser);
 
+        return redirect()->intended('/registrasi-kategori/swimfest-2025');
         return redirect('/');
     }
 }
