@@ -181,8 +181,8 @@ class RegistrasiKelompokController extends Controller
             'participan_id'   => $participant->id,
         ]);
         $class = $request->category_event_id;
-        $noRenang = strtoupper(bin2hex(random_bytes(3)));
         foreach ($request->no_participant as $index => $noParticipant) {
+            $noRenang = strtoupper(bin2hex(random_bytes(3)));
             $participanCetgory = Participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
                 'category_event_id' => $class,

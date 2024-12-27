@@ -37,4 +37,11 @@ class Registrations extends Model
     {
         return $this->hasOne(Payments::class, 'registration_id');
     }
+
+
+    // kiki
+    public function participant_registrations()
+    {
+        return $this->hasMany(Participant_registrations::class, 'registration_id', 'id');
+    }
 }

@@ -29,4 +29,15 @@ class Participant_registrations extends Model
     {
         return $this->hasMany(Participant_categories::class, 'participant_registration_id');
     }
+
+    // kiki
+    public function participant_categories()
+    {
+        return $this->hasMany(Participant_categories::class, 'participant_registration_id', 'id');
+    }
+
+    public function participant()
+    {
+        return $this->belongsTo(Participants::class, 'participan_id', 'id');
+    }
 }

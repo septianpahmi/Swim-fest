@@ -38,7 +38,11 @@ class PerlombaanController extends Controller
         $categoryEvent = Category_events::where('event_id', $eventId->id)->pluck('category_class_id')->toArray();
         $categoryClass = Category_classes::whereIn('id', $categoryEvent)->get();
 
-        $regisData = Registrations::where('user_id', $id)->where('no_registration', $regis)->first();
+        $regisData = Registrations::with(['participant_registrations' => function ($p) {
+            return $p->with(['participant', 'participant_categories']);
+        }])->where('user_id', $id)
+            ->where('no_registration', $regis)
+            ->first();
         $regisId = Participant_registrations::where('registration_id', $regisData->id)->pluck('id')->toArray();
         $parCat = participant_categories::whereIn('participant_registration_id', $regisId)->get();
 
