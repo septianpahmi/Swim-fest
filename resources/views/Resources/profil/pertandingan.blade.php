@@ -38,7 +38,7 @@
                                 <img src="/image/swimfest-2025.jpeg" alt=""
                                     class="w-16 object-cover rounded-lg">
                                 <div>
-                                    <a href="{{ route('detail.lomba', $event->eventIds->slug) }}"
+                                    <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
                                         class="text-2xl font-semibold hover:underline w-full">{{ $event->eventIds->event_name }}</a>
                                     <div class="flex items-center space-x-2 mt-1">
                                         <i class="fas fa-calendar-days"></i>

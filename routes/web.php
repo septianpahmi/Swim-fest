@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/{id}', [ProfilController::class, 'index'])->name('profile');
     Route::post('/profile/reset-password/{id}', [ProfilController::class, 'resetPassword'])->name('resetPassword');
     Route::post('/profile/update/{id}', [ProfilController::class, 'updateProfil'])->name('updateProfil');
+
+    Route::get('/detail-perlombaan/{id}/{regis}/{slug}', [PerlombaanController::class, 'detailLomba'])->name('detailLomba');
 });
 
 Route::get('/highlight', [HighlightController::class, 'index'])->name('highlight');

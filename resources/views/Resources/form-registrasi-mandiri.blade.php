@@ -137,7 +137,7 @@
                         <select id="district" name="district"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
-                            <option value="" selected>Pilih Kcamatan</option>
+                            <option value="" selected>Pilih Kecamatan</option>
                             <option value=""></option>
                         </select>
                         <input type="number" id="zip_code" placeholder="Kode POS" name="zip_code"
@@ -157,8 +157,7 @@
                         required>
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
                     <input type="email" placeholder="example@gmail.com" name="email"
-                        class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        required>
+                        class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <hr class="border border-b-0 mb-8">
                 <!-- Buttons -->

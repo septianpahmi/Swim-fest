@@ -17,6 +17,7 @@ class participant_categories extends Model
         'price',
         'record',
         'last_record',
+        'no_renang',
     ];
 
     public function participantRegistration()

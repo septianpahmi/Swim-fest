@@ -35,7 +35,6 @@ class RegistrasiMandiriController extends Controller
             'district' => 'required|string|max:30',
             'zip_code' => 'required|string|max:5',
             'school' => 'required|string|max:60',
-            'email' => 'required|string|email|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -148,6 +147,7 @@ class RegistrasiMandiriController extends Controller
         ]);
         Session::put('participant_registration_id', $participantRegistration->id);
         $class = $request->category_event_id;
+        $noRenang = strtoupper(bin2hex(random_bytes(6)));
         foreach ($request->no_participant as $index => $noParticipant) {
             participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
@@ -156,6 +156,7 @@ class RegistrasiMandiriController extends Controller
                 'price' => $event->price ?? null,
                 'record' => null,
                 'last_record' => $request->last_record[$index] ?? null,
+                'no_renang' => $noRenang,
             ]);
         }
         return redirect('/registrasi-kategori/mandiri/ringkasan/' . $slug);

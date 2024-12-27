@@ -87,7 +87,7 @@
                 <form action="{{ route('profile', Auth::id()) }}">
                     <button
                         class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
-                        Beranda
+                        Pertandingan Saya
                     </button>
                 </form>
             </div>

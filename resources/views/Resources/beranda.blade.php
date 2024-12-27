@@ -222,27 +222,20 @@
         <div class="flex flex-wrap justify-center md:gap-8 gap-4">
             <!-- Partner Logo 1 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-80.png" alt="Partner 1" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/Gemilang Prima.png" alt="Partner 1" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 2 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-90.png" alt="Partner 2" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/akuatik indonesia.png" alt="Partner 2" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 3 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-100.png" alt="Partner 3" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/Swimfest primary logo.png" alt="Partner 3"
+                    class="w-20 md:w-32 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 4 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/image-130.png" alt="Partner 4" class="w-20 md:w-32 h-auto md:h-auto">
-            </div>
-            <!-- Partner Logo 5 -->
-            <div class="flex justify-center items-center">
-                <img src="/image/partner/image-140.png" alt="Partner 5" class="w-20 md:w-32 h-auto md:h-auto">
-            </div>
-            <!-- Partner Logo 6 -->
-            <div class="flex justify-center items-center">
-                <img src="/image/partner/image-210.png" alt="Partner 5" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/Logo Cantum Hitam.png" alt="Partner 4" class="w-20 md:w-32 h-auto md:h-auto">
             </div>
         </div>
     </div>

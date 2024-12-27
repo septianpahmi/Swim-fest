@@ -43,7 +43,6 @@ class RegistrasiKelompokController extends Controller
             'district' => 'required|string|max:30',
             'zip_code' => 'required|string|max:5',
             'school' => 'required|string|max:60',
-            'email' => 'required|string|email|max:255',
             'file_raport' => 'required|max:5120',
             'file_akte' => 'required|max:5120',
         ]);
@@ -99,7 +98,6 @@ class RegistrasiKelompokController extends Controller
             'district' => 'required|string|max:30',
             'zip_code' => 'required|string|max:5',
             'school' => 'required|string|max:60',
-            'email' => 'required|string|email|max:255',
             'file_raport' => 'required|mimes:pdf,jpg,jpeg|max:5120',
             'file_akte' => 'required|mimes:pdf,jpg,jpeg|max:5120',
         ]);
@@ -183,6 +181,7 @@ class RegistrasiKelompokController extends Controller
             'participan_id'   => $participant->id,
         ]);
         $class = $request->category_event_id;
+        $noRenang = strtoupper(bin2hex(random_bytes(6)));
         foreach ($request->no_participant as $index => $noParticipant) {
             $participanCetgory = Participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
@@ -191,6 +190,7 @@ class RegistrasiKelompokController extends Controller
                 'price' => $event->price ?? null,
                 'record' => null,
                 'last_record' => $request->last_record[$index] ?? null,
+                'no_renang' => $noRenang,
             ]);
         }
         Session::put('registration', $registration);
