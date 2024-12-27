@@ -181,7 +181,7 @@ class RegistrasiKelompokController extends Controller
             'participan_id'   => $participant->id,
         ]);
         $class = $request->category_event_id;
-        $noRenang = strtoupper(bin2hex(random_bytes(6)));
+        $noRenang = strtoupper(bin2hex(random_bytes(3)));
         foreach ($request->no_participant as $index => $noParticipant) {
             $participanCetgory = Participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
@@ -232,12 +232,15 @@ class RegistrasiKelompokController extends Controller
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
+
         $reg = Participants::where('user_id', Auth::id())->latest()->first();
         $registration = Participant_registrations::where('participan_id', $reg->id)->first();
         $categories = Participant_categories::where('participant_registration_id',  $registration->id)->pluck('no_participant')->toArray();
         $category = Categories::whereIn('id', $categories)->get();
+
         $kelasEvent = Participant_categories::where('participant_registration_id',  $registration->id)->pluck('category_event_id')->toArray();
         $kelas = Classes::whereIn('id', $kelasEvent)->get();
+
         $record = Participant_categories::where('participant_registration_id',  $registration->id)->get();
         return view('Resources.kelompok.detail-registrasi-kelompok', compact('event', 'reg', 'category', 'record', 'kelas'));
     }

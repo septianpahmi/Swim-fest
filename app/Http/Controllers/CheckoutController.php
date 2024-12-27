@@ -86,4 +86,22 @@ class CheckoutController extends Controller
         $payment->save();
         return view('Resources.transaction-success', compact('event', 'payment', 'admin', 'nomor'));
     }
+    public function checkoutDetailLomba(Request $request, $id, $regis, $slug)
+    {
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $user = Auth::id();
+        $registrations = Registrations::where('user_id', $user)->where('no_registration', $regis)->where('event_id', $eventId->id)->first();
+        if (!$registrations) {
+            return redirect()->back()->with('error', 'Anda sudah melakukan pembayaran.');
+        }
+        $registrations->status = "Success";
+        $registrations->save();
+
+        $paymentMethod = $request->query('payment_method');
+        $payment = Payments::find($id);
+        $payment->payment_method = $paymentMethod;
+        $payment->save();
+        return redirect()->route('detailLomba', ['id' => $user, 'regis' => $regis, 'slug' => $slug,])->with('success', 'Anda telah berhasil melakukan pembayaran.');
+    }
 }
