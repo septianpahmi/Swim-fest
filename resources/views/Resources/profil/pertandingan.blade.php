@@ -104,4 +104,4 @@
         });
     });
 </script>
-@include('partials.footer')
+@include('Partials.footer')

@@ -104,7 +104,12 @@
                 {{-- </form> --}}
             </div>
 </section>
-<script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+@if (env('MIDTRANS_IS_PRODUCTION') == false)
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+@else
+    <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+@endif
+{{-- <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script> --}}
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
         snap.pay('{{ $checkout['reff_id'] }}', {
