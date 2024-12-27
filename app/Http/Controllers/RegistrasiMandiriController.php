@@ -147,11 +147,11 @@ class RegistrasiMandiriController extends Controller
         ]);
         Session::put('participant_registration_id', $participantRegistration->id);
         $class = $request->category_event_id;
-        $noRenang = strtoupper(bin2hex(random_bytes(6)));
         foreach ($request->no_participant as $index => $noParticipant) {
+            $noRenang = strtoupper(bin2hex(random_bytes(6)));
             participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
-                'category_event_id' => $class,
+                'category_event_id'         => $class,
                 'no_participant' => $noParticipant,
                 'price' => $event->price ?? null,
                 'record' => null,
