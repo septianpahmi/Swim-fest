@@ -27,7 +27,7 @@ class Participant_registrations extends Model
 
     public function participantCategories()
     {
-        return $this->hasMany(Participant_categories::class, 'participant_registration_id');
+        return $this->hasMany(participant_categories::class, 'participant_registration_id');
     }
 
     // // kiki
