@@ -65,7 +65,7 @@
                     <div class="mt-6 mb-4">
                         <button id="add-swim-number"
                             class="w-full py-3 px-6 border-2 p-1 border-solid border-grey text-[#023f5b] rounded-lg text-center font-semibold hover:bg-[#012f44] hover:text-white">
-                            <i class="fas fa-user-plus"></i> Tambah Nomor Renang
+                            <i class="fas fa-user-plus"></i> Ayo Tambah Nomor Renang
                         </button>
                     </div>
                     <!-- Buttons -->
