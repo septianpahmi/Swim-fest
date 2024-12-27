@@ -100,7 +100,7 @@
                         <div></div>
 
                         <div class="font-bold">Peringkat</div>
-                        <div>: 10</div>
+                        <div>: -</div>
                         <div></div>
                     </div>
                     <div class="flex flex-col sm:flex-row justify-between border-t pt-3 mt-2 mt-20 w-full">
@@ -141,7 +141,7 @@
             onSuccess: function(result) {
                 var paymentMethod = result.payment_type;
                 var redirectUrl =
-                    "{{ route('success-transaction', ['id' => $checkout->id, 'slug' => $event->eventId->slug]) }}";
+                    "{{ route('detailLomba.checkout', ['id' => $checkout->id, 'regis' => $regisData->no_registration, 'slug' => $event->eventId->slug]) }}";
                 redirectUrl += "?payment_method=" + encodeURIComponent(paymentMethod);
                 window.location.href = redirectUrl;
                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);

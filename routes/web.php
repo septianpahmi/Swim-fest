@@ -70,15 +70,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/profile/update/{id}', [ProfilController::class, 'updateProfil'])->name('updateProfil');
 
     Route::get('/detail-perlombaan/{id}/{regis}/{slug}', [PerlombaanController::class, 'detailLomba'])->name('detailLomba');
+    Route::get('/detail-perlombaan/checkout/{id}/{regis}/{slug}', [CheckoutController::class, 'checkoutDetailLomba'])->name('detailLomba.checkout');
 });
 
 Route::get('/highlight', [HighlightController::class, 'index'])->name('highlight');
 
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
-
-Route::get('/tentang', function () {
-    return view('resources.tentang.tentang');
-});
-
-Route::get('/profil/pertandingan', [ProfilController::class, 'pertandingan'])->name('pertandingan');
-Route::get('/profi;/keamanan', [ProfilController::class, 'keamanan'])->name('keamanan');
