@@ -21,7 +21,10 @@ class PerlombaanController extends Controller
     public function index()
     {
         $event = Category_events::where('event_id', 1)->get()->unique('event_id');
-        return view('Resources.tournament', compact('event'));
+        $eventId = Events::where('id', 1)->first();
+        $categoryEvent = Category_events::where('event_id', $eventId->id)->pluck('category_class_id')->toArray();
+        $categoryClass = Category_classes::whereIn('id', $categoryEvent)->get();
+        return view('Resources.tournament', compact('event', 'categoryClass'));
     }
 
     public function detail($slug)

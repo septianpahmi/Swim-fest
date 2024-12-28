@@ -31,10 +31,10 @@
         {{-- Poster --}}
         @foreach ($event as $item)
             <div
-                class="relative max-w-5xl mx-auto bg-white rounded-lg shadow-md overflow-hidden md:flex py-2 px-2 mb-12">
+                class="relative max-w-5xl items-center mx-auto bg-white rounded-lg shadow-md overflow-hidden md:flex py-2 px-2 mb-12">
                 <!-- Poster/Gambar -->
                 <div class="rounded-lg">
-                    <img src="/image/swimfest-2025.jpeg" alt="Trieste Estate 2016"
+                    <img src="/image/Flyer Swimfest 1.png" alt="Trieste Estate 2016"
                         class="object-cover rounded-lg w-auto w-full md:max-w-[291px]" />
                 </div>
 
@@ -44,42 +44,137 @@
                         {{ $item->eventId->event_name }}
                     </h2>
                     <hr class="border border-t-0 mb-6">
-                    <div class="mb-6">
-                        <p class="md:flex text-gray-600 mb-4">
+                    <div class="text-[#023f5b] space-y-4 text-lg">
+                        <div class="md:flex gap-4">
                             <span>
-                                <img src="/image/icon/calendar-dots0.svg" class="mr-1 md:mr-4" alt="">
+                                <img src="/image/icon/calendar-dots0.svg" class="mr-1 md:mr-2" alt="">
                             </span>
                             <span class="flex font-bold">
                                 Tanggal
                             </span>
                             <span
                                 class="md:ml-20">{{ Carbon\Carbon::parse($item->eventId->start_date)->format('d M Y') . ' - ' . Carbon\Carbon::parse($item->eventId->end_date)->format('d M Y') }}</span>
-                        </p>
-                        <hr class="border border-t-0 mb-4">
-                        <p class="md:flex text-gray-600 mb-4">
+                        </div>
+                        <hr class="border border-b-0 mb-4">
+                        <div class="md:flex gap-4">
                             <span>
-                                <img src="/image/icon/person-simple-swim0.svg" class="mr-1 md:mr-4" alt="">
+                                <img src="/image/icon/person-simple-swim0.svg" class="mr-1 md:mr-2" alt="">
                             </span>
-                            <span class="flex font-bold">
+                            <span class="font-bold">
                                 Kelas
                             </span>
-                            <span class="md:ml-24">
-                                {{ $item->categoryClass->classes->class_name }} :
-                                {{ $item->categoryClass->category->category_name }}<br />
-                                <a href="#" class="text-blue-500 hover:underline">2 Lainnya</a>
-                            </span>
+                            <ul class="md:ml-24" id="category-list">
+                                @foreach ($categoryClass as $index => $cat)
+                                    <li class="category-item" style="{{ $index >= 3 ? 'display: none;' : '' }}">
+                                        {{ $cat->classes->class_name }} : {{ $cat->category->category_name }}
+                                    </li>
+                                @endforeach
+                                <button type="button" class="text-blue-500 hover:underline"
+                                    onclick="my_modal_4.showModal()">
+                                    Baca Selengkapnya
+                                </button>
+                                <dialog id="my_modal_4" class="modal">
+                                    <div class="modal-box w-11/12 max-w-5xl">
+                                        <h3 class="text-lg font-bold">Kelas dan Kategori</h3>
+                                        <table class="table-auto w-full mt-4">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border px-4 py-2">Nomor</th>
+                                                    <th class="border px-4 py-2">Bebas</th>
+                                                    <th class="border px-4 py-2">Dada</th>
+                                                    <th class="border px-4 py-2">Kupu</th>
+                                                    <th class="border px-4 py-2">Punggung</th>
+                                                    <th class="border px-4 py-2">Kaki Bebas</th>
+                                                    <th class="border px-4 py-2">Kaki Dada Papan</th>
+                                                    <th class="border px-4 py-2">Kaki Bebas Papan + Fins</th>
+                                                    <th class="border px-4 py-2">Bebas + Fins</th>
+                                                    <th class="border px-4 py-2">Kupu + Fins</th>
+                                                    <th class="border px-4 py-2">Punggung + Fins</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($categoryClass->groupBy('class_id') as $classGroup)
+                                                    <tr>
+                                                        <td class="border px-4 py-2">
+                                                            {{ $classGroup->first()->classes->class_name }}
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 1)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 2)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 3)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 4)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 5)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 6)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 7)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 8)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 9)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                        <td class="border px-4 py-2">
+                                                            @if ($classGroup->where('category_id', 10)->first())
+                                                                X
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <div class="modal-action">
+                                            <form method="dialog">
+                                                <button class="btn">Close</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </dialog>
+                            </ul>
+                        </div>
+                        <hr class="border border-b-0 mb-4">
 
-                        </p>
-                        <hr class="border border-t-0 mb-4">
-                        <p class="md:flex text-gray-600 mb-4">
+                        <div class="md:flex gap-4">
                             <span>
-                                <img src="/image/icon/map-pin-simple-line0.svg" class="mr-1 md:mr-4" alt="">
+                                <img src="/image/icon/map-pin-simple-line0.svg" class="mr-1 md:mr-2" alt="">
                             </span>
-                            <span class="flex font-bold">Lokasi</span>
-                            <span class="md:ml-24">
-                                {{ $item->eventId->venue }}
+                            <span class="font-bold">
+                                Lokasi
                             </span>
-                        </p>
+                            <ul class="md:ml-24">
+                                <a href="#" class="text-blue-500 hover:underline ">
+                                    {{ $item->eventId->venue }}</a>
+                            </ul>
+                        </div>
                     </div>
                     <a href="{{ route('detail.lomba', ['slug' => $item->eventId->slug]) }}"
                         class="absolute bottom-6 text-blue-500 font-semibold hover:underline">

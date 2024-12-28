@@ -44,6 +44,7 @@
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
     <script src="/js/style.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         $('.delete').click(function() {
             var dataid = $(this).attr('data-id');
