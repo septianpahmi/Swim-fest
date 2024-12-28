@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Tables\Exports;
+
+use Filament\Tables\Actions\ExportAction;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
+class CustomTableExports implements WithStyles, WithEvents
+{
+    /**
+     * Apply styles to the Excel sheet.
+     */
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style for the header row
+            1 => [
+                'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+                'fill' => ['fillType' => 'solid', 'startColor' => ['rgb' => '0000FF']], // Blue header background
+                'alignment' => ['horizontal' => 'center'],
+            ],
+
+            // Default style for the entire table
+            'A:Z' => [
+                'alignment' => ['vertical' => 'center', 'horizontal' => 'left'],
+                'borders' => ['allBorders' => ['borderStyle' => 'thin']],
+            ],
+        ];
+    }
+
+    /**
+     * Optionally configure events for further customization.
+     */
+    public function registerEvents(): array
+    {
+        return [
+            \Maatwebsite\Excel\Events\AfterSheet::class => function (\Maatwebsite\Excel\Events\AfterSheet $event) {
+                // Auto-size columns
+                $event->sheet->getDelegate()->getColumnDimension('A')->setAutoSize(true);
+                $event->sheet->getDelegate()->getColumnDimension('B')->setAutoSize(true);
+                // Additional column configurations can go here
+            },
+        ];
+    }
+}

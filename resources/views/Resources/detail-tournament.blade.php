@@ -12,7 +12,7 @@
         <div class="rounded-lg">
             <!-- Image -->
             <div class="mb-6">
-                <img src="/image/swimfest-2025.jpeg" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
+                <img src="/image/Flyer Swimfest 1.png" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
             </div>
             <a href="{{ route('registrasi.kategori', $event->eventId->slug) }}">
                 <button
@@ -71,12 +71,95 @@
                                 {{ $cat->classes->class_name }} : {{ $cat->category->category_name }}
                             </li>
                         @endforeach
-                        @if ($categoryClass->count() > 3)
-                            <button id="read-more" class="text-blue-500 hover:underline"
-                                onclick="showAllCategories()">Baca Selengkapnya</button>
-                            <button id="hide-categories" class="text-blue-500 hover:underline" style="display: none;"
-                                onclick="hideAllCategories()">Lebih Sedikit</button>
-                        @endif
+                        <button type="button" class="text-blue-500 hover:underline" onclick="my_modal_4.showModal()">
+                            Baca Selengkapnya
+                        </button>
+                        <dialog id="my_modal_4" class="modal">
+                            <div class="modal-box w-11/12 max-w-5xl">
+                                <h3 class="text-lg font-bold">Kelas dan Kategori</h3>
+                                <table class="table-auto w-full mt-4">
+                                    <thead>
+                                        <tr>
+                                            <th class="border px-4 py-2">Nomor</th>
+                                            <th class="border px-4 py-2">Bebas</th>
+                                            <th class="border px-4 py-2">Dada</th>
+                                            <th class="border px-4 py-2">Kupu</th>
+                                            <th class="border px-4 py-2">Punggung</th>
+                                            <th class="border px-4 py-2">Kaki Bebas</th>
+                                            <th class="border px-4 py-2">Kaki Dada Papan</th>
+                                            <th class="border px-4 py-2">Kaki Bebas Papan + Fins</th>
+                                            <th class="border px-4 py-2">Bebas + Fins</th>
+                                            <th class="border px-4 py-2">Kupu + Fins</th>
+                                            <th class="border px-4 py-2">Punggung + Fins</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($categoryClass->groupBy('class_id') as $classGroup)
+                                            <tr>
+                                                <td class="border px-4 py-2">
+                                                    {{ $classGroup->first()->classes->class_name }}
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 1)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 2)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 3)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 4)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 5)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 6)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 7)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 8)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 9)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                                <td class="border px-4 py-2">
+                                                    @if ($classGroup->where('category_id', 10)->first())
+                                                        X
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="modal-action">
+                                    <form method="dialog">
+                                        <button class="btn">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </ul>
                 </div>
                 <hr class="border border-b-0 mb-4">

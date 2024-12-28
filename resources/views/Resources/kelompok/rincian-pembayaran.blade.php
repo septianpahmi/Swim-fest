@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($price, 0, '.', '.') }}
+                                {{ number_format($price, 0, '.', '.') }} X {{ $kelas }}
                             </p>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($total, 0, '.', '.') }} X {{ $kelas }}
+                                {{ number_format($total, 0, '.', '.') }}
                             </p>
                         </div>
                     </div>
