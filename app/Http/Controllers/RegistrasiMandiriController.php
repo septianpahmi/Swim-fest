@@ -171,7 +171,7 @@ class RegistrasiMandiriController extends Controller
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
         $user = Auth::user();
-        $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->first();
+        $registrasi = Registrations::where('user_id', Auth::id())->where('status', 'Pending')->where('type', 'Mandiri')->first();
         $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
         $peserta = Participants::whereIn('id', $participanRegistration->pluck('participan_id'))->get();
 
