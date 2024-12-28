@@ -16,6 +16,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -52,7 +53,40 @@ class ParticipantCategoriesResource extends Resource
                     ->label('Nama Peserta')
                     ->disabled()
                     ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->participant_name ?? 'N/A'),
+                Forms\Components\TextInput::make('date_of_birth')
+                    ->label('Tanggal Lahir')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->date_of_birth ? (new \DateTime($record->participantRegistration?->participantId?->date_of_birth))->format('d F Y') : 'N/A'),
 
+                Forms\Components\TextInput::make('address')
+                    ->label('Alamat')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->address ?? 'N/A'),
+
+                Forms\Components\TextInput::make('province')
+                    ->label('Provinsi')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->province ?? 'N/A'),
+
+                Forms\Components\TextInput::make('city')
+                    ->label('Kota')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->city ?? 'N/A'),
+
+                Forms\Components\TextInput::make('district')
+                    ->label('Kecamatan')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->district ?? 'N/A'),
+
+                Forms\Components\TextInput::make('school')
+                    ->label('Team')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->school ?? 'N/A'),
+
+                Forms\Components\TextInput::make('email')
+                    ->label('Email')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->email ?? 'N/A'),
                 Forms\Components\TextInput::make('no_registration')
                     ->label('No Registrasi')
                     ->disabled()
@@ -70,7 +104,17 @@ class ParticipantCategoriesResource extends Resource
 
                 Forms\Components\TextInput::make('no_renang')
                     ->label('No Renang')
+                    ->disabled()
                     ->required(),
+                Forms\Components\TextInput::make('last_record')
+                    ->label('Rekor Terakhir')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->last_record ? $record->last_record . ' Detik' : 'N/A'),
+
+                Forms\Components\TextInput::make('created_at')
+                    ->label('Waktu Pendaftaran')
+                    ->disabled()
+                    ->formatStateUsing(fn($record) => $record->created_at ? $record->created_at->format('d/m/Y H:i:s') : 'N/A'),
 
                 Forms\Components\TextInput::make('status')
                     ->label('Status Bayar')
@@ -91,13 +135,44 @@ class ParticipantCategoriesResource extends Resource
                 Tables\Columns\TextColumn::make('participantRegistration.participantId.participant_name')
                     ->label('Nama Peserta')
                     ->searchable()
-                    ->numeric()
+
 
                     ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.date_of_birth')
+                    ->label('Tanggal Lahir')
+                    ->searchable()
+                    ->date('d F Y')
+
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.address')
+                    ->label('Alamat')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.province')
+                    ->label('Provinsi')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.city')
+                    ->label('Kota')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.district')
+                    ->label('Kecamatan')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.school')
+                    ->label('Team')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('participantRegistration.participantId.email')
+                    ->label('Email')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('participantRegistration.registrationId.no_registration')
                     ->label('No Registrasi')
                     ->searchable()
-                    ->numeric()
+
 
                     ->sortable(),
                 Tables\Columns\TextColumn::make('classId.class_name')
@@ -107,18 +182,26 @@ class ParticipantCategoriesResource extends Resource
                 Tables\Columns\TextColumn::make('categories.category_name')
                     ->label('Kategori')
                     ->searchable()
-                    ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('no_renang')
                     ->label('No Renang')
                     ->searchable()
-                    ->numeric()
-
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('last_record')
+                    ->label('Rekor Terakhir')
+                    ->searchable()
+                    ->formatStateUsing(function ($state) {
+                        return "$state Detik";
+                    })
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Waktu Pendaftaran')
+                    ->date('d/m/Y H:i:s')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('participantRegistration.registrationId.status')
                     ->label('Status Bayar')
                     ->searchable()
-                    ->numeric()
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
                         'Pending' => 'warning',
@@ -148,13 +231,19 @@ class ParticipantCategoriesResource extends Resource
                     ->preload()
                     ->options(Categories::all()->pluck('category_name', 'id')->toArray()),
 
-                Tables\Filters\SelectFilter::make('participantRegistration.registrationId.status')
-                    ->relationship('participantRegistration.registrationId', 'status')
+                SelectFilter::make('status')
                     ->label('Status Bayar')
                     ->options([
                         'Pending' => 'Pending',
                         'Success' => 'Success',
-                    ]),
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        if ($data['value']) {
+                            $query->whereHas('participantRegistration.registrationId', function (Builder $subQuery) use ($data) {
+                                $subQuery->where('status', $data['value']);
+                            });
+                        }
+                    }),
             ])
             ->headerActions([
                 TablesExportAction::make()
@@ -191,7 +280,7 @@ class ParticipantCategoriesResource extends Resource
         return [
             'index' => Pages\ListParticipantCategories::route('/'),
             'create' => Pages\CreateParticipantCategories::route('/create'),
-            'edit' => Pages\EditParticipantCategories::route('/{record}/edit'),
+            // 'edit' => Pages\EditParticipantCategories::route('/{record}/edit'),
         ];
     }
 }
