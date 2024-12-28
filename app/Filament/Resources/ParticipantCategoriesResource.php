@@ -22,19 +22,19 @@ class ParticipantCategoriesResource extends Resource
 {
     protected static ?string $model = participant_categories::class;
 
-    protected static ?string $navigationLabel = 'Kategori Peserta';
+    protected static ?string $navigationLabel = 'Daftar Peserta';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
 
     public static function getModelLabel(): string
     {
-        return 'Kategori Peserta';
+        return 'Daftar Peserta';
     }
 
     public static function getPluralModelLabel(): string
     {
-        return 'Kategori Peserta';
+        return 'Daftar Peserta';
     }
 
 
@@ -57,10 +57,10 @@ class ParticipantCategoriesResource extends Resource
                     ->disabled()
                     ->formatStateUsing(fn($record) => $record->categoryEvent?->categoryClass?->classes?->class_name ?? 'N/A'),
 
-                Forms\Components\TextInput::make('event_name')
+                Forms\Components\TextInput::make('category_name')
                     ->label('Kategori')
                     ->disabled()
-                    ->formatStateUsing(fn($record) => $record->categoryEvent?->eventId?->event_name ?? 'N/A'),
+                    ->formatStateUsing(fn($record) => $record->categoryEvent?->categoryClass?->category?->category_name ?? 'N/A'),
 
                 Forms\Components\TextInput::make('no_renang')
                     ->label('No Renang')
@@ -100,11 +100,10 @@ class ParticipantCategoriesResource extends Resource
                     ->numeric()
 
                     ->sortable(),
-                Tables\Columns\TextColumn::make('categoryEvent.eventId.event_name')
+                Tables\Columns\TextColumn::make('categoryEvent.categoryClass.category.category_name')
                     ->label('Kategori')
                     ->searchable()
                     ->numeric()
-
                     ->sortable(),
                 Tables\Columns\TextColumn::make('no_renang')
                     ->label('No Renang')
