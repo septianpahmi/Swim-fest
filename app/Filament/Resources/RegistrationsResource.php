@@ -154,6 +154,11 @@ class RegistrationsResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label("Status Registrasi")
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Pending' => 'warning',
+                        'Success' => 'success',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
