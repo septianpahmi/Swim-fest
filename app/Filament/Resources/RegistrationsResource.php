@@ -25,6 +25,17 @@ class RegistrationsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';
     protected static ?string $navigationLabel = 'Registrasi';
 
+
+    public static function getModelLabel(): string
+    {
+        return 'Registrasi';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Registrasi';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -117,7 +128,7 @@ class RegistrationsResource extends Resource
                                 ->relationship('participantCategories')
                                 ->schema([
                                     Forms\Components\TextInput::make('category_name')
-                                        ->label('Kategori Renang')
+                                        ->label('Nama Kategori')
                                         ->readOnly()
                                         ->formatStateUsing(fn($state, $record) => $record?->categories?->first()?->category_name ?? ''),
                                 ])
@@ -139,9 +150,11 @@ class RegistrationsResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('eventIds.event_name')
                     ->numeric()
+                    ->searchable()
                     ->label("Nama Event")
                     ->sortable(),
                 Tables\Columns\TextColumn::make('no_registration')
