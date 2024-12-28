@@ -53,12 +53,30 @@
                             Baca Selengkapnya
                         </button>
                         <dialog id="my_modal_4" class="modal">
-                            <div class="modal-box w-11/12 max-w-5xl">
-                                <h3 class="text-lg font-bold">Kelas dan Kategori</h3>
-                                <table class="table-auto w-full mt-4">
-                                    <thead>
+                            <div class="modal-box justify-center relative p-4 w-full max-w-6xl max-h-full">
+                                <div
+                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 bg-white sticky -top-4 z-10">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Kelas dan Kategori
+                                    </h3>
+                                    <form method="dialog">
+                                        <button type="btn"
+                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-hide="default-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <table class="table-auto w-full mt-4 text-center border-collapse border-spacing-0">
+                                    <thead class=" top-0 bg-gray-100 z-10">
                                         <tr>
-                                            <th class="border px-4 py-2">Nomor</th>
+                                            <th class="border px-4 py-2 w-1/2">Nomor</th>
                                             <th class="border px-4 py-2">Bebas</th>
                                             <th class="border px-4 py-2">Dada</th>
                                             <th class="border px-4 py-2">Kupu</th>
@@ -77,65 +95,19 @@
                                                 <td class="border px-4 py-2">
                                                     {{ $classGroup->first()->classes->class_name }}
                                                 </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 1)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 2)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 3)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 4)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 5)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 6)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 7)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 8)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 9)->first())
-                                                        X
-                                                    @endif
-                                                </td>
-                                                <td class="border px-4 py-2">
-                                                    @if ($classGroup->where('category_id', 10)->first())
-                                                        X
-                                                    @endif
-                                                </td>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <td class="border px-4 py-2">
+                                                        @if ($classGroup->where('category_id', $i)->first())
+                                                            <span class="text-green-600 font-bold">&#10003;</span>
+                                                        @else
+                                                            <span class="text-red-600 font-bold">X</span>
+                                                        @endif
+                                                    </td>
+                                                @endfor
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="modal-action">
-                                    <form method="dialog">
-                                        <button class="btn">Close</button>
-                                    </form>
-                                </div>
                             </div>
                         </dialog>
                     </ul>

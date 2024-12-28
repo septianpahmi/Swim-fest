@@ -51,9 +51,9 @@
 </section>
 
 {{-- About --}}
-<section class="relative bg-white overflow-hidden h-screen">
+<section class="relative bg-white overflow-hidden">
 
-    <div class="relative container mx-auto flex flex-col md:flex-row items-center py-12 px-6 md:px-12 h-full z-10">
+    <div class="relative container mx-auto flex flex-col md:flex-row py-12 px-6 md:px-12 h-full z-10">
         <!-- Logo on the left -->
         <div class="md:w-1/2 flex justify-center md:justify-start mb-2 md:mb-0">
             <img src="/image/logo/swimfest-primary-logo-11.png" alt="Logo"
@@ -62,34 +62,50 @@
 
         <!-- Text content on the right -->
         <div class="text-[#023f5b] ml-2 md:ml-8 ">
-            <h1 class="text-4xl md:text-4xl font-bold mb-12">Tentang Swimfest</h1>
-            <p class="text-lg md:text-xl mb-8 text-justify">
-                Swimfest hadir untuk mendukung anak-anak berbakat dengan memberikan platform kompetisi resmi yang
-                terorganisir secara profesional. Kami percaya bahwa dengan pengalaman yang berbeda, Swimfest dapat
-                menciptakan momen tak terlupakan sambil membentuk masa depan cerah bagi para juara muda.
-            </p>
-            <p class="text-lg md:text-xl mb-6 text-justify">
-                Mengapa Swimfest?
+            <h1 class="text-4xl md:text-4xl font-bold mb-12">Selamat Datang di SwimFest – Ajang Kompetisi Renang untuk
+                Generasi Penerus Atlet Juara!</h1>
+            <p class="text-lg md:text-xl mb-3 text-justify">
+                SwimFest adalah sebuah kompetisi renang yang dirancang khusus untuk anak-anak dan remaja, mulai dari
+                jenjang Taman Kanak-Kanak (TK) hingga Sekolah Menengah Atas (SMA). Ajang ini bukan sekadar pertandingan,
+                tetapi sebuah pengalaman inspiratif yang dirancang untuk menggali potensi terbaik, membangun semangat
+                kompetisi sehat, dan mempererat hubungan dalam komunitas pecinta olahraga renang.
             </p>
             <p class="text-lg md:text-xl mb-3 text-justify">
-                🌟 Manajemen Profesional dan Efisien
+                Di SwimFest, kami percaya bahwa setiap anak memiliki kemampuan luar biasa yang layak mendapatkan
+                sorotan. Oleh karena itu, kami menciptakan platform inklusif yang mendukung perkembangan bakat renang
+                sejak dini. Mulai dari mereka yang baru mengenal olahraga renang hingga atlet muda yang sudah
+                mencatatkan prestasi, semua memiliki tempat dan kesempatan untuk bersinar di SwimFest.
             </p>
-            <p class="text-lg md:text-xl mb-3 text-justify">
-                🌱 Inovasi Digital dan Ramah Lingkungan
+            <p class="text-lg md:text-xl mb-3 font-semibold text-justify">
+                Apa yang Membuat SwimFest Berbeda?
             </p>
-            <p class="text-lg md:text-xl mb-3 text-justify">
-                🎥 Pengalaman Visual yang Optimal
+            <p class="text-lg md:text-xl text-justify">Kategori Usia yang Beragam:</p>
+            <p class="text-lg md:text-xl mb-3 text-justify">Selain hadiah menarik untuk para pemenang, semua peserta
+                akan mendapatkan pengalaman berharga dan penghargaan sebagai bagian dari perjalanan mereka menuju
+                kesuksesan.</p>
+            <p class="text-lg md:text-xl text-justify">Lebih dari Kompetisi: </p>
+            <p class="text-lg md:text-xl mb-3 text-justify">SwimFest adalah tentang membangun kepercayaan diri,
+                mengembangkan kedisiplinan, dan menciptakan kenangan tak terlupakan, baik bagi anak-anak maupun orang
+                tua mereka.</p>
+            <p class="text-lg md:text-xl text-justify">Kolaborasi dengan Klub dan Sekolah: </p>
+            <p class="text-lg md:text-xl mb-3 text-justify">Kami bekerja sama dengan klub renang dan sekolah-sekolah
+                untuk mendukung program pembinaan atlet sejak usia dini.</p>
+            <p class="text-lg md:text-xl mb-3 font-semibold text-justify">Kenapa Anda Harus Bergabung? SwimFest adalah
+                kesempatan emas
+                untuk:
+            <ul class="list-disc md:text-xl ml-6 mb-3 text-justify">
+                <li>Melihat anak Anda berkembang tidak hanya sebagai perenang, tetapi juga sebagai individu yang percaya
+                    diri dan penuh semangat.</li>
+                <li>Memberikan wadah bagi klub renang atau sekolah untuk mengasah bakat dan menampilkan keunggulan
+                    mereka di tingkat nasional.</li>
+                <li>Menjadi bagian dari komunitas besar pecinta olahraga renang yang mendukung satu sama lain.</li>
+                <li>Bersama SwimFest, kami yakin bahwa mimpi besar dimulai dari langkah kecil di kolam renang. Daftarkan
+                    anak Anda atau tim Anda sekarang, dan bergabunglah dengan ratusan peserta lainnya untuk merayakan
+                    olahraga, prestasi, dan kebersamaan!</li>
+            </ul>
+            <p class="text-lg md:text-xl mb-3 text-justify">Ayo mulai perjalanan menuju podium juara – hanya di
+                SwimFest!
             </p>
-            <p class="text-lg md:text-xl mb-3 text-justify">
-                🏟️ Desain Venue yang Berfokus pada Kenyamanan
-            </p>
-            <p class="text-lg md:text-xl mb-12 text-justify">
-                Bersama Swimfest, Jadilah Bagian dari Cerita Luar Biasa!
-                Daftarkan diri Anda dan jadilah saksi lahirnya juara-juara masa depan di panggung Swimfest!
-            </p>
-            <a href="#" class="text-lg md:text-lg hover:underline mb-20">
-                Baca Selengkapnya >
-            </a>
         </div>
     </div>
 </section>
@@ -241,11 +257,6 @@
                 <img src="/image/partner/akuatik indonesia.png" alt="Partner 2" class="w-20 md:w-60 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 3 -->
-            <div class="flex justify-center items-center">
-                <img src="/image/partner/Swimfest primary logo.png" alt="Partner 3"
-                    class="w-20 md:w-60 h-auto md:h-auto">
-            </div>
-            <!-- Partner Logo 4 -->
             <div class="flex justify-center items-center">
                 <img src="/image/partner/Logo Cantum Hitam.png" alt="Partner 4" class="w-20 md:w-60 h-auto md:h-auto">
             </div>
