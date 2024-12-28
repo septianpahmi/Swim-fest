@@ -25,12 +25,6 @@
                             <a href="#" class="md:mr-1">
                                 <img src="/image/icon/instagram-logo0.svg" alt="">
                             </a>
-                            <a href="#" class="md:mr-1">
-                                <img src="/image/icon/youtube-logo0.svg" alt="">
-                            </a>
-                            <a href="#" class="md:mr-1">
-                                <img src="/image/icon/x-logo0.svg" alt="">
-                            </a>
                         </li>
                     </ul>
                 </div>
@@ -42,7 +36,7 @@
     <div
         class="relative px-4 py-3 w-full bg-[#036E9F] md:flex flex items-center md:items-center justify-center md:justify-center z-10">
         <span class="text-sm text-white text-center">
-            © 2024 <a href="#" class="hover:underline">Akuatik Indonesia</a>. All Rights Reserved.
+            © 2024 <a href="#" class="hover:underline">Swimfest</a>. All Rights Reserved.
         </span>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="

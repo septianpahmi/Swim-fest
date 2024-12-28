@@ -45,9 +45,7 @@
         <!-- Images -->
         <div class="w-full md:w-1/2 flex justify-center space-x-4 ml-auto md:float-end -mr-40">
             <!-- Poster 1 -->
-            <img src="/image/image-400.png" alt="Poster 1" class="w-full md:w-[45%] rounded-lg shadow-lg">
-            <!-- Poster 2 -->
-            <img src="/image/image-270.png" alt="Poster 2" class="w-full md:w-[45%] rounded-lg shadow-lg">
+            <img src="/image/swimfest-2025.jpeg" alt="Poster 1" class=" md:w-[60%] rounded-lg shadow-lg">
         </div>
     </div>
 </section>
@@ -227,7 +225,7 @@
 
 </section> --}}
 {{-- partner --}}
-<section class="relative bg-colo-white overflow-hidden h-screen">
+<section class="relative bg-colo-white overflow-hidden">
 
     <div class="relative container mx-auto items-center py-6 px-6 md:py-12 md:px-20 h-full z-10">
         <div class="flex top-6 justify-between py-12 px-12">
@@ -236,20 +234,20 @@
         <div class="flex flex-wrap justify-center md:gap-8 gap-4">
             <!-- Partner Logo 1 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/Gemilang Prima.png" alt="Partner 1" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/Gemilang Prima.png" alt="Partner 1" class="w-20 md:w-60 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 2 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/akuatik indonesia.png" alt="Partner 2" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/akuatik indonesia.png" alt="Partner 2" class="w-20 md:w-60 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 3 -->
             <div class="flex justify-center items-center">
                 <img src="/image/partner/Swimfest primary logo.png" alt="Partner 3"
-                    class="w-20 md:w-32 h-auto md:h-auto">
+                    class="w-20 md:w-60 h-auto md:h-auto">
             </div>
             <!-- Partner Logo 4 -->
             <div class="flex justify-center items-center">
-                <img src="/image/partner/Logo Cantum Hitam.png" alt="Partner 4" class="w-20 md:w-32 h-auto md:h-auto">
+                <img src="/image/partner/Logo Cantum Hitam.png" alt="Partner 4" class="w-20 md:w-60 h-auto md:h-auto">
             </div>
         </div>
     </div>

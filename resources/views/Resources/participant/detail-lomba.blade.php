@@ -119,10 +119,11 @@
             <div class="flex flex-col sm:flex-row justify-between">
                 @if (isset($regisData))
                     @if ($regisData->status === 'Success')
-                        <button type="button"
+                        <a href="{{ route('faktur', ['id' => Auth::id(), 'regis' => $regisData->no_registration, 'slug' => $event->eventId->slug]) }}"
+                            type="button"
                             class="py-3 px-6 text-[#023f5b] border border-[#023f5b] rounded-lg text-center font-semibold hover:text-white hover:bg-[#023f5b] w-1/2 mb-4 sm:mb-0 sm:mr-8">
                             <i class="fas fa-file-invoice"></i>&nbsp; Unduh Bukti Pembayaran
-                        </button>
+                        </a>
                     @else
                         <button id="pay-button"
                             class="py-3 px-6 text-[#023f5b] border border-[#023f5b] rounded-lg text-center font-semibold hover:text-white hover:bg-[#023f5b] w-1/2">

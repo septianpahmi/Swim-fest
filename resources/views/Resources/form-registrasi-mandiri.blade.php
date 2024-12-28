@@ -26,12 +26,14 @@
                 <!-- Nama -->
                 <div>
                     <label for="nama" class="block text-sm font-semibold text-gray-800">Nama</label>
-                    <input type="text" placeholder="Taufik Hidayat" id="nama" name="participant_name"
+                    <input type="text" placeholder="Taufik Hidayat" id="nama" maxlength="60"
+                        name="participant_name"
                         class="mt-1 font-semibold p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     @error('nama')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
+                    <div id="errorName" style="text-red-500 text-sm"></div>
                 </div>
                 <!-- Jenis Kelamin -->
                 <div>
@@ -107,7 +109,8 @@
                             <option value="11">11</option>
                             <option value="12">12</option>
                         </select>
-                        <input type="number" placeholder="Tahun" name="year"
+                        <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="Tahun" name="year"
+                            minlength="4" maxlength="4"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             min="4" required>
                     </div>
@@ -140,7 +143,8 @@
                             <option value="" selected>Pilih Kecamatan</option>
                             <option value=""></option>
                         </select>
-                        <input type="number" id="zip_code" placeholder="Kode POS" name="zip_code"
+                        <input type="text" inputmode="numeric" pattern="\d{5}" id="zip_code"
+                            placeholder="Kode POS" name="zip_code" maxlength="5"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                         @error('zip_code')
@@ -152,11 +156,11 @@
                 <!-- Asal Sekolah dan Email -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800">Asal Sekolah</label>
-                    <input type="text" placeholder="Nama Sekolah" name="school"
+                    <input type="text" placeholder="Nama Sekolah" name="school" maxlength="50"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
-                    <input type="email" placeholder="example@gmail.com" name="email"
+                    <input type="email" placeholder="example@gmail.com" name="email" maxlength="50"
                         class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <hr class="border border-b-0 mb-8">
@@ -167,7 +171,7 @@
                         onclick="goBack()">
                         Kembali
                     </button>
-                    <button
+                    <button type="submit"
                         class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
                         Selanjutnya
                     </button>
@@ -228,5 +232,18 @@
         })
     });
 </script>
-{{-- <script src="/js/address.js"></script> --}}
+<script>
+    document.querySelector('input[name="year"]').addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!/^\d{0,4}$/.test(value)) {
+            this.value = value.slice(0, -1);
+        }
+    });
+    document.querySelector('input[name="zip_code"]').addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!/^\d{0,5}$/.test(value)) {
+            this.value = value.slice(0, -1);
+        }
+    });
+</script>
 @include('Partials.footer')

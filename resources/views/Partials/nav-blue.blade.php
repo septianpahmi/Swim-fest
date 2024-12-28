@@ -27,15 +27,6 @@
                 <a href="{{ route('perlombaan') }}"
                     class="block py-2 px-4 text-white hover:text-teal-600 border-b-2 border-white">Perlombaan</a>
             </li>
-            <li>
-                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Berita</a>
-            </li>
-            <li>
-                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Galeri</a>
-            </li>
-            <li>
-                <a href="#" class="block py-2 px-4 text-white hover:text-teal-600">Tentang</a>
-            </li>
             @if (Auth::check())
                 <li>
                     <!-- Logout Button -->

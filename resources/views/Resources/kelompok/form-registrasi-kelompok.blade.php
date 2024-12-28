@@ -30,7 +30,8 @@
                 @csrf
                 <div>
                     <label for="nama" class="block text-sm font-semibold text-gray-800">Nama</label>
-                    <input type="text" placeholder="Taufik Hidayat" id="nama" name="participant_name"
+                    <input type="text" placeholder="Taufik Hidayat" maxlength="60" id="nama"
+                        name="participant_name"
                         class="mt-1 font-semibold p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     @error('partifipant_nama')
@@ -115,19 +116,17 @@
                             <option value="11">11</option>
                             <option value="12">12</option>
                         </select>
-                        <input type="number" id="year" min="1900" name="year" placeholder="Tahun"
+                        <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="Tahun" name="year"
+                            minlength="4" maxlength="4"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            required>
-                        @error('date_of_birth')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                            min="4" required>
                     </div>
                 </div>
 
                 <!-- Alamat -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Alamat</label>
-                    <input type="text" name="address" placeholder="Alamat"
+                    <input type="text" name="address" placeholder="Alamat" maxlength="100"
                         class="mb-2 w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <div class="grid grid-cols-2 gap-2">
@@ -151,7 +150,8 @@
                             <option value="" selected>Pilih Kecamatan</option>
                             <option value=""></option>
                         </select>
-                        <input type="number" name="zip_code" placeholder="Kode POS"
+                        <input type="text" inputmode="numeric" pattern="\d{5}" name="zip_code"
+                            placeholder="Kode POS" maxlength="5"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                     </div>
@@ -166,13 +166,13 @@
                 <!-- Asal Sekolah dan Email -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800">Asal Sekolah</label>
-                    <input type="text" name="school" placeholder="Nama Sekolah"
+                    <input type="text" name="school" placeholder="Nama Sekolah" maxlength="60"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('school')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
-                    <input type="email" name="email" placeholder="example@gmail.com"
+                    <input type="email" name="email" placeholder="example@gmail.com" max="50"
                         class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('email')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -292,6 +292,20 @@
                 }
             })
         })
+    });
+</script>
+<script>
+    document.querySelector('input[name="year"]').addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!/^\d{0,4}$/.test(value)) {
+            this.value = value.slice(0, -1);
+        }
+    });
+    document.querySelector('input[name="zip_code"]').addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!/^\d{0,5}$/.test(value)) {
+            this.value = value.slice(0, -1);
+        }
     });
 </script>
 @include('Partials.footer')

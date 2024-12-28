@@ -84,12 +84,19 @@
                 </div>
 
                 <hr class="border-b-1 border-grey mt-4 mb-4">
-                <form action="{{ route('profile', Auth::id()) }}">
-                    <button
-                        class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
-                        Pertandingan Saya
-                    </button>
-                </form>
+                <div class="flex flex-col flex-row justify-between mt-6 ">
+                    <a href="{{ route('faktur', ['id' => Auth::id(), 'regis' => $registrations->no_registration, 'slug' => $event->eventId->slug]) }}"
+                        type="button" target="_blank"
+                        class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 md:w-full md:mb-4 sm:mb-0 sm:mr-8">
+                        Unduh Bukti Pembayaran
+                    </a>
+                    <form action="{{ route('profile', Auth::id()) }}">
+                        <button
+                            class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
+                            Pertandingan Saya
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 </section>

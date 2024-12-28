@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/detail-perlombaan/{id}/{regis}/{slug}', [PerlombaanController::class, 'detailLomba'])->name('detailLomba');
     Route::get('/detail-perlombaan/checkout/{id}/{regis}/{slug}', [CheckoutController::class, 'checkoutDetailLomba'])->name('detailLomba.checkout');
+    Route::get('/detail-perlombaan/faktur/{id}/{regis}/{slug}', [PerlombaanController::class, 'facturDownload'])->name('faktur');
 });
 
 Route::get('/highlight', [HighlightController::class, 'index'])->name('highlight');

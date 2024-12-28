@@ -30,7 +30,7 @@
                                         </span>
                                         <h3 class="font-bold">Mandiri</h3>
                                     </div>
-                                    <p class="text-sm ml-10">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <p class="text-sm ml-10">Daftarkan diri Anda</p>
                                 </div>
                             </label>
 
@@ -45,7 +45,7 @@
                                         </span>
                                         <h3 class="font-bold">Kelompok</h3>
                                     </div>
-                                    <p class="text-sm ml-12">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <p class="text-sm ml-12">Daftarkan lebih dari satu orang</p>
                                 </div>
                             </label>
                         </div>
@@ -79,7 +79,7 @@
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#023f5b',
             });
-            return false; 
+            return false;
         } else {
             const eventSlug = "{{ $event->eventId->slug }}"; // Pass the slug from Blade to JavaScript
             if (selectedCategory.value === 'mandiri') {
