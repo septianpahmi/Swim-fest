@@ -100,13 +100,11 @@ class ParticipantCategoriesResource extends Resource
                     ->numeric()
 
                     ->sortable(),
-                Tables\Columns\TextColumn::make('categoryEvent.categoryClass.classes.class_name')
+                Tables\Columns\TextColumn::make('classId.class_name')
                     ->label('Kelas')
                     ->searchable()
-                    ->numeric()
-
                     ->sortable(),
-                Tables\Columns\TextColumn::make('categoryEvent.categoryClass.category.category_name')
+                Tables\Columns\TextColumn::make('categories.category_name')
                     ->label('Kategori')
                     ->searchable()
                     ->numeric()
@@ -136,20 +134,19 @@ class ParticipantCategoriesResource extends Resource
                     ->searchable()
                     ->options(Participants::all()->pluck('participant_name', 'id')->toArray()),
 
-                Tables\Filters\SelectFilter::make('categoryEvent.categoryClass.classes.class_name')
-                    ->relationship('categoryEvent.categoryClass.classes', 'class_name')
+                Tables\Filters\SelectFilter::make('classId.class_name')
+                    ->relationship('classId', 'class_name')
                     ->label('Kelas')
                     ->searchable()
                     ->preload()
                     ->options(Classes::all()->pluck('class_name', 'id')->toArray()),
 
-                Tables\Filters\SelectFilter::make('categoryEvent.categoryClass.category.category_name')
-                    ->relationship('categoryEvent.categoryClass.category', 'category_name')
+                Tables\Filters\SelectFilter::make('categories.category_name')
+                    ->relationship('categories', 'category_name')
                     ->label('Kategori')
                     ->searchable()
                     ->preload()
                     ->options(Categories::all()->pluck('category_name', 'id')->toArray()),
-
 
                 Tables\Filters\SelectFilter::make('participantRegistration.registrationId.status')
                     ->relationship('participantRegistration.registrationId', 'status')
