@@ -32,8 +32,10 @@ class participant_categories extends Model
 
     public function classId()
     {
-        return $this->hasMany(Classes::class, 'id');
+        return $this->hasMany(Classes::class, 'id', 'category_event_id');
     }
+
+
     public function categoryId()
     {
         return $this->hasMany(Categories::class, 'id');
@@ -41,5 +43,12 @@ class participant_categories extends Model
     public function categories()
     {
         return $this->hasMany(Categories::class, 'id', 'no_participant');
+    }
+
+
+    //Raihan; untuk mengambil data kelas dari participant
+    public function classParticipant()
+    {
+        return $this->hasMany(Classes::class, 'id', 'category_event_id');
     }
 }
