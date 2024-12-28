@@ -11,6 +11,7 @@ use App\Models\participant_categories;
 use App\Models\ParticipantCategories;
 use App\Models\Participants;
 use App\Models\Registrations;
+use App\Tables\Exports\CustomTableExports;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,6 +19,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as TablesExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ParticipantCategoriesResource extends Resource
 {
@@ -154,10 +159,23 @@ class ParticipantCategoriesResource extends Resource
                         'Success' => 'Success',
                     ]),
             ])
+            ->headerActions([
+                TablesExportAction::make()
+                    ->color('success')
+                    ->label("Export Excel")
+
+                    ->exports([
+                        ExcelExport::make('table')
+                            ->fromTable()
+                            ->withFilename("daftar_peserta_" . date('Y-m-d')),
+                    ]),
+            ])
             ->actions([
+
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
+
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
