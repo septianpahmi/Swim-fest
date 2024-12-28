@@ -128,7 +128,7 @@ class RegistrationsResource extends Resource
                                 ->relationship('participantCategories')
                                 ->schema([
                                     Forms\Components\TextInput::make('category_name')
-                                        ->label('Kategori Renang')
+                                        ->label('Nama Kategori')
                                         ->readOnly()
                                         ->formatStateUsing(fn($state, $record) => $record?->categories?->first()?->category_name ?? ''),
                                 ])
