@@ -27,17 +27,17 @@ class Participant_registrations extends Model
 
     public function participantCategories()
     {
-        return $this->hasMany(Participant_categories::class, 'participant_registration_id');
+        return $this->hasMany(participant_categories::class, 'participant_registration_id');
     }
 
-    // kiki
-    public function participant_categories()
-    {
-        return $this->hasMany(Participant_categories::class, 'participant_registration_id', 'id');
-    }
+    // // kiki
+    // public function participant_categories()
+    // {
+    //     return $this->hasMany(Participant_categories::class, 'participant_registration_id', 'id');
+    // }
 
-    public function participant()
-    {
-        return $this->belongsTo(Participants::class, 'participan_id', 'id');
-    }
+    // public function participant()
+    // {
+    //     return $this->belongsTo(Participants::class, 'participan_id', 'id');
+    // }
 }
