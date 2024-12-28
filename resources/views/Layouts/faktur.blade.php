@@ -117,6 +117,9 @@
                             </td>
                             <td>
                                 Invoice Pembayaran<br />
+                                <strong>{{ $regisData->status == 'Success' ? 'Berhasil' : $regisData->status }}</strong><br />
+                                {{ strtoupper($checkout->payment_method) }}<br />
+                                {{ \Carbon\Carbon::parse($checkout->updated_at)->locale('id')->timezone('Asia/Jakarta')->isoFormat('D MMMM YYYY HH:mm') }}<br />
                             </td>
                         </tr>
                     </table>
