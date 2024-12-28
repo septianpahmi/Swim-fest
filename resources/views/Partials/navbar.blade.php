@@ -38,7 +38,6 @@
             </li>
             @if (Auth::check())
                 <li>
-                    <!-- Logout Button -->
                     <a href="{{ route('profile', Auth::id()) }}"
                         class="block py-2 px-4 text-[#023f5b] border border-[#023f5b] md:rounded-full text-center hover:bg-[#023f5b] hover:text-white md:inline-block md:ml-4">
                         <i class="fas fa-user-circle"></i> Profile

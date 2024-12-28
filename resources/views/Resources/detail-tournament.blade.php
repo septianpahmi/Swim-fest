@@ -67,16 +67,15 @@
                     </span>
                     <ul class="md:ml-24" id="category-list">
                         @foreach ($categoryClass as $index => $cat)
-                            @if ($index < 3)
-                                <li class="category-item">
-                                    {{ $cat->classes->class_name }} : {{ $cat->category->category_name }}
-                                </li>
-                            @endif
+                            <li class="category-item" style="{{ $index >= 3 ? 'display: none;' : '' }}">
+                                {{ $cat->classes->class_name }} : {{ $cat->category->category_name }}
+                            </li>
                         @endforeach
                         @if ($categoryClass->count() > 3)
                             <button id="read-more" class="text-blue-500 hover:underline"
-                                onclick="showAllCategories()">Baca
-                                Selengkapnya</button>
+                                onclick="showAllCategories()">Baca Selengkapnya</button>
+                            <button id="hide-categories" class="text-blue-500 hover:underline" style="display: none;"
+                                onclick="hideAllCategories()">Lebih Sedikit</button>
                         @endif
                     </ul>
                 </div>
@@ -109,18 +108,68 @@
             <div>
                 <h2 class="text-xl font-bold mb-2 text-gray-900">Cara Pendaftaran:</h2>
                 <ol class="list-decimal ml-5 space-y-1 text-gray-800 text-lg">
-                    <li>Kunjungi website resmi Aqua Blaze di <a href="#"
-                            class="text-blue-500 hover:underline">www.aquablazenationalswim.com</a></li>
-                    <li>Klik menu "Daftar Sekarang" dan isi formulir pendaftaran online.</li>
-                    <li>Upload dokumen yang diperlukan, seperti:
+                    <li>Kunjungi situs <a href="www.swimfest.id"
+                            class="text-blue-500 hover:underline">www.swimfest.id</a></li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Akun Website</h2>
+                    <li>Klik menu “Buat Akun” untuk daftar akun swimfest. Bila sudah memiliki akun anda dapat klik
+                        “Login”.</li>
+                    <li>Anda akan masuk ke dalam halaman kompetisi, klik menu “Registrasi”.</li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Tipe Pendaftaran</h2>
+                    <li>Pilih Pendaftaran Mandiri atau Kelompok.
                         <ul class="list-disc ml-6">
-                            <li>Sertifikat kesehatan</li>
-                            <li>Kartu Identitas (KTP/Kartu Pelajar)</li>
-                            <li>Pas foto ukuran 3x4</li>
+                            <li>Pendaftaran Mandiri: Bila Anda ingin mendaftarkan diri Anda.</li>
+                            <li>Pendaftaran Kelompok: Bila Anda ingin mendaftarkan lebih dari 1 orang.</li>
                         </ul>
                     </li>
-                    <li>Pilih kategori lomba dan bayar biaya pendaftaran melalui metode yang tersedia.</li>
-                    <li>Konfirmasi pendaftaran Anda via email maksimal 1x24 jam.</li>
+                    <li>Jika sudah pilih “Selanjutnya”.</li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Data Peserta</h2>
+                    <li>Masukan informasi data diri peserta yang ingin didaftarkan
+                        <ul class="list-disc ml-6">
+                            <li>Nama</li>
+                            <li>Jenis Kelamin</li>
+                            <li>Tanggal Lahir</li>
+                            <li>Alamat</li>
+                            <li>Asal Sekolah</li>
+                            <li>Email Aktif</li>
+                        </ul>
+                    </li>
+                    <li>Pastikan semua informasi yang dimasukan sudah benar, lalu pilih “Selanjutnya”
+                    </li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Lampiran</h2>
+                    <li>Unggah lampiran dokumen pendukung
+                        <ul class="list-disc ml-6">
+                            <li>Akta Kelahiran berupa dokumen pdf atau foto (Max 5 mb).</li>
+                            <li>Rapor Terakhir peserta berupa dokumen pdf atau foto (Max 5 mb).</li>
+                        </ul>
+                    </li>
+                    <li>Pastikan semua informasi yang diunggah telah berhasil, lalu pilih “Selanjutnya”
+                    </li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Kelas & Nomor Pertandingan</h2>
+                    <li>Pilih Kelas dan Nomor Pertandingan yang akan diikuti.
+                        <ul class="list-disc ml-6">
+                            <li>Pilih Kelas peserta saat ini.</li>
+                            <li>Pilih Nomor yang akan diikuti.</li>
+                            <li>Tulis catatan waktu terakhir pada nomor yang dipilih, kosongkan bila tidak ada (tulis
+                                hanya angka).</li>
+                        </ul>
+                    </li>
+                    <li>Pilih “Ayo Tambah Nomor Renang” bila ingin mengikuti lebih dari satu nomor.</li>
+                    <li>Pastikan semua informasi yang dimasukan sudah benar, lalu pilih “Selanjutnya”</li>
+                    <li>Periksa ringkasan dan pastikan sudah sesuai dengan pilihan yang Anda inginkan,
+                        bila belum sesuai
+                        pilih “Kembali” dan bila sudah sesuai pilih “Selanjutnya”.</li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Pembayaran</h2>
+                    <li>Periksa kembali nominal biaya pendaftaran, bila sudah sesuai pilih “Pembayaran”.</li>
+                    <li>Pilih metode pembayaran yang Anda inginkan.</li>
+                    <li>Lakukan pembayaran sesuai instruksi.</li>
+                    <li>Pastikan pembayaran telah berhasil dan Anda akan dibawa ke dalam laman pembayaran
+                        berhasil,
+                        pilih “Unduh Bukti Pembayaran”</li>
+                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Peserta Terdaftar
+                    </h2>
+                    <li>Kembali ke “Beranda” pilih “Profile” disana Anda dapat melihat peserta dan nomor yang telah
+                        berhasil terdaftar.</li>
+                    <li>Registrasi Selesai</li>
                 </ol>
             </div>
             <hr class="md:hidden border border-b-2 mb-4">
@@ -146,4 +195,26 @@
         </div>
     </div>
 </section>
+<script>
+    function showAllCategories() {
+        const hiddenItems = document.querySelectorAll('#category-list .category-item[style="display: none;"]');
+        hiddenItems.forEach(item => {
+            item.style.display = 'list-item';
+        });
+
+        document.getElementById('read-more').style.display = 'none';
+        document.getElementById('hide-categories').style.display = 'inline';
+    }
+
+    function hideAllCategories() {
+        const allItems = document.querySelectorAll('#category-list .category-item');
+        allItems.forEach((item, index) => {
+            if (index >= 3) {
+                item.style.display = 'none';
+            }
+        });
+        document.getElementById('read-more').style.display = 'inline';
+        document.getElementById('hide-categories').style.display = 'none';
+    }
+</script>
 @include('Partials.footer')

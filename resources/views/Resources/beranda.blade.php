@@ -15,18 +15,20 @@
         class="relative container mx-auto flex flex-col-reverse md:flex-row items-center py-24 md:pd-12 md:px-12 h-full">
         <!-- Left Text Content -->
         <div class="hidden md:block text-white w-full md:w-1/2 text-center md:text-left">
-            <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold mb-4 leading-tight">
-                SWIMFEST 2025
+            <h1 class="text-4xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                Tempat lahirnya Juara Masa Depan! Daftar Sekarang!
             </h1>
             <p class="text-base md:text-lg lg:text-xl mb-6 text-justify md:text-justify">
-                Swimfest adalah platform turnamen renang yang dirancang untuk semua kalangan, dari pelajar hingga
-                profesional. Kami percaya setiap perenang memiliki potensi besar yang layak untuk ditampilkan di
-                arena kompetisi.
+                Swimfest hadir untuk mendukung bakat anak Anda melalui kompetisi renang resmi yg profesional. Ciptakan
+                momen tak terlupakan sambil membentuk masa depan cerah bagi juara muda
             </p>
-            <a href="{{ route('signup') }}"
-                class="inline-block bg-[#023f5b] text-white px-6 py-3 rounded-md hover:bg-[#022f44] transition mb-6 md:mb-20">
-                Daftar Sekarang
-            </a>
+            @if (Auth::check())
+            @else
+                <a href="{{ route('signup') }}"
+                    class="inline-block bg-[#023f5b] text-white px-6 py-3 rounded-md hover:bg-[#022f44] transition mb-6 md:mb-20">
+                    Daftar Sekarang
+                </a>
+            @endif
             <!-- Navigation Buttons -->
             <div class="hidden md:block flex justify-center md:justify-start space-x-4 items-center">
                 <button>
@@ -62,18 +64,30 @@
 
         <!-- Text content on the right -->
         <div class="text-[#023f5b] ml-2 md:ml-8 ">
-            <h1 class="text-4xl md:text-4xl font-bold mb-12">SWIMFEST</h1>
+            <h1 class="text-4xl md:text-4xl font-bold mb-12">Tentang Swimfest</h1>
+            <p class="text-lg md:text-xl mb-8 text-justify">
+                Swimfest hadir untuk mendukung anak-anak berbakat dengan memberikan platform kompetisi resmi yang
+                terorganisir secara profesional. Kami percaya bahwa dengan pengalaman yang berbeda, Swimfest dapat
+                menciptakan momen tak terlupakan sambil membentuk masa depan cerah bagi para juara muda.
+            </p>
+            <p class="text-lg md:text-xl mb-6 text-justify">
+                Mengapa Swimfest?
+            </p>
             <p class="text-lg md:text-xl mb-3 text-justify">
-                Swimfest adalah platform turnamen renang yang dirancang untuk
-                semua kalangan, dari pelajar hingga profesional. Kami percaya
-                setiap perenang memiliki potensi besar yang layak untuk
-                ditampilkan di arena kompetisi.
+                🌟 Manajemen Profesional dan Efisien
+            </p>
+            <p class="text-lg md:text-xl mb-3 text-justify">
+                🌱 Inovasi Digital dan Ramah Lingkungan
+            </p>
+            <p class="text-lg md:text-xl mb-3 text-justify">
+                🎥 Pengalaman Visual yang Optimal
+            </p>
+            <p class="text-lg md:text-xl mb-3 text-justify">
+                🏟️ Desain Venue yang Berfokus pada Kenyamanan
             </p>
             <p class="text-lg md:text-xl mb-12 text-justify">
-                Dengan turnamen yang adil dan penuh tantangan, kami memberikan
-                kesempatan bagi setiap atlet untuk mengembangkan kemampuan mereka.
-                Bergabunglah bersama kami dan jadilah bagian dari komunitas yang
-                mendukung perjalananmu menuju prestasi tertinggi!
+                Bersama Swimfest, Jadilah Bagian dari Cerita Luar Biasa!
+                Daftarkan diri Anda dan jadilah saksi lahirnya juara-juara masa depan di panggung Swimfest!
             </p>
             <a href="#" class="text-lg md:text-lg hover:underline mb-20">
                 Baca Selengkapnya >
