@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ParticipantCategoriesResource\Pages;
 use App\Filament\Resources\ParticipantCategoriesResource\RelationManagers;
+use App\Models\Categories;
 use App\Models\Classes;
 use App\Models\Events;
 use App\Models\participant_categories;
 use App\Models\ParticipantCategories;
 use App\Models\Participants;
 use App\Models\Registrations;
+use App\Tables\Exports\CustomTableExports;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,6 +19,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as TablesExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ParticipantCategoriesResource extends Resource
 {
@@ -124,30 +130,52 @@ class ParticipantCategoriesResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('participantRegistration.participantId.participant_name')
+                    ->relationship('participantRegistration.participantId', 'participant_name')
                     ->label('Nama Peserta')
+                    ->preload()
                     ->searchable()
                     ->options(Participants::all()->pluck('participant_name', 'id')->toArray()),
 
                 Tables\Filters\SelectFilter::make('categoryEvent.categoryClass.classes.class_name')
+                    ->relationship('categoryEvent.categoryClass.classes', 'class_name')
                     ->label('Kelas')
+                    ->searchable()
+                    ->preload()
                     ->options(Classes::all()->pluck('class_name', 'id')->toArray()),
 
-                Tables\Filters\SelectFilter::make('categoryEvent.eventId.event_name')
+                Tables\Filters\SelectFilter::make('categoryEvent.categoryClass.category.category_name')
+                    ->relationship('categoryEvent.categoryClass.category', 'category_name')
                     ->label('Kategori')
-                    ->options(Events::all()->pluck('event_name', 'id')->toArray()),
+                    ->searchable()
+                    ->preload()
+                    ->options(Categories::all()->pluck('category_name', 'id')->toArray()),
 
 
                 Tables\Filters\SelectFilter::make('participantRegistration.registrationId.status')
+                    ->relationship('participantRegistration.registrationId', 'status')
                     ->label('Status Bayar')
                     ->options([
                         'Pending' => 'Pending',
                         'Success' => 'Success',
                     ]),
             ])
+            ->headerActions([
+                TablesExportAction::make()
+                    ->color('success')
+                    ->label("Export Excel")
+
+                    ->exports([
+                        ExcelExport::make('table')
+                            ->fromTable()
+                            ->withFilename("daftar_peserta_" . date('Y-m-d')),
+                    ]),
+            ])
             ->actions([
+
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
+
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
