@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ParticipantCategoriesResource\Pages;
 use App\Filament\Resources\ParticipantCategoriesResource\RelationManagers;
+use App\Models\Categories;
 use App\Models\Classes;
 use App\Models\Events;
 use App\Models\participant_categories;
@@ -124,20 +125,29 @@ class ParticipantCategoriesResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('participantRegistration.participantId.participant_name')
+                    ->relationship('participantRegistration.participantId', 'participant_name')
                     ->label('Nama Peserta')
+                    ->preload()
                     ->searchable()
                     ->options(Participants::all()->pluck('participant_name', 'id')->toArray()),
 
                 Tables\Filters\SelectFilter::make('categoryEvent.categoryClass.classes.class_name')
+                    ->relationship('categoryEvent.categoryClass.classes', 'class_name')
                     ->label('Kelas')
+                    ->searchable()
+                    ->preload()
                     ->options(Classes::all()->pluck('class_name', 'id')->toArray()),
 
-                Tables\Filters\SelectFilter::make('categoryEvent.eventId.event_name')
+                Tables\Filters\SelectFilter::make('categoryEvent.categoryClass.category.category_name')
+                    ->relationship('categoryEvent.categoryClass.category', 'category_name')
                     ->label('Kategori')
-                    ->options(Events::all()->pluck('event_name', 'id')->toArray()),
+                    ->searchable()
+                    ->preload()
+                    ->options(Categories::all()->pluck('category_name', 'id')->toArray()),
 
 
                 Tables\Filters\SelectFilter::make('participantRegistration.registrationId.status')
+                    ->relationship('participantRegistration.registrationId', 'status')
                     ->label('Status Bayar')
                     ->options([
                         'Pending' => 'Pending',
