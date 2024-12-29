@@ -96,29 +96,44 @@
                                     </form>
                                 </div>
                                 <table class="table-auto w-full mt-4 text-center border-collapse border-spacing-0">
-                                    <thead class=" top-0 bg-gray-100 z-10">
+                                    <thead class="top-0 bg-gray-100 z-10 text-sm">
                                         <tr>
-                                            <th class="border px-4 py-2 w-1/2">Nomor</th>
-                                            <th class="border px-4 py-2">Bebas</th>
-                                            <th class="border px-4 py-2">Dada</th>
-                                            <th class="border px-4 py-2">Kupu</th>
-                                            <th class="border px-4 py-2">Punggung</th>
-                                            <th class="border px-4 py-2">Kaki Bebas</th>
-                                            <th class="border px-4 py-2">Kaki Dada Papan</th>
-                                            <th class="border px-4 py-2">Kaki Bebas Papan + Fins</th>
-                                            <th class="border px-4 py-2">Bebas + Fins</th>
-                                            <th class="border px-4 py-2">Kupu + Fins</th>
-                                            <th class="border px-4 py-2">Punggung + Fins</th>
+                                            <th class="border px-4 py-2">NOMOR</th>
+                                            <th class="border px-4 py-2">BEBAS</th>
+                                            <th class="border px-4 py-2">DADA</th>
+                                            <th class="border px-4 py-2">KUPU</th>
+                                            <th class="border px-4 py-2">PUNGGUNG</th>
+                                            <th class="border px-4 py-2">KAKI BEBAS</th>
+                                            <th class="border px-4 py-2">KAKI DADA PAPAN</th>
+                                            <th class="border px-4 py-2">KAKI BEBAS PAPAN + FINS</th>
+                                            <th class="border px-4 py-2">BEBAS + FINS</th>
+                                            <th class="border px-4 py-2">KUPU + FINS</th>
+                                            <th class="border px-4 py-2">PUNGGUNG + FINS</th>
+                                        </tr>
+                                    </thead>
+                                    <thead class="top-0 bg-gray-100 z-10 text-sm">
+                                        <tr>
+                                            <th class="border">JARAK</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($categoryClass->groupBy('class_id') as $classGroup)
                                             <tr>
-                                                <td class="border px-4 py-2">
+                                                <td class="border whitespace-nowrap px-4 py-2">
                                                     {{ $classGroup->first()->classes->class_name }}
                                                 </td>
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <td class="border px-4 py-2">
+                                                    <td class="border">
                                                         @if ($classGroup->where('category_id', $i)->first())
                                                             <span class="text-green-600 font-bold">&#10003;</span>
                                                         @else
@@ -130,6 +145,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </dialog>
                     </ul>
@@ -163,21 +179,22 @@
             <div>
                 <h2 class="text-xl font-bold mb-2 text-gray-900">Cara Pendaftaran:</h2>
                 <ol class="list-decimal ml-5 space-y-1 text-gray-800 text-lg">
+                    <h2 class="text-lg font-semibold text-gray-900">Website Swimfest 2025</h2>
                     <li>Kunjungi situs <a href="www.swimfest.id"
-                            class="text-blue-500 hover:underline">www.swimfest.id</a></li>
-                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Akun Website</h2>
+                            class="text-blue-500 hover:underline">www.swimfest.id</a></li><br />
+                    <h2 class="text-lg font-semibold text-gray-900">Akun Website</h2>
                     <li>Klik menu “Buat Akun” untuk daftar akun swimfest. Bila sudah memiliki akun anda dapat klik
                         “Login”.</li>
-                    <li>Anda akan masuk ke dalam halaman kompetisi, klik menu “Registrasi”.</li>
-                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Tipe Pendaftaran</h2>
+                    <li>Anda akan masuk ke dalam halaman kompetisi, klik menu “Registrasi”.</li><br />
+                    <h2 class="text-lg font-semibold text-gray-900 mt-4">Tipe Pendaftaran</h2>
                     <li>Pilih Pendaftaran Mandiri atau Kelompok.
                         <ul class="list-disc ml-6">
                             <li>Pendaftaran Mandiri: Bila Anda ingin mendaftarkan diri Anda.</li>
                             <li>Pendaftaran Kelompok: Bila Anda ingin mendaftarkan lebih dari 1 orang.</li>
                         </ul>
                     </li>
-                    <li>Jika sudah pilih “Selanjutnya”.</li>
-                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Data Peserta</h2>
+                    <li>Jika sudah pilih “Selanjutnya”.</li><br />
+                    <h2 class="text-lg font-semibold text-gray-900">Data Peserta</h2>
                     <li>Masukan informasi data diri peserta yang ingin didaftarkan
                         <ul class="list-disc ml-6">
                             <li>Nama</li>
@@ -189,8 +206,8 @@
                         </ul>
                     </li>
                     <li>Pastikan semua informasi yang dimasukan sudah benar, lalu pilih “Selanjutnya”
-                    </li>
-                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Lampiran</h2>
+                    </li><br />
+                    <h2 class="text-lg font-semibold text-gray-900">Lampiran</h2>
                     <li>Unggah lampiran dokumen pendukung
                         <ul class="list-disc ml-6">
                             <li>Akta Kelahiran berupa dokumen pdf atau foto (Max 5 mb).</li>
@@ -198,7 +215,7 @@
                         </ul>
                     </li>
                     <li>Pastikan semua informasi yang diunggah telah berhasil, lalu pilih “Selanjutnya”
-                    </li>
+                    </li><br />
                     <h2 class="text-lg font-semibold mb-2 text-gray-900">Kelas & Nomor Pertandingan</h2>
                     <li>Pilih Kelas dan Nomor Pertandingan yang akan diikuti.
                         <ul class="list-disc ml-6">
@@ -212,15 +229,16 @@
                     <li>Pastikan semua informasi yang dimasukan sudah benar, lalu pilih “Selanjutnya”</li>
                     <li>Periksa ringkasan dan pastikan sudah sesuai dengan pilihan yang Anda inginkan,
                         bila belum sesuai
-                        pilih “Kembali” dan bila sudah sesuai pilih “Selanjutnya”.</li>
-                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Pembayaran</h2>
+                        pilih “Kembali” dan bila sudah sesuai pilih “Selanjutnya”.</li><br />
+                    <h2 class="text-lg font-semibold text-gray-900">Pembayaran</h2>
                     <li>Periksa kembali nominal biaya pendaftaran, bila sudah sesuai pilih “Pembayaran”.</li>
                     <li>Pilih metode pembayaran yang Anda inginkan.</li>
                     <li>Lakukan pembayaran sesuai instruksi.</li>
-                    <li>Pastikan pembayaran telah berhasil dan Anda akan dibawa ke dalam laman pembayaran
+                    <li>Pastikan pembayaran telah berhasil dan Anda akan dibawa ke dalam laman
+                        pembayaran
                         berhasil,
-                        pilih “Unduh Bukti Pembayaran”</li>
-                    <h2 class="text-lg font-semibold mb-2 text-gray-900">Peserta Terdaftar
+                        pilih “Unduh Bukti Pembayaran”</li><br />
+                    <h2 class="text-lg font-semibold text-gray-900 ">Peserta Terdaftar
                     </h2>
                     <li>Kembali ke “Beranda” pilih “Profile” disana Anda dapat melihat peserta dan nomor yang telah
                         berhasil terdaftar.</li>

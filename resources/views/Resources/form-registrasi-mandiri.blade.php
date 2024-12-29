@@ -109,7 +109,7 @@
                             <option value="11">11</option>
                             <option value="12">12</option>
                         </select>
-                        <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="Tahun" name="year"
+                        <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="2008" name="year"
                             minlength="4" maxlength="4"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             min="4" required>
@@ -119,7 +119,7 @@
                 <!-- Alamat -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Alamat</label>
-                    <input type="text" placeholder="Alamat" name="address"
+                    <input type="text" placeholder="Kp. Rawa Rotan RT. 04/01 Ds. Rawa Rotan" name="address"
                         class="mb-2 w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <div class="grid grid-cols-2 gap-2">
@@ -144,7 +144,7 @@
                             <option value=""></option>
                         </select>
                         <input type="text" inputmode="numeric" pattern="\d{5}" id="zip_code"
-                            placeholder="Kode POS" name="zip_code" maxlength="5"
+                            placeholder="43211" name="zip_code" maxlength="5"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                         @error('zip_code')
@@ -155,12 +155,12 @@
 
                 <!-- Asal Sekolah dan Email -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-800">Asal Sekolah</label>
-                    <input type="text" placeholder="Nama Sekolah" name="school" maxlength="50"
+                    <label class="block text-sm font-semibold text-gray-800">Team (Sekolah/Group/Ekskul)</label>
+                    <input type="text" placeholder="SMA 1 Bandung" name="school" maxlength="50"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
-                    <input type="email" placeholder="example@gmail.com" name="email" maxlength="50"
+                    <input type="email" placeholder="taufikhidayat45@gmail.com" name="email" maxlength="50"
                         class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <hr class="border border-b-0 mb-8">

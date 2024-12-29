@@ -116,7 +116,7 @@
                             <option value="11">11</option>
                             <option value="12">12</option>
                         </select>
-                        <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="Tahun" name="year"
+                        <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="2008" name="year"
                             minlength="4" maxlength="4"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             min="4" required>
@@ -126,7 +126,8 @@
                 <!-- Alamat -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Alamat</label>
-                    <input type="text" name="address" placeholder="Alamat" maxlength="100"
+                    <input type="text" name="address" placeholder="Kp. Rawa Rotan RT. 04/01 Ds. Rawa Rotan"
+                        maxlength="100"
                         class="mb-2 w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <div class="grid grid-cols-2 gap-2">
@@ -151,7 +152,7 @@
                             <option value=""></option>
                         </select>
                         <input type="text" inputmode="numeric" pattern="\d{5}" name="zip_code"
-                            placeholder="Kode POS" maxlength="5"
+                            placeholder="43211" maxlength="5"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                     </div>
@@ -165,14 +166,14 @@
 
                 <!-- Asal Sekolah dan Email -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-800">Asal Sekolah</label>
-                    <input type="text" name="school" placeholder="Nama Sekolah" maxlength="60"
+                    <label class="block text-sm font-semibold text-gray-800">Team (Sekolah/Group/Ekskul)</label>
+                    <input type="text" name="SMA 1 Bandung" placeholder="Nama Sekolah" maxlength="60"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('school')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
-                    <input type="email" name="email" placeholder="example@gmail.com" max="50"
+                    <input type="email" name="email" placeholder="taufikhidayat45@gmail.com" max="50"
                         class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('email')
                         <span class="text-red-500 text-sm">{{ $message }}</span>

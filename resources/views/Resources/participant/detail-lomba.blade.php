@@ -74,29 +74,44 @@
                                     </form>
                                 </div>
                                 <table class="table-auto w-full mt-4 text-center border-collapse border-spacing-0">
-                                    <thead class=" top-0 bg-gray-100 z-10">
+                                    <thead class="top-0 bg-gray-100 z-10 text-sm">
                                         <tr>
-                                            <th class="border px-4 py-2 w-1/2">Nomor</th>
-                                            <th class="border px-4 py-2">Bebas</th>
-                                            <th class="border px-4 py-2">Dada</th>
-                                            <th class="border px-4 py-2">Kupu</th>
-                                            <th class="border px-4 py-2">Punggung</th>
-                                            <th class="border px-4 py-2">Kaki Bebas</th>
-                                            <th class="border px-4 py-2">Kaki Dada Papan</th>
-                                            <th class="border px-4 py-2">Kaki Bebas Papan + Fins</th>
-                                            <th class="border px-4 py-2">Bebas + Fins</th>
-                                            <th class="border px-4 py-2">Kupu + Fins</th>
-                                            <th class="border px-4 py-2">Punggung + Fins</th>
+                                            <th class="border px-4 py-2">NOMOR</th>
+                                            <th class="border px-4 py-2">BEBAS</th>
+                                            <th class="border px-4 py-2">DADA</th>
+                                            <th class="border px-4 py-2">KUPU</th>
+                                            <th class="border px-4 py-2">PUNGGUNG</th>
+                                            <th class="border px-4 py-2">KAKI BEBAS</th>
+                                            <th class="border px-4 py-2">KAKI DADA PAPAN</th>
+                                            <th class="border px-4 py-2">KAKI BEBAS PAPAN + FINS</th>
+                                            <th class="border px-4 py-2">BEBAS + FINS</th>
+                                            <th class="border px-4 py-2">KUPU + FINS</th>
+                                            <th class="border px-4 py-2">PUNGGUNG + FINS</th>
+                                        </tr>
+                                    </thead>
+                                    <thead class="top-0 bg-gray-100 z-10 text-sm">
+                                        <tr>
+                                            <th class="border">JARAK</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
+                                            <th class="border">25 M</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($categoryClass->groupBy('class_id') as $classGroup)
                                             <tr>
-                                                <td class="border px-4 py-2">
+                                                <td class="border whitespace-nowrap px-4 py-2">
                                                     {{ $classGroup->first()->classes->class_name }}
                                                 </td>
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <td class="border px-4 py-2">
+                                                    <td class="border">
                                                         @if ($classGroup->where('category_id', $i)->first())
                                                             <span class="text-green-600 font-bold">&#10003;</span>
                                                         @else
