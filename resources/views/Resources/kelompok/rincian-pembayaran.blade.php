@@ -34,13 +34,14 @@
                         </div>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($price, 0, '.', '.') }} X {{ $kelas }}
+                                {{ number_format($price, 0, '.', '.') }}
                             </p>
                         </div>
                     </div>
                     <div class="flex justify-between mt-3">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ $kelas }} Nomor
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
+                                {{ number_format($price, 0, '.', '.') }} X {{ $kelas }} Nomor
                             </p>
                         </div>
                         <div>

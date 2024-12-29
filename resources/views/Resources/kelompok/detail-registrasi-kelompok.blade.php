@@ -91,7 +91,7 @@
                     <p class="text-sm font-medium text-[#023f5b]">Catatan waktu terakhir</p>
                     @foreach ($record as $rec)
                         <p class="text-gray-500">
-                            {{ $rec->last_record ? $rec->last_record . ' Detik' : 'Belum ada catatan waktu' }}
+                            {{ $rec->last_record ? $rec->last_record . ' ' : 'Belum ada catatan waktu' }}
                         </p>
                     @endforeach
                 </div>

@@ -122,13 +122,16 @@ class RegistrasiMandiriController extends Controller
 
         $validator = Validator::make($request->all(), [
             'no_participant.*' => 'required|string',
-            'last_record.*' => 'nullable|numeric',
             'price.*' => 'nullable|numeric',
+            'minutes.*' => 'nullable|numeric|min:0|max:59',
+            'seconds.*' => 'nullable|numeric|min:0|max:59',
+            'milliseconds.*' => 'nullable|numeric|min:0|max:999',
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+
         $participantData = Session::get('participant_data');
         $participantFile = Session::get('participant_file');
         $dataToSave = array_merge($participantData, $participantFile);
@@ -147,16 +150,17 @@ class RegistrasiMandiriController extends Controller
         ]);
         Session::put('participant_registration_id', $participantRegistration->id);
         $class = $request->category_event_id;
+
         foreach ($request->no_participant as $index => $noParticipant) {
             $noRenang = strtoupper(bin2hex(random_bytes(3)));
-            // $noRenang = strtoupper(bin2hex(random_bytes(6)));
+            $lastRecord = $request->last_record[$index] ?? null;
             participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
-                'category_event_id'         => $class,
+                'category_event_id' => $class,
                 'no_participant' => $noParticipant,
                 'price' => $event->price ?? null,
                 'record' => null,
-                'last_record' => $request->last_record[$index] ?? null,
+                'last_record' => $lastRecord ?? null,
                 'no_renang' => $noRenang,
             ]);
         }

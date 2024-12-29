@@ -1,4 +1,5 @@
 @include('Partials.header')
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
 @include('Partials.nav-blue')
 <section class="relative bg-color-white">
     <div class="relative container mx-auto items-center px-6 md:px-12 md:px-20 h-full z-10">

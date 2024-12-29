@@ -20,12 +20,13 @@
                         <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($price, 0, '.', '.') }} X {{ $kelas }}
+                                {{ number_format($price, 0, '.', '.') }}
                             </p>
                         </div>
                     </div>
                     <div class="flex justify-between">
-                        <p class="rounded-lg text-sm text-gray-500 ">{{ $kelas }} Nomor</p>
+                        <p class="rounded-lg text-sm text-gray-500 ">Rp.
+                            {{ number_format($price, 0, '.', '.') }} X {{ $kelas }} Nomor</p>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
                                 {{ number_format($total, 0, '.', '.') }}

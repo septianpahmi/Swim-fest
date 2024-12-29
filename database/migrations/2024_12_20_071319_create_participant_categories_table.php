@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('no_participant');
             $table->integer('price')->nullable();
             $table->integer('record')->nullable();
-            $table->integer('last_record')->nullable();
+            $table->string('last_record')->nullable();
             $table->string('no_renang')->nullable();
             $table->timestamps();
             $table->foreign('participant_registration_id')->references('id')->on('participant_registrations')->onDelete('cascade');

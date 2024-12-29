@@ -167,7 +167,7 @@
                 <!-- Asal Sekolah dan Email -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-800">Team (Sekolah/Group/Ekskul)</label>
-                    <input type="text" name="SMA 1 Bandung" placeholder="Nama Sekolah" maxlength="60"
+                    <input type="text" name="school" placeholder="SMA 1 Bandung" maxlength="60"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('school')
                         <span class="text-red-500 text-sm">{{ $message }}</span>

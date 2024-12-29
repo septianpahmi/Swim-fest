@@ -56,8 +56,30 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-[#023f5b] mb-2">Catatan Waktu Terakhir
                                     (Opsional)</label>
-                                <input type="text" id="waktu" name="last_record[]" placeholder="Detik"
-                                    class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-grow">
+                                        <label for="minutes"
+                                            class="block mb-1 text-sm font-medium text-[#023f5b]">Menit</label>
+                                        <input id="minutes" name="minutes" maxlength="2" value="00"
+                                            type="number" min="0" max="59"
+                                            class="border rounded-md p-2 w-full text-center" placeholder="MM" />
+                                    </div>
+                                    <div class="flex-grow">
+                                        <label for="seconds"
+                                            class="block mb-1 text-sm font-medium text-[#023f5b]">Detik</label>
+                                        <input id="seconds" name="seconds" maxlength="2" value="00"
+                                            type="number" min="0" max="59"
+                                            class="border rounded-md p-2 w-full text-center" placeholder="SS" />
+                                    </div>
+                                    <div class="flex-grow">
+                                        <label for="milliseconds"
+                                            class="block mb-1 text-sm font-medium text-[#023f5b]">Milidetik</label>
+                                        <input id="milliseconds" name="milliseconds" maxlength="3" value="000"
+                                            type="number" min="0" max="999"
+                                            class="border rounded-md p-2 w-full text-center" placeholder="MS" />
+                                    </div>
+                                </div>
+                                <input type="hidden" id="last_record" name="last_record[]" />
                             </div>
                             <hr class="border border-b-0 my-6">
                         </div>
@@ -86,53 +108,89 @@
 </section>
 
 <script>
-    document.getElementById('add-swim-number').addEventListener('click', function(event) {
-        event.preventDefault();
+    document.addEventListener("DOMContentLoaded", function() {
+        const formContainer = document.getElementById("form-container");
+        const formTemplate = document.querySelector(".form-template");
 
-        const formContainer = document.getElementById('form-container');
-        const formTemplate = document.querySelector('.form-template');
+        function updateLastRecord(form) {
+            const minutesInput = form.querySelector('input[name="minutes"]');
+            const secondsInput = form.querySelector('input[name="seconds"]');
+            const millisecondsInput = form.querySelector('input[name="milliseconds"]');
+            const lastRecordInput = form.querySelector('input[name="last_record[]"]');
 
-        const newForm = formTemplate.cloneNode(true);
+            function calculateLastRecord() {
+                let minutes = (minutesInput.value || "0").padStart(2, "0");
+                let seconds = (secondsInput.value || "0").padStart(2, "0");
+                let milliseconds = (millisecondsInput.value || "0").padStart(3, "0");
 
-        const classLabel = newForm.querySelector('label[id="kelas"]');
-        if (classLabel) classLabel.remove();
-        const classSelect = newForm.querySelector('select[id="kelas"]');
-        if (classSelect) classSelect.remove();
-
-        newForm.querySelectorAll('input, select').forEach(input => {
-            if (input.tagName === 'SELECT') {
-                input.selectedIndex = 0;
-            } else {
-                input.value = '';
-            }
-        });
-
-        const selectedNomors = Array.from(formContainer.querySelectorAll('select[name="no_participant[]"]'))
-            .map(select => select.value);
-
-        const selectNomor = newForm.querySelector('select[name="no_participant[]"]');
-        if (selectNomor) {
-            selectNomor.querySelectorAll('option').forEach(option => {
-                if (selectedNomors.includes(option.value)) {
-                    option.setAttribute('hidden', 'hidden');
+                if (parseInt(seconds) > 59) {
+                    seconds = "59";
+                    secondsInput.value = seconds;
                 }
-            });
+                if (parseInt(milliseconds) > 999) {
+                    milliseconds = "999";
+                    millisecondsInput.value = milliseconds;
+                }
+
+                lastRecordInput.value = `${minutes}:${seconds}:${milliseconds}`;
+                console.log(`Updated: ${lastRecordInput.value}`);
+            }
+
+            minutesInput.addEventListener("input", calculateLastRecord);
+            secondsInput.addEventListener("input", calculateLastRecord);
+            millisecondsInput.addEventListener("input", calculateLastRecord);
         }
 
-        const removeButton = document.createElement('button');
-        removeButton.type = 'button';
-        removeButton.innerHTML = '<i class="fas fa-trash"></i>';
-        removeButton.classList.add('remove-form', 'absolute', 'top-[-20px]', 'right-0', 'px-6', 'py-2',
-            'text-red-400', 'hover:text-red-500');
+        document.getElementById('add-swim-number').addEventListener('click', function(event) {
+            event.preventDefault();
 
-        removeButton.addEventListener('click', function() {
-            newForm.remove();
+            const newForm = formTemplate.cloneNode(true);
+
+            const classLabel = newForm.querySelector('label[id="kelas"]');
+            if (classLabel) classLabel.remove();
+            const classSelect = newForm.querySelector('select[id="kelas"]');
+            if (classSelect) classSelect.remove();
+
+            newForm.querySelectorAll('input, select').forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            const selectedNomors = Array.from(formContainer.querySelectorAll(
+                    'select[name="no_participant[]"]'))
+                .map(select => select.value);
+
+            const selectNomor = newForm.querySelector('select[name="no_participant[]"]');
+            if (selectNomor) {
+                selectNomor.querySelectorAll('option').forEach(option => {
+                    if (selectedNomors.includes(option.value)) {
+                        option.setAttribute('hidden', 'hidden');
+                    }
+                });
+            }
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+            removeButton.classList.add('remove-form', 'absolute', 'top-[-20px]', 'right-0', 'px-6',
+                'py-2',
+                'text-red-400', 'hover:text-red-500');
+
+            removeButton.addEventListener('click', function() {
+                newForm.remove();
+            });
+
+            newForm.style.position = 'relative';
+            newForm.appendChild(removeButton);
+
+            formContainer.appendChild(newForm);
+            updateLastRecord(newForm);
         });
 
-        newForm.style.position = 'relative';
-        newForm.appendChild(removeButton);
-
-        formContainer.appendChild(newForm);
+        updateLastRecord(formTemplate);
     });
 </script>
 

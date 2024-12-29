@@ -154,7 +154,9 @@ class RegistrasiKelompokController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
         $validator = Validator::make($request->all(), [
             'no_participant.*' => 'required|numeric',
-            'last_record.*' => 'nullable|numeric',
+            'minutes.*' => 'nullable|numeric|min:0|max:59',
+            'seconds.*' => 'nullable|numeric|min:0|max:59',
+            'milliseconds.*' => 'nullable|numeric|min:0|max:999',
             'price.*' => 'nullable|numeric',
         ]);
         if ($validator->fails()) {
@@ -183,13 +185,14 @@ class RegistrasiKelompokController extends Controller
         $class = $request->category_event_id;
         foreach ($request->no_participant as $index => $noParticipant) {
             $noRenang = strtoupper(bin2hex(random_bytes(3)));
+            $lastRecord = $request->last_record[$index] ?? null;
             $participanCetgory = Participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
                 'category_event_id' => $class,
                 'no_participant' => $noParticipant,
                 'price' => $event->price ?? null,
                 'record' => null,
-                'last_record' => $request->last_record[$index] ?? null,
+                'last_record' => $lastRecord ?? null,
                 'no_renang' => $noRenang,
             ]);
         }
