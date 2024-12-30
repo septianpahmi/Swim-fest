@@ -29,16 +29,16 @@
                     </div>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ $nomor }} Peserta
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ number_format($price, 0, '.', '.') }} X {{ $nomor }} Peserta
                             </p>
                         </div>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($price, 0, '.', '.') }}
+                                {{ number_format($total, 0, '.', '.') }}
                             </p>
                         </div>
                     </div>
-                    <div class="flex justify-between mt-3">
+                    {{-- <div class="flex justify-between mt-3">
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
                                 {{ number_format($price, 0, '.', '.') }} X {{ $kelas }} Nomor
@@ -49,7 +49,7 @@
                                 {{ number_format($total, 0, '.', '.') }}
                             </p>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div>
                     <div class="flex justify-between">

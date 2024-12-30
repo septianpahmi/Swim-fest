@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::post('/registrasi-kategori/getCategory', [RegistrasiKategoriController::class, 'getCategories'])->name('getCategory');
 
     Route::get('/registrasi-kategori/kelompok/{slug}', [RegistrasiKategoriController::class, 'kelompok'])->name('kelompok');
+    Route::get('/registrasi-kategori/kelompok/add-participant/{slug}', [RegistrasiKategoriController::class, 'addKelompok'])->name('addKelompok');
     Route::get('/registrasi-kategori/edit-peserta/{id}/{slug}', [RegistrasiKategoriController::class, 'editKelompok'])->name('editKelompok');
     Route::post('/registrasi-kategori/kelomok/post/{slug}', [RegistrasiKelompokController::class, 'post'])->name('kelompok.post');
     Route::post('/registrasi-kategori/edit-peserta/post/{id}/{slug}', [RegistrasiKelompokController::class, 'editPesertaPost'])->name('editPeserta.post');

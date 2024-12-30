@@ -25,17 +25,19 @@
                             </span>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <button url="{{ route('editKelompok', [$pesertas->id, $event->eventId->slug]) }}"
+                            <button
+                                url="{{ route('editKelompok', ['id' => $pesertas->id, 'slug' => $event->eventId->slug]) }}"
                                 data-id="{{ $pesertas->id }}" type="button"
                                 class="text-[#023f5b] hover:text-blue-800 status">
                                 <i class="fas fa-pencil"></i>
                             </button>
 
-                            <a href="{{ route('kelompok.remove', [$pesertas->id, $event->eventId->slug]) }}"
+                            <button
+                                url="{{ route('kelompok.remove', ['id' => $pesertas->id, 'slug' => $event->eventId->slug]) }}"
                                 type="button" data-id="{{ $pesertas->id }}"
                                 class="text-red-400 hover:text-red-600 delete">
                                 <i class="fas fa-trash"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 @endforeach
@@ -49,7 +51,7 @@
                         <img src="image/icon/icon-tambah-peserta.png" alt="">
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('kelompok', $event->eventId->slug) }}" type="button"
+                        <a href="{{ route('addKelompok', $event->eventId->slug) }}" type="button"
                             class="text-[#023f5b] text-lg font-bold"><i class="fas fa-user-plus"></i> Tambah Nomor
                             Peserta</a>
                     </div>

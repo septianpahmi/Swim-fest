@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Events;
 use App\Models\Classes;
 use App\Models\Payments;
+use App\Models\Province;
 use App\Models\Categories;
 use App\Models\Participants;
 use Illuminate\Http\Request;
@@ -22,6 +23,14 @@ use Illuminate\Support\Facades\Validator;
 
 class RegistrasiKelompokController extends Controller
 {
+    public function editKelompok($id, $slug)
+    {
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $participant = Participants::find($id);
+        $provinsi = Province::orderBy('name', 'asc')->get();
+        return view('Resources.kelompok.form-editregistrasi-kelompok', compact('provinsi', 'participant', 'event'));
+    }
     public function post(Request $request, $slug)
     {
         $event = Events::where('slug', $slug)->first();
@@ -329,17 +338,17 @@ class RegistrasiKelompokController extends Controller
 
     public function remove($id, $slug)
     {
-        $event = Events::where('slug', $slug)->first();
-        if (!$event) {
+        $eventId = Events::where('slug', $slug)->first();
+        if (!$eventId) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
-        $categoryEvent = Category_events::where('event_id', $event->id)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
 
-        if (!$categoryEvent) {
+        if (!$event) {
             return redirect()->back()->with('error', 'Kategori event tidak ditemukan.');
         }
         $participant = Participants::find($id);
         $participant->delete();
-        return redirect()->route('kelompok.listdetail', ['slug' => $categoryEvent])->with('success', 'Peserta berhasil dihapus.');
+        return redirect()->route('kelompok.listdetail', ['slug' => $eventId->slug])->with('success', 'Peserta berhasil dihapus.');
     }
 }

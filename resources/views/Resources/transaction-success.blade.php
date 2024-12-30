@@ -38,15 +38,13 @@
                     <div class="flex justify-between">
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.
-                                {{ number_format($payment->sub_total, 0, '.', '.') }}</p>
+                                {{ number_format($payment->sub_total, 0, '.', '.') }} X {{ $nomor }} Nomor</p>
                         </div>
                         <div>
                             <p class="w-full rounded-lg text-sm text-gray-400 ">
                                 Rp. {{ number_format($payment->fee, 0, '.', '.') }}</p>
                         </div>
                     </div>
-                    <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.
-                        {{ number_format($payment->sub_total, 0, '.', '.') }} X {{ $nomor }} Nomor</p>
                 </div>
 
                 <!-- Form Fields -->

@@ -43,18 +43,25 @@ class RegistrasiKategoriController extends Controller
     }
     public function kelompok($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
-        // $userRegistered = Registrations::where('event_id', $eventId)
-        //     ->where('user_id', Auth::user()->id)->where('type', 'Kelompok')
-        //     ->exists();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $userRegistered = Registrations::where('event_id', $eventId->id)
+            ->where('user_id', Auth::user()->id)->where('type', 'Kelompok')->where('status', 'Draft')
+            ->exists();
 
-        // if ($userRegistered) {
-        //     return redirect()->back()
-        //         ->with('error', 'You have already registered for this event.');
-        // }
+        if ($userRegistered) {
+            return redirect()->route('kelompok.listdetail', ['slug' => $eventId->slug])
+                ->with('error', 'Anda masih memiliki registrasi yang belum terselesaikan, silahka lanjutkan.');
+        }
         $provinsi = Province::orderBy('name', 'asc')->get();
         return view('Resources.kelompok.form-registrasi-kelompok', compact('provinsi', 'event'));
+    }
+    public function addKelompok($slug)
+    {
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $provinsi = Province::orderBy('name', 'asc')->get();
+        return view('Resources.kelompok.form-addregistrasi-kelompok', compact('provinsi', 'event'));
     }
     public function editKelompok($id, $slug)
     {

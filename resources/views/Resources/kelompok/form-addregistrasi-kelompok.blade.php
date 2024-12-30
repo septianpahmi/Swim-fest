@@ -10,22 +10,28 @@
         <div class="relative max-w-4xl mx-auto bg-white rounded-2xl shadow-lg py-8 px-8">
             <!-- Header Form -->
             <div class="w-full mb-8">
-                <h3 class="text-2xl font-bold text-[#023f5b] mb-2">
-                    Edit Peserta Kelompok
-                </h3>
+                <div class="flex justify-between">
+                    <h3 class="text-lg font-bold text-[#023f5b] mb-2">
+                        Pendaftaran Kelompok
+                    </h3>
+                    <h3 class="text-lg text-[#023f5b] font-bold mb-4">2/6</h3>
+                </div>
+                <div class="mb-10">
+                    @include('Partials.progress-bar-kelompok')
+                </div>
             </div>
             <hr class="border border-b-0 mb-8">
             <h3 class="text-2xl font-semibold text-[#023f5b] mb-6">
                 Informasi Pribadi
             </h3>
             <!-- Form Section -->
-            <form action="{{ route('editPeserta.post', [$participant->id, $event->eventId->slug]) }}" method="POST"
-                class="space-y-6" enctype="multipart/form-data">
+            <form action="{{ route('kelompok.post', $event->eventId->slug) }}" method="POST" class="space-y-6"
+                enctype="multipart/form-data">
                 @csrf
                 <div>
-                    <label for="nama" maxlength="60" class="block text-sm font-semibold text-gray-800">Nama</label>
-                    <input type="text" placeholder="Taufik Hidayat" id="nama"
-                        value="{{ $participant->participant_name }}" name="participant_name"
+                    <label for="nama" class="block text-sm font-semibold text-gray-800">Nama</label>
+                    <input type="text" placeholder="Taufik Hidayat" maxlength="60" id="nama"
+                        name="participant_name"
                         class="mt-1 font-semibold p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     @error('partifipant_nama')
@@ -37,17 +43,14 @@
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Jenis Kelamin</label>
                     <div class="flex flex-row space-x-4">
-                        <div class="basis-1/2 flex items-center border  border-gray-300 rounded-lg p-3">
+                        <div class="basis-1/2 flex items-center border border-gray-300 rounded-lg p-3">
                             <input type="radio" id="laki-laki" value="l" name="gender"
-                                value="{{ $participant->school }}"
-                                class="h-4 w-4 text-blue-600  rounded-full focus:ring-blue-500"
-                                {{ old('gender', $participant->gender) == 'l' ? 'checked' : '' }}>
+                                class="h-4 w-4 text-blue-600  rounded-full focus:ring-blue-500">
                             <label for="laki-laki" class="ml-2 text-sm text-gray-800">Laki-Laki</label>
                         </div>
                         <div class="basis-1/2 flex items-center border border-gray-300 rounded-lg p-3">
                             <input type="radio" id="perempuan" value="p" name="gender"
-                                class="h-4 w-4 text-blue-600 rounded-full focus:ring-blue-500"
-                                {{ old('gender', $participant->gender) == 'p' ? 'checked' : '' }}>
+                                class="h-4 w-4 text-blue-600 rounded-full focus:ring-blue-500">
                             <label for="perempuan" class="ml-2 text-sm text-gray-800">Perempuan</label>
                         </div>
                         @error('gender')
@@ -61,38 +64,62 @@
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Tanggal Lahir</label>
                     <div class="grid grid-cols-3 gap-4">
                         <select name="date"
-                            class="border border-gray-300  p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
-                            <option value=""
-                                {{ old('date', substr($participant->date_of_birth, 0, 2)) == '' ? 'selected' : '' }}>
-                                Pilih Tanggal</option>
-                            @for ($i = 1; $i <= 31; $i++)
-                                <option value="{{ $i }}"
-                                    {{ old('date', substr($participant->date_of_birth, 0, 2)) == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                                    {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
-                                </option>
-                            @endfor
+                            <option value="" selected>Pilih Tanggal</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
                         </select>
                         <select name="month"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
-                            <option value=""
-                                {{ old('month', substr($participant->date_of_birth, 5, 2)) == '' ? 'selected' : '' }}>
-                                Pilih Bulan</option>
-                            @for ($i = 1; $i <= 12; $i++)
-                                <option value="{{ $i }}"
-                                    {{ old('date', substr($participant->date_of_birth, 5, 2)) == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                                    {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
-                                </option>
-                            @endfor
+                            <option value="" selected>Pilih Bulan</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                         </select>
                         <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="2008" name="year"
-                            minlength="4" maxlength="4" value="{{ substr($participant->date_of_birth, 0, 4) }}"
+                            minlength="4" maxlength="4"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             min="4" required>
-                        @error('date_of_birth')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
                     </div>
                 </div>
 
@@ -100,7 +127,7 @@
                 <div>
                     <label class="block text-sm font-semibold text-gray-800 mb-1">Alamat</label>
                     <input type="text" name="address" placeholder="Kp. Rawa Rotan RT. 04/01 Ds. Rawa Rotan"
-                        maxlength="100" value="{{ $participant->address }}"
+                        maxlength="100"
                         class="mb-2 w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                     <div class="grid grid-cols-2 gap-2">
@@ -109,30 +136,23 @@
                             required>
                             <option value="" selected>Pilih Provinsi</option>
                             @foreach ($provinsi as $prov)
-                                <option value="{{ $prov->name }}"
-                                    {{ old('province', $participant->province) == $prov->name ? 'selected' : '' }}>
-                                    {{ $prov->name }}</option>
+                                <option value="{{ $prov->name }}">{{ $prov->name }}</option>
                             @endforeach
                         </select>
                         <select id="city" name="city"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                             <option value="" selected>Pilih Kabupaten/ Kota</option>
-                            <option
-                                value=""{{ old('city', $participant->city) == $participant->city ? 'selected' : '' }}>
-                                {{ $participant->city }}</option>
+                            <option value=""></option>
                         </select>
                         <select id="district" name="district"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                             <option value="" selected>Pilih Kecamatan</option>
-                            <option value=""
-                                {{ old('district', $participant->district) == $participant->district ? 'selected' : '' }}>
-                                {{ $participant->district }}
-                            </option>
+                            <option value=""></option>
                         </select>
-                        <input type="text" inputmode="numeric" pattern="\d{5}" name="zip_code" placeholder="43211"
-                            maxlength="5" value="{{ $participant->zip_code }}"
+                        <input type="text" inputmode="numeric" pattern="\d{5}" name="zip_code"
+                            placeholder="43211" maxlength="5"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                     </div>
@@ -148,14 +168,12 @@
                 <div>
                     <label class="block text-sm font-semibold text-gray-800">Team (Sekolah/Group/Ekskul)</label>
                     <input type="text" name="school" placeholder="SMA 1 Bandung" maxlength="60"
-                        value="{{ $participant->school }}"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('school')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     <label class="block text-sm font-semibold text-gray-800">Email</label>
-                    <input type="email" name="email" placeholder="taufikhidayat45@gmail.com" maxlength="50"
-                        value="{{ $participant->email }}"
+                    <input type="email" name="email" placeholder="taufikhidayat45@gmail.com" max="50"
                         class="mt-1 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('email')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -173,8 +191,7 @@
                             <i class="fas fa-paperclip mr-2"></i>
                             <span class="font-semibold">Akta Kelahiran</span>
                         </label>
-                        <p id="file-name-1" class="text-gray-400 text-sm ml-5"> Max size 5MB
-                        </p>
+                        <p id="file-name-1" class="text-gray-400 text-sm ml-5">Max size 5MB</p>
                         <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-1" name="file_akte"
                             class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(1)">
                         @error('file_akte')
@@ -186,11 +203,10 @@
                         class="mt-1 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <label for="file-input-2" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                             <i class="fas fa-paperclip mr-2"></i>
-                            <span class="font-semibold">Upload Raport</span>
+                            <span class="font-semibold">Upload Raport Terakhir</span>
                         </label>
-                        <p id="file-name-2" class="text-gray-400 text-sm ml-5">
-                            Max size 5MB
-                        </p>
+                        <p id="file-name-2" class="text-gray-400 text-sm ml-5">Max size 5MB</p>
+
                         <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-2" name="file_raport"
                             class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(2)">
                         @error('file_raport')
