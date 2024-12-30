@@ -12,7 +12,7 @@ class ProfilController extends Controller
 {
     public function index($id)
     {
-        $data = Registrations::where('user_id', $id)->get();
+        $data = Registrations::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         $user = User::where('id', $id)->first();
         return view('Resources.profil.pertandingan', compact('data', 'user'));
     }

@@ -20,10 +20,12 @@
                     Registrasi
                 </button>
             </a>
-            <button
-                class="w-full border border-[#023f5b] text-[#023f5b] font-medium py-3 rounded-md hover:bg-[#023f5b] hover:text-white transition">
-                <i class="fas fa-square-phone"></i> Kontak
-            </button>
+            <form action="https://wa.me/6281214251551" target="_blank" method="get">
+                <button
+                    class="w-full border border-[#023f5b] text-[#023f5b] font-medium py-3 rounded-md hover:bg-[#023f5b] hover:text-white transition">
+                    <i class="fas fa-square-phone"></i> Kontak
+                </button>
+            </form>
         </div>
         <hr class="md:hidden border border-b-2 mb-4">
         <div class="w-full lg:w-2/3 space-y-6">

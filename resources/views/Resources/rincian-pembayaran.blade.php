@@ -16,14 +16,7 @@
             <hr class="border-b-1 border-grey mb-4">
             <div class="space-y-4">
                 <div>
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
-                        <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($price, 0, '.', '.') }}
-                            </p>
-                        </div>
-                    </div>
+                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
                     <div class="flex justify-between">
                         <p class="rounded-lg text-sm text-gray-500 ">Rp.
                             {{ number_format($price, 0, '.', '.') }} X {{ $kelas }} Nomor</p>

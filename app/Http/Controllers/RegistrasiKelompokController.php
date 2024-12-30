@@ -165,7 +165,7 @@ class RegistrasiKelompokController extends Controller
         $participantData = Session::get('form_kelompok', []);
         $participant = Participants::create($participantData);
         $extitingRegister = Registrations::where('user_id', Auth::id())
-            ->where('event_id', $event->id)->where('type', 'Kelompok')
+            ->where('event_id', $eventId->id)->where('type', 'Kelompok')->whereIn('status', ['Pending', 'Draft'])
             ->first();
         if ($extitingRegister) {
             $registration = $extitingRegister;
@@ -175,7 +175,7 @@ class RegistrasiKelompokController extends Controller
                 'event_id' => $eventId->id,
                 'no_registration' => strtoupper(bin2hex(random_bytes(5))),
                 'type' => 'Kelompok',
-                'status' => 'Pending',
+                'status' => 'Draft',
             ]);
         }
         $participantRegistration = Participant_registrations::create([
@@ -258,7 +258,7 @@ class RegistrasiKelompokController extends Controller
         if (!$event) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
-        $regist = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->where('status', 'Pending')->first();
+        $regist = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->whereIn('status', ['Pending', 'Draft'])->first();
         $participanRegist = Participant_registrations::where('registration_id', $regist->id)->pluck('participan_id')->toArray();
         $peserta = Participants::whereIn('id', $participanRegist)->get();
         return view('Resources.kelompok.register-list', compact('event', 'peserta'));
@@ -272,7 +272,9 @@ class RegistrasiKelompokController extends Controller
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
         $user = Auth::user();
-        $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->where('status', 'Pending')->first();
+        $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->whereIn('status', ['Draft', 'Pending'])->first();
+        $registrasi->status = "Pending";
+        $registrasi->save();
         $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
         $peserta = Participants::whereIn('id', $participanRegistration->pluck('participan_id'))->get();
 

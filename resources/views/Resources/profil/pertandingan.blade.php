@@ -37,7 +37,7 @@
                             <div class="flex items-center mb-3 space-x-4 ml-3">
                                 <img src="/image//Flyer Swimfest 1.png" alt=""
                                     class="w-16 object-cover rounded-lg">
-                                <div>
+                                <div class="flex-grow">
                                     <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
                                         class="text-2xl font-semibold hover:underline w-full">{{ $event->eventIds->event_name }}</a>
                                     <div class="flex items-center space-x-2 mt-1">
@@ -46,16 +46,27 @@
                                             {{ Carbon\Carbon::parse($event->eventIds->start_date)->format('d M Y') . ' - ' . Carbon\Carbon::parse($event->eventIds->end_date)->format('d M Y') }}
                                         </p>
                                     </div>
-                                    <div class="flex items-center space-x-2 mt-1">
-                                        <i class="fas fa-hashtag"></i>
-                                        <p class="text-sm text-gray-600">
-                                            {{ $event->no_registration }} | {{ $event->type }}
-                                        </p>
+                                    <div class="flex items-center space-x-2 mt-1 gap-2">
+                                        <div class="flex items-center gap-1 text-sm text-gray-600">
+                                            <i class="fas fa-hashtag"></i>
+                                            <p>{{ $event->no_registration }}</p>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-sm text-gray-600 mr-auto">
+                                            <i
+                                                class="{{ $event->type == 'Mandiri' ? 'fas fa-user' : ($event->type == 'Kelompok' ? 'fas fa-users' : 'fas fa-question-circle') }}"></i>
+                                            <p>{{ $event->type }}</p>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-sm text-gray-600">
+                                            <span class="inline-block w-3 h-3 rounded-full"
+                                                style="background-color: {{ $event->status == 'Success' ? 'green' : ($event->status == 'Pending' ? 'orange' : 'gray') }}">
+                                            </span>
+                                            <p>{{ $event->status }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="ml-auto">
                                     <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
-                                        class="text-black text-xl font-semibold ml-12">&gt;</a>
+                                        class="text-black text-xl font-semibold">&gt;</a>
                                 </div>
                             </div>
                         @endforeach
@@ -83,21 +94,18 @@
             tab.addEventListener('click', function(e) {
                 let targetId = tab.id.replace('Tab', 'Content');
 
-                // Hide all content divs
                 contents.forEach(function(content) {
                     content.classList.add('hidden');
                 });
 
-                // Remove active class from all tabs
+
                 tabs.forEach(function(tab) {
                     tab.classList.remove('text-[#023f5b]', 'bg-gray-300');
                     tab.classList.add('text-gray-800');
                 });
 
-                // Show the target content
                 document.getElementById(targetId).classList.remove('hidden');
 
-                // Add active class to the clicked tab
                 tab.classList.add('text-[#023f5b]', 'bg-gray-300');
                 tab.classList.remove('text-gray-800');
             });
