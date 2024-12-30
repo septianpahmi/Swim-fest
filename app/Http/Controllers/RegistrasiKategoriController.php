@@ -75,8 +75,10 @@ class RegistrasiKategoriController extends Controller
             return redirect()->back()->with('error', 'Kategori event tidak ditemukan.');
         }
         $provinsi = Province::all();
+        $cities = Regency::all();
+        $districts = District::all();
         $participant = Participants::find($id);
-        return view('Resources.kelompok.form-editPeserta', ['provinsi' => $provinsi, 'event' => $event, 'participant' => $participant]);
+        return view('Resources.kelompok.form-editPeserta', ['provinsi' => $provinsi, 'event' => $event, 'participant' => $participant, 'cities' => $cities, 'districts' => $districts]);
     }
     public function getKabupaten(Request $request)
     {

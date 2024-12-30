@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\participant_categories;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Participant_registrations;
 use Illuminate\Support\Facades\Validator;
 
@@ -107,8 +108,8 @@ class RegistrasiKelompokController extends Controller
             'district' => 'required|string|max:30',
             'zip_code' => 'required|string|max:5',
             'school' => 'required|string|max:60',
-            'file_raport' => 'required|mimes:pdf,jpg,jpeg|max:5120',
-            'file_akte' => 'required|mimes:pdf,jpg,jpeg|max:5120',
+            'file_raport' => 'nullable|mimes:pdf,jpg,jpeg|max:5120',
+            'file_akte' => 'nullable|mimes:pdf,jpg,jpeg|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -117,13 +118,17 @@ class RegistrasiKelompokController extends Controller
         $year = $request->year;
         $day = $request->date;
         $month = $request->month;
-
-        $raportPath = $request->file('file_raport')->store('kelompok/raports', 'public');
-        $aktePath = $request->file('file_akte')->store('kelompok/akte', 'public');
-
         $participant = Participants::find($id);
         if (!$participant) {
             return redirect()->back()->with('error', 'Participant not found.');
+        }
+        if ($request->hasFile('file_raport')) {
+            $raportPath = $request->file('file_raport')->store('kelompok/raports', 'public');
+            $participant->file_raport = $raportPath;
+        }
+        if ($request->hasFile('file_akte')) {
+            $aktePath = $request->file('file_akte')->store('kelompok/akte', 'public');
+            $participant->file_akte =  $aktePath;
         }
         $participant->user_id = Auth::user()->id;
         $participant->participant_name = $request->participant_name;
@@ -136,8 +141,6 @@ class RegistrasiKelompokController extends Controller
         $participant->zip_code = $request->zip_code;
         $participant->school = $request->school;
         $participant->email = $request->email;
-        $participant->file_raport = $raportPath;
-        $participant->file_akte = $aktePath;
         $participant->save();
         return redirect()->route('kelompok.detail', ['slug' => $event->slug]);
     }

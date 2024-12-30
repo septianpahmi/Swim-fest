@@ -118,18 +118,23 @@
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                             <option value="" selected>Pilih Kabupaten/ Kota</option>
-                            <option
-                                value=""{{ old('city', $participant->city) == $participant->city ? 'selected' : '' }}>
-                                {{ $participant->city }}</option>
+                            @foreach ($cities as $city)
+                                <option value="{{ $city->name }}"
+                                    {{ old('city', $participant->city) == $city->name ? 'selected' : '' }}>
+                                    {{ $city->name }}
+                                </option>
+                            @endforeach
                         </select>
                         <select id="district" name="district"
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                             <option value="" selected>Pilih Kecamatan</option>
-                            <option value=""
-                                {{ old('district', $participant->district) == $participant->district ? 'selected' : '' }}>
-                                {{ $participant->district }}
-                            </option>
+                            @foreach ($districts as $district)
+                                <option value="{{ $district->name }}"
+                                    {{ old('district', $participant->district) == $district->name ? 'selected' : '' }}>
+                                    {{ $district->name }}
+                                </option>
+                            @endforeach
                         </select>
                         <input type="text" inputmode="numeric" pattern="\d{5}" name="zip_code" placeholder="43211"
                             maxlength="5" value="{{ $participant->zip_code }}"
@@ -168,14 +173,22 @@
                     <div
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
 
-                        <!-- Label untuk file input -->
                         <label for="file-input-1" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                             <i class="fas fa-paperclip mr-2"></i>
                             <span class="font-semibold">Akta Kelahiran</span>
                         </label>
-                        <p id="file-name-1" class="text-gray-400 text-sm ml-5"> Max size 5MB
+                        <p id="file-name-1" class="text-gray-400 text-sm ml-5">
+                            @if ($participant->file_akte)
+                                <a href="{{ Storage::url($participant->file_akte) }}" target="_blank"
+                                    class="text-gray-400">
+                                    {{ basename($participant->file_akte) }}
+                                </a>
+                            @else
+                                Max size 5MB
+                            @endif
                         </p>
-                        <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-1" name="file_akte"
+                        <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-1"
+                            value="{{ old('file_akte', '') }}" name="file_akte"
                             class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(1)">
                         @error('file_akte')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -186,12 +199,20 @@
                         class="mt-1 block w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <label for="file-input-2" class="flex items-center space-x-2 text-[#023f5b] cursor-pointer">
                             <i class="fas fa-paperclip mr-2"></i>
-                            <span class="font-semibold">Upload Raport</span>
+                            <span class="font-semibold">Upload Raport Terakhir</span>
                         </label>
                         <p id="file-name-2" class="text-gray-400 text-sm ml-5">
-                            Max size 5MB
+                            @if ($participant->file_raport)
+                                <a href="{{ Storage::url($participant->file_raport) }}" target="_blank"
+                                    class="text-gray-400">
+                                    {{ basename($participant->file_raport) }}
+                                </a>
+                            @else
+                                Max size 5MB
+                            @endif
                         </p>
-                        <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-2" name="file_raport"
+                        <input type="file" accept=".pdf, .jpg, .jpeg" id="file-input-2"
+                            value="{{ old('file_raport', '') }}" name="file_raport"
                             class="mt-1 hidden border-none p-0 opacity-0 cursor-pointer" onchange="updateFileName(2)">
                         @error('file_raport')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
