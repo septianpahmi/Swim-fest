@@ -93,7 +93,6 @@ class ParticipantCategoriesResource extends Resource
                                     ->label('Tim (Sekolah/Club/Private/Ekskul)'),
                                 Forms\Components\TextInput::make('email')
                                     ->required()
-                                    ->unique(ignoreRecord: true)
                                     ->label('Email'),
                             ])
                             ->columns(2),
@@ -156,9 +155,16 @@ class ParticipantCategoriesResource extends Resource
                         Forms\Components\TextInput::make('no_renang')
                             ->label('No Renang')
                             ->required(),
+                        Forms\Components\TextInput::make('record')
+                            ->label('Rekor')
+                            ->formatStateUsing(function ($state) {
+                                return $state ?? "00:00:000";
+                            }),
                         Forms\Components\TextInput::make('last_record')
-                            ->label('Rekor Terakhir'),
-
+                            ->label('Rekor Terakhir')
+                            ->formatStateUsing(function ($state) {
+                                return $state ?? "00:00:000";
+                            }),
                         Forms\Components\TextInput::make('price')
                             ->label('Harga')
                             ->required(),
@@ -226,8 +232,16 @@ class ParticipantCategoriesResource extends Resource
                     ->label('No Renang')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('record')
+                    ->sortable()
+                    ->label('Rekor')
+                    ->searchable()
+                    ->formatStateUsing(function ($state) {
+                        return $state ?? '-';
+                    }),
                 Tables\Columns\TextColumn::make('last_record')
                     ->label('Rekor Terakhir')
+                    ->sortable()
                     ->searchable()
                     ->formatStateUsing(function ($state) {
                         return $state ?? '-';
