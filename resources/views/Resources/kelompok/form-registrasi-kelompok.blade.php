@@ -103,18 +103,18 @@
                             class="border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                             <option value="" selected>Pilih Bulan</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                            <option value="01">Januari</option>
+                            <option value="02">Februari</option>
+                            <option value="03">Maret</option>
+                            <option value="04">April</option>
+                            <option value="05">Mei</option>
+                            <option value="06">Juni</option>
+                            <option value="07">Juli</option>
+                            <option value="08">Agustus</option>
+                            <option value="09">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
                         </select>
                         <input type="text" inputmode="numeric" pattern="\d{4}" placeholder="2008" name="year"
                             minlength="4" maxlength="4"
@@ -166,7 +166,7 @@
 
                 <!-- Asal Sekolah dan Email -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-800">Team (Sekolah/Group/Ekskul)</label>
+                    <label class="block text-sm font-semibold text-gray-800">Tim (Sekolah/Club/Private/Ekskul)</label>
                     <input type="text" name="school" placeholder="SMA 1 Bandung" maxlength="60"
                         class="mt-1 mb-3 block w-full border border-gray-300 p-3 font-semibold rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     @error('school')
