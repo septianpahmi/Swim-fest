@@ -266,7 +266,7 @@ class ParticipantCategoriesResource extends Resource
                     ->color(fn(string $state): string => match ($state) {
                         'Pending' => 'warning',
                         'Success' => 'success',
-                        'Draft' => 'secondary',
+                        'Draft' => 'gray',
                     })
                     ->sortable(),
 
