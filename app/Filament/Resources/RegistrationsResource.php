@@ -171,6 +171,7 @@ class RegistrationsResource extends Resource
                     ->color(fn(string $state): string => match ($state) {
                         'Pending' => 'warning',
                         'Success' => 'success',
+                        'Draft' => 'secondary',
                     })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -192,6 +193,7 @@ class RegistrationsResource extends Resource
                     ->options([
                         'Success' => 'Success',
                         'Pending' => 'Pending',
+                        'Draft' => 'Draft'
                     ]),
             ])
             ->actions([

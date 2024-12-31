@@ -6,23 +6,29 @@ use App\Filament\Resources\ParticipantCategoriesResource\Pages;
 use App\Filament\Resources\ParticipantCategoriesResource\RelationManagers;
 use App\Models\Categories;
 use App\Models\Classes;
+use App\Models\District;
 use App\Models\Events;
 use App\Models\participant_categories;
 use App\Models\ParticipantCategories;
 use App\Models\Participants;
+use App\Models\Province;
+use App\Models\Regency;
 use App\Models\Registrations;
 use App\Tables\Exports\CustomTableExports;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Hamcrest\Collection\IsEmptyTraversable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as TablesExportAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Columns\Column;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ParticipantCategoriesResource extends Resource
@@ -123,6 +129,7 @@ class ParticipantCategoriesResource extends Resource
                     ->suffix(fn($record) => match ($record->participantRegistration?->registrationId?->status) {
                         'Pending' => '⏳',
                         'Success' => '✅',
+                        'Draft' => '📝',
                         default => '❔',
                     }),
             ]);
@@ -191,13 +198,20 @@ class ParticipantCategoriesResource extends Resource
                     ->label('Rekor Terakhir')
                     ->searchable()
                     ->formatStateUsing(function ($state) {
-                        return "$state Detik";
+                        return $state ?? '-';
                     })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Waktu Pendaftaran')
                     ->date('d/m/Y H:i:s')
                     ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->label('Harga')
+                    ->searchable()
+                    ->formatStateUsing(function ($state) {
+                        return 'Rp. ' . number_format($state, 0, ',', '.');
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('participantRegistration.registrationId.status')
                     ->label('Status Bayar')
@@ -206,8 +220,10 @@ class ParticipantCategoriesResource extends Resource
                     ->color(fn(string $state): string => match ($state) {
                         'Pending' => 'warning',
                         'Success' => 'success',
+                        'Draft' => 'secondary',
                     })
                     ->sortable(),
+
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('participantRegistration.participantId.participant_name')
@@ -244,6 +260,42 @@ class ParticipantCategoriesResource extends Resource
                             });
                         }
                     }),
+                Tables\Filters\SelectFilter::make('participantRegistration.participantId.province')
+                    ->query(function (Builder $query, array $data) {
+                        if ($data['value']) {
+                            $query->whereHas('participantRegistration.participantId', function (Builder $subQuery) use ($data) {
+                                $subQuery->where('province', $data['value']);
+                            });
+                        }
+                    })
+                    ->label('Provinsi')
+                    ->searchable()
+                    ->preload()
+                    ->options(Province::all()->pluck('name', 'name')->toArray()),
+                Tables\Filters\SelectFilter::make('participantRegistration.participantId.city')
+                    ->query(function (Builder $query, array $data) {
+                        if ($data['value']) {
+                            $query->whereHas('participantRegistration.participantId', function (Builder $subQuery) use ($data) {
+                                $subQuery->where('city', $data['value']);
+                            });
+                        }
+                    })
+                    ->label('Kota')
+                    ->searchable()
+                    ->preload()
+                    ->options(Regency::all()->pluck('name', 'name')->toArray()),
+                Tables\Filters\SelectFilter::make('participantRegistration.participantId.district')
+                    ->query(function (Builder $query, array $data) {
+                        if ($data['value']) {
+                            $query->whereHas('participantRegistration.participantId', function (Builder $subQuery) use ($data) {
+                                $subQuery->where('district', $data['value']);
+                            });
+                        }
+                    })
+                    ->label('Kecamatan')
+                    ->searchable()
+                    ->preload()
+                    ->options(District::all()->pluck('name', 'name')->toArray()),
             ])
             ->headerActions([
                 TablesExportAction::make()
@@ -251,8 +303,13 @@ class ParticipantCategoriesResource extends Resource
                     ->label("Export Excel")
 
                     ->exports([
-                        ExcelExport::make('table')
-                            ->fromTable()
+                        ExcelExport::make()
+
+                            ->fromTable()->ignoreFormatting([
+                                'price',
+                                'created_at'
+                            ])
+
                             ->withFilename("daftar_peserta_" . date('Y-m-d')),
                     ]),
             ])
