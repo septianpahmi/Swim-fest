@@ -1,5 +1,4 @@
 @include('Partials.header')
-<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
 @include('Partials.nav-blue')
 <section class="bg-white text-gray-800 p-6">
     <div class="hidden md:block flex top-6 px-12 py-6 mb-6">
@@ -292,4 +291,5 @@
         document.getElementById('hide-categories').style.display = 'none';
     }
 </script>
+
 @include('Partials.footer')

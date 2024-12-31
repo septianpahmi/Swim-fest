@@ -21,16 +21,26 @@ class RegistrasiKategoriController extends Controller
 {
     public function index($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $maintenanceMode = true;
+
+        if ($maintenanceMode) {
+            return redirect()->route('detail.lomba', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        }
         $pageTitle = 'Registrasi';
         return view('Resources.registrasi', compact('event', 'pageTitle'));
     }
 
     public function mandiri($slug)
     {
-        $eventId = Events::where('slug', $slug)->select('id');
-        $event = Category_events::where('event_id', $eventId)->first();
+        $eventId = Events::where('slug', $slug)->first();
+        $event = Category_events::where('event_id', $eventId->id)->first();
+        $maintenanceMode = true;
+
+        if ($maintenanceMode) {
+            return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        }
         // $userRegistered = Registrations::where('event_id', $eventId)
         //     ->where('user_id', Auth::user()->id)->where('type', 'Mandiri')
         //     ->exists();
@@ -45,8 +55,14 @@ class RegistrasiKategoriController extends Controller
     }
     public function kelompok($slug)
     {
+
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
+        $maintenanceMode = true;
+
+        if ($maintenanceMode) {
+            return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        }
         $userRegistered = Registrations::where('event_id', $eventId->id)
             ->where('user_id', Auth::user()->id)->where('type', 'Kelompok')->where('status', 'Draft')
             ->exists();
