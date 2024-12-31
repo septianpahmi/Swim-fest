@@ -30,7 +30,8 @@ class RegistrasiKelompokController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
         $participant = Participants::find($id);
         $provinsi = Province::orderBy('name', 'asc')->get();
-        return view('Resources.kelompok.form-editregistrasi-kelompok', compact('provinsi', 'participant', 'event'));
+        $pageTitle = 'Edit Partisipan';
+        return view('Resources.kelompok.form-editregistrasi-kelompok', compact('provinsi', 'participant', 'event', 'pageTitle'));
     }
     public function post(Request $request, $slug)
     {
@@ -150,8 +151,9 @@ class RegistrasiKelompokController extends Controller
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
         $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
-        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');;
-        return view('Resources.kelompok.pilih-kelas', compact('event', 'kelas', 'category'));
+        $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');
+        $pageTitle = 'Pilih Kelas';
+        return view('Resources.kelompok.pilih-kelas', compact('event', 'kelas', 'category', 'pageTitle'));
     }
     // public function newKelas($slug)
     // {
@@ -257,7 +259,8 @@ class RegistrasiKelompokController extends Controller
         $kelas = Classes::whereIn('id', $kelasEvent)->get();
 
         $record = Participant_categories::where('participant_registration_id',  $registration->id)->get();
-        return view('Resources.kelompok.detail-registrasi-kelompok', compact('event', 'reg', 'category', 'record', 'kelas'));
+        $pageTitle = 'Partisipan Detail';
+        return view('Resources.kelompok.detail-registrasi-kelompok', compact('event', 'reg', 'category', 'record', 'kelas', 'pageTitle'));
     }
 
     public function listDetail($slug)
@@ -273,7 +276,8 @@ class RegistrasiKelompokController extends Controller
         $regist = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->whereIn('status', ['Pending', 'Draft'])->first();
         $participanRegist = Participant_registrations::where('registration_id', $regist->id)->pluck('participan_id')->toArray();
         $peserta = Participants::whereIn('id', $participanRegist)->get();
-        return view('Resources.kelompok.register-list', compact('event', 'peserta'));
+        $pageTitle = 'Registrasi Detail';
+        return view('Resources.kelompok.register-list', compact('event', 'peserta', 'pageTitle'));
     }
     public function checkoutProccess(Request $request, $slug)
     {
@@ -336,7 +340,8 @@ class RegistrasiKelompokController extends Controller
             $checkout->save();
         }
         Session::put('checkout', $checkout);
-        return view('Resources.kelompok.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand'));
+        $pageTitle = 'Checkout Prosses';
+        return view('Resources.kelompok.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand', 'pageTitle'));
     }
 
     public function remove($id, $slug)

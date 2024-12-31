@@ -12,11 +12,11 @@
 
     <!-- Content Container -->
     <div
-        class="relative container mx-auto flex flex-col-reverse md:flex-row items-center py-24 md:pd-12 md:px-12 h-full">
+        class="relative container mx-auto items-center flex flex-col-reverse md:flex-row items-center py-24 md:pd-12 md:px-12 h-full">
         <!-- Left Text Content -->
         <div class="hidden md:block text-white w-full md:w-1/2 text-center md:text-left">
-            <h1 class="text-5xl md:text-5xl lg:text-5xl font-bold mb-4 leading-tight">
-                Swimfest 2025
+            <h1 class="text-6xl md:text-6xl lg:text-6xl font-bold mb-4 leading-tight">
+                SWIMFEST 2025
             </h1>
             <p class="text-base md:text-lg lg:text-xl mb-6 text-justify md:text-justify">
                 <span class="font-bold">Tempat lahirnya Juara Masa Depan! Daftar Sekarang!</span><br />
@@ -46,7 +46,7 @@
         <!-- Images -->
         <div class="w-full md:w-1/2 flex justify-center space-x-4 ml-auto md:float-end -mr-35">
             <!-- Poster 1 -->
-            <img src="/image/Flyer Swimfest 1.png" alt="Poster 1" class=" md:w-[80%] rounded-lg shadow-lg">
+            <img src="/image/Flyer Swimfest 2025.png" alt="Poster 1" class=" md:w-[80%] rounded-lg shadow-lg">
         </div>
     </div>
 </section>

@@ -14,7 +14,8 @@ class ProfilController extends Controller
     {
         $data = Registrations::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         $user = User::where('id', $id)->first();
-        return view('Resources.profil.pertandingan', compact('data', 'user'));
+        $pageTitle = 'Profile';
+        return view('Resources.profil.pertandingan', compact('data', 'user', 'pageTitle'));
     }
 
     public function resetPassword(Request $request, $id)

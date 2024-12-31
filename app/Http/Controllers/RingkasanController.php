@@ -29,7 +29,8 @@ class RingkasanController extends Controller
         $category = Categories::whereIn('id', $participantCategory)->get();
         $kelasEvent = Participant_categories::where('participant_registration_id',  $registrasions->id)->pluck('category_event_id')->toArray();
         $kelas = Classes::whereIn('id', $kelasEvent)->get();
-        return view('Resources.ringkasan-mandiri', compact('event', 'category', 'kelas'));
+        $pageTitle = 'Ringkasan';
+        return view('Resources.ringkasan-mandiri', compact('event', 'category', 'kelas', 'pageTitle'));
     }
 
     public function RingkasanPembayaranMandiri($slug)
@@ -79,7 +80,8 @@ class RingkasanController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $checkout->reff_id = $snapToken;
         $checkout->save();
-        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'nomor', 'price', 'total', 'grand'));
+        $pageTitle = 'Checkout Prosses';
+        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'nomor', 'price', 'total', 'grand', 'pageTitle'));
     }
 
     // public function processCheckout(Request $request, $slug)

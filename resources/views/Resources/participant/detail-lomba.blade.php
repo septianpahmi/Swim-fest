@@ -12,7 +12,7 @@
         <div class="rounded-lg">
             <!-- Image -->
             <div class="mb-6">
-                <img src="/image/Flyer Swimfest 1.png" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
+                <img src="/image/Flyer Swimfest 2025.png" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
             </div>
         </div>
         <hr class="md:hidden border border-b-2 mb-4">

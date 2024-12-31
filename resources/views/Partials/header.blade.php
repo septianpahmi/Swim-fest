@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Beranda</title>
+    <title>{{ env('APP_NAME', 'Default App') }} - {{ $pageTitle ?? 'Default Page' }}</title>
+    <link rel="shortcut icon" href="/image/logo/swimfest-primary-logo-11.png" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.css">

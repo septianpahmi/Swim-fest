@@ -11,6 +11,7 @@ class BerandaController extends Controller
     public function index()
     {
         $event = Category_events::where('id', 1)->get();
-        return view('Resources.beranda', compact('event'));
+        $pageTitle = 'Beranda';
+        return view('Resources.beranda', compact('event', 'pageTitle'));
     }
 }

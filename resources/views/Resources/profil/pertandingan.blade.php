@@ -36,7 +36,7 @@
                         @else
                             @foreach ($data as $event)
                                 <div class="flex items-center mb-3 space-x-4 ml-3">
-                                    <img src="/image//Flyer Swimfest 1.png" alt=""
+                                    <img src="Flyer Swimfest 2025.png" alt=""
                                         class="w-16 object-cover rounded-lg">
                                     <div class="flex-grow">
                                         <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"

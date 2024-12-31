@@ -22,7 +22,8 @@ class RegistrasiMandiriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
-        return view('Resources.file-registrasi-mandiri', compact('event'));
+        $pageTitle = 'Pilih File';
+        return view('Resources.file-registrasi-mandiri', compact('event', 'pageTitle'));
     }
     public function post(Request $request, $slug)
     {
@@ -109,7 +110,8 @@ class RegistrasiMandiriController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
         $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
         $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');
-        return view('Resources.pilih-kelas', compact('event', 'kelas', 'category'));
+        $pageTitle = 'Pilih Kelas';
+        return view('Resources.pilih-kelas', compact('event', 'kelas', 'category', 'pageTitle'));
     }
 
     public function postKelasMandiri(Request $request, $slug)
@@ -225,6 +227,7 @@ class RegistrasiMandiriController extends Controller
             $checkout->save();
         }
         Session::put('checkout', $checkout);
-        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand'));
+        $pageTitle = 'Checkout Prosses';
+        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand', 'pageTitle'));
     }
 }

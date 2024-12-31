@@ -59,7 +59,8 @@ class CheckoutController extends Controller
         $payment = Payments::find($id);
         $payment->payment_method = $paymentMethod;
         $payment->save();
-        return view('Resources.transaction-success', compact('event', 'admin', 'registrations', 'payment', 'nomor'));
+        $pageTitle = 'Checkout';
+        return view('Resources.transaction-success', compact('event', 'admin', 'registrations', 'payment', 'nomor', 'pageTitle'));
     }
     public function successTransactionMandiri(Request $request, $id, $slug)
     {
@@ -84,7 +85,8 @@ class CheckoutController extends Controller
         $payment = Payments::find($id);
         $payment->payment_method = $paymentMethod;
         $payment->save();
-        return view('Resources.transaction-success', compact('event', 'registrations', 'payment', 'admin', 'nomor'));
+        $pageTitle = 'Checkout';
+        return view('Resources.transaction-success', compact('event', 'registrations', 'payment', 'admin', 'nomor', 'pageTitle'));
     }
     public function checkoutDetailLomba(Request $request, $id, $regis, $slug)
     {

@@ -23,7 +23,8 @@ class RegistrasiKategoriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->select('id');
         $event = Category_events::where('event_id', $eventId)->first();
-        return view('Resources.registrasi', compact('event'));
+        $pageTitle = 'Registrasi';
+        return view('Resources.registrasi', compact('event', 'pageTitle'));
     }
 
     public function mandiri($slug)
@@ -39,7 +40,8 @@ class RegistrasiKategoriController extends Controller
         //         ->with('error', 'You have already registered for this event.');
         // }
         $provinsi = Province::orderBy('name', 'asc')->get();
-        return view('Resources.form-registrasi-mandiri', compact('event', 'provinsi'));
+        $pageTitle = 'Registrasi Mandiri';
+        return view('Resources.form-registrasi-mandiri', compact('event', 'provinsi', 'pageTitle'));
     }
     public function kelompok($slug)
     {
@@ -54,14 +56,16 @@ class RegistrasiKategoriController extends Controller
                 ->with('error', 'Anda masih memiliki registrasi yang belum terselesaikan, silahka lanjutkan.');
         }
         $provinsi = Province::orderBy('name', 'asc')->get();
-        return view('Resources.kelompok.form-registrasi-kelompok', compact('provinsi', 'event'));
+        $pageTitle = 'Registrasi Kelompok';
+        return view('Resources.kelompok.form-registrasi-kelompok', compact('provinsi', 'event', 'pageTitle'));
     }
     public function addKelompok($slug)
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
         $provinsi = Province::orderBy('name', 'asc')->get();
-        return view('Resources.kelompok.form-addregistrasi-kelompok', compact('provinsi', 'event'));
+        $pageTitle = 'Tambah Partisipan';
+        return view('Resources.kelompok.form-addregistrasi-kelompok', compact('provinsi', 'event', 'pageTitle'));
     }
     public function editKelompok($id, $slug)
     {
@@ -78,7 +82,8 @@ class RegistrasiKategoriController extends Controller
         $cities = Regency::all();
         $districts = District::all();
         $participant = Participants::find($id);
-        return view('Resources.kelompok.form-editPeserta', ['provinsi' => $provinsi, 'event' => $event, 'participant' => $participant, 'cities' => $cities, 'districts' => $districts]);
+        $pageTitle = 'Edit Partisipan';
+        return view('Resources.kelompok.form-editPeserta', ['provinsi' => $provinsi, 'event' => $event, 'participant' => $participant, 'cities' => $cities, 'districts' => $districts, 'pageTitle' => $pageTitle]);
     }
     public function getKabupaten(Request $request)
     {

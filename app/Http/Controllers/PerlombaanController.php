@@ -24,7 +24,8 @@ class PerlombaanController extends Controller
         $eventId = Events::where('id', 1)->first();
         $categoryEvent = Category_events::where('event_id', $eventId->id)->pluck('category_class_id')->toArray();
         $categoryClass = Category_classes::whereIn('id', $categoryEvent)->get();
-        return view('Resources.tournament', compact('event', 'categoryClass'));
+        $pageTitle = 'Perlombaan';
+        return view('Resources.tournament', compact('event', 'categoryClass', 'pageTitle'));
     }
 
     public function detail($slug)
@@ -33,7 +34,8 @@ class PerlombaanController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
         $categoryEvent = Category_events::where('event_id', $eventId->id)->pluck('category_class_id')->toArray();
         $categoryClass = Category_classes::whereIn('id', $categoryEvent)->get();
-        return view('Resources.detail-tournament', compact('event', 'categoryClass'));
+        $pageTitle = 'Detail Perlombaan';
+        return view('Resources.detail-tournament', compact('event', 'categoryClass', 'pageTitle'));
     }
 
     public function detailLomba($id, $regis, $slug)
