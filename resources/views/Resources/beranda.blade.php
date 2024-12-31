@@ -15,10 +15,11 @@
         class="relative container mx-auto flex flex-col-reverse md:flex-row items-center py-24 md:pd-12 md:px-12 h-full">
         <!-- Left Text Content -->
         <div class="hidden md:block text-white w-full md:w-1/2 text-center md:text-left">
-            <h1 class="text-4xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                Tempat lahirnya Juara Masa Depan! Daftar Sekarang!
+            <h1 class="text-5xl md:text-5xl lg:text-5xl font-bold mb-4 leading-tight">
+                Swimfest 2025
             </h1>
             <p class="text-base md:text-lg lg:text-xl mb-6 text-justify md:text-justify">
+                <span class="font-bold">Tempat lahirnya Juara Masa Depan! Daftar Sekarang!</span><br />
                 Swimfest hadir untuk mendukung bakat anak Anda melalui kompetisi renang resmi yg profesional. Ciptakan
                 momen tak terlupakan sambil membentuk masa depan cerah bagi juara muda
             </p>

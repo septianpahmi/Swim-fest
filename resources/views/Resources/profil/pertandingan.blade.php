@@ -30,47 +30,49 @@
             <div class="w-full">
                 <div id="settingContent" class="tab-content w-full block mt-8">
                     <h4 class="text-lg font-bold text-gray-600 mb-6">Pertandingan </h4>
-                    @if ($data->isEmpty())
-                        <p class="text-sm text-gray-600 mt-4">Belum ada pertandingan terdaftar.</p>
-                    @else
-                        @foreach ($data as $event)
-                            <div class="flex items-center mb-3 space-x-4 ml-3">
-                                <img src="/image//Flyer Swimfest 1.png" alt=""
-                                    class="w-16 object-cover rounded-lg">
-                                <div class="flex-grow">
-                                    <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
-                                        class="text-2xl font-semibold hover:underline w-full">{{ $event->eventIds->event_name }}</a>
-                                    <div class="flex items-center space-x-2 mt-1">
-                                        <i class="fas fa-calendar-days"></i>
-                                        <p class="text-sm text-gray-600">
-                                            {{ Carbon\Carbon::parse($event->eventIds->start_date)->format('d M Y') . ' - ' . Carbon\Carbon::parse($event->eventIds->end_date)->format('d M Y') }}
-                                        </p>
+                    <div class="overflow-y-auto max-h-96  p-4">
+                        @if ($data->isEmpty())
+                            <p class="text-sm text-gray-600 mt-4">Belum ada pertandingan terdaftar.</p>
+                        @else
+                            @foreach ($data as $event)
+                                <div class="flex items-center mb-3 space-x-4 ml-3">
+                                    <img src="/image//Flyer Swimfest 1.png" alt=""
+                                        class="w-16 object-cover rounded-lg">
+                                    <div class="flex-grow">
+                                        <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
+                                            class="text-2xl font-semibold hover:underline w-full">{{ $event->eventIds->event_name }}</a>
+                                        <div class="flex items-center space-x-2 mt-1">
+                                            <i class="fas fa-calendar-days"></i>
+                                            <p class="text-sm text-gray-600">
+                                                {{ Carbon\Carbon::parse($event->eventIds->start_date)->format('d M Y') . ' - ' . Carbon\Carbon::parse($event->eventIds->end_date)->format('d M Y') }}
+                                            </p>
+                                        </div>
+                                        <div class="flex items-center space-x-2 mt-1 gap-2">
+                                            <div class="flex items-center gap-1 text-sm text-gray-600">
+                                                <i class="fas fa-hashtag"></i>
+                                                <p>{{ $event->no_registration }}</p>
+                                            </div>
+                                            <div class="flex items-center gap-1 text-sm text-gray-600 mr-auto">
+                                                <i
+                                                    class="{{ $event->type == 'Mandiri' ? 'fas fa-user' : ($event->type == 'Kelompok' ? 'fas fa-users' : 'fas fa-question-circle') }}"></i>
+                                                <p>{{ $event->type }}</p>
+                                            </div>
+                                            <div class="flex items-center gap-1 text-sm text-gray-600">
+                                                <span class="inline-block w-3 h-3 rounded-full"
+                                                    style="background-color: {{ $event->status == 'Success' ? 'green' : ($event->status == 'Pending' ? 'orange' : 'gray') }}">
+                                                </span>
+                                                <p>{{ $event->status }}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center space-x-2 mt-1 gap-2">
-                                        <div class="flex items-center gap-1 text-sm text-gray-600">
-                                            <i class="fas fa-hashtag"></i>
-                                            <p>{{ $event->no_registration }}</p>
-                                        </div>
-                                        <div class="flex items-center gap-1 text-sm text-gray-600 mr-auto">
-                                            <i
-                                                class="{{ $event->type == 'Mandiri' ? 'fas fa-user' : ($event->type == 'Kelompok' ? 'fas fa-users' : 'fas fa-question-circle') }}"></i>
-                                            <p>{{ $event->type }}</p>
-                                        </div>
-                                        <div class="flex items-center gap-1 text-sm text-gray-600">
-                                            <span class="inline-block w-3 h-3 rounded-full"
-                                                style="background-color: {{ $event->status == 'Success' ? 'green' : ($event->status == 'Pending' ? 'orange' : 'gray') }}">
-                                            </span>
-                                            <p>{{ $event->status }}</p>
-                                        </div>
+                                    <div class="ml-auto">
+                                        <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
+                                            class="text-black text-xl font-semibold">&gt;</a>
                                     </div>
                                 </div>
-                                <div class="ml-auto">
-                                    <a href="{{ route('detailLomba', ['id' => $user, 'regis' => $event->no_registration, 'slug' => $event->eventIds->slug]) }}"
-                                        class="text-black text-xl font-semibold">&gt;</a>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div id="homeContent" class="tab-content w-full hidden mt-8">
                     <h4 class="text-lg font-bold text-gray-600 mb-6">Profil </h4>

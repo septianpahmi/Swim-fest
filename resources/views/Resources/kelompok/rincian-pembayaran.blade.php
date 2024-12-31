@@ -29,7 +29,8 @@
                     </div>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ number_format($price, 0, '.', '.') }} X {{ $nomor }} Peserta
+                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ number_format($price, 0, '.', '.') }}
+                                X {{ $nomor }} Peserta
                             </p>
                         </div>
                         <div>
@@ -113,6 +114,10 @@
 {{-- <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script> --}}
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function() {
+        // if (!snapToken) {
+        //     console.error("Snap Token is not defined!");
+        //     return;
+        // }
         snap.pay('{{ $checkout['reff_id'] }}', {
             onSuccess: function(result) {
                 var paymentMethod = result.payment_type;
