@@ -55,83 +55,114 @@ class ParticipantCategoriesResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('participant_name')
-                    ->label('Nama Peserta')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->participant_name ?? 'N/A'),
-                Forms\Components\TextInput::make('date_of_birth')
-                    ->label('Tanggal Lahir')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->date_of_birth ? (new \DateTime($record->participantRegistration?->participantId?->date_of_birth))->format('d F Y') : 'N/A'),
+                Forms\Components\Section::make('Informasi Peserta')
+                    ->relationship('participantRegistration')
+                    ->schema([
+                        Forms\Components\Group::make()
+                            ->relationship('participantId')
+                            ->schema([
+                                Forms\Components\TextInput::make('participant_name')
+                                    ->required()
+                                    ->label('Nama Peserta'),
+                                Forms\Components\DatePicker::make('date_of_birth')
+                                    ->label('Tanggal Lahir')
+                                    ->required(),
+                                Forms\Components\TextInput::make('address')
+                                    ->required()
+                                    ->label('Alamat'),
+                                Forms\Components\Select::make('province')
+                                    ->label('Provinsi')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required()
+                                    ->options(Province::all()->pluck('name', 'name')->toArray()),
+                                Forms\Components\Select::make('city')
+                                    ->label('Kota')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required()
+                                    ->options(Regency::all()->pluck('name', 'name')->toArray()),
+                                Forms\Components\Select::make('district')
+                                    ->label('Kecamatan')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required()
+                                    ->options(District::all()->pluck('name', 'name')->toArray()),
+                                Forms\Components\TextInput::make('school')
+                                    ->required()
+                                    ->label('Tim (Sekolah/Club/Private/Ekskul)'),
+                                Forms\Components\TextInput::make('email')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->label('Email'),
+                            ])
+                            ->columns(2),
+                        Forms\Components\Group::make()
+                            ->relationship('registrationId')
+                            ->schema([
+                                Forms\Components\TextInput::make('no_registration')
+                                    ->label('No Registrasi')
+                                    ->readOnly()
+                                    ->required(),
+                                Forms\Components\Select::make('status')
+                                    ->label('Status Bayar')
+                                    ->required()
+                                    ->options([
+                                        'Pending' => 'Pending',
+                                        'Success' => 'Success',
+                                        'Draft' => 'Draft',
+                                    ])
+                                    ->suffix(fn($record) => match ($record->status) {
+                                        'Pending' => '⏳',
+                                        'Success' => '✅',
+                                        'Draft' => '📝',
+                                        default => '❔',
+                                    }),
+                            ])->columns(2)
+                    ]),
+                Forms\Components\Section::make('Data Pendaftaran')
+                    ->schema([
+                        Forms\Components\Repeater::make('classParticipant')
+                            ->label("Kelas")
+                            ->relationship('classParticipant')
+                            ->schema([
+                                Forms\Components\Select::make('class_name')
+                                    ->hiddenLabel()
+                                    ->required()
+                                    ->searchable()
+                                    ->preload()
+                                    ->options(Classes::all()->pluck('class_name', 'class_name')->toArray())
+                            ])
+                            ->addable(false)
+                            ->required()
+                            ->deletable(false)
+                            ->columns(1),
 
-                Forms\Components\TextInput::make('address')
-                    ->label('Alamat')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->address ?? 'N/A'),
+                        Forms\Components\Repeater::make('categories')
+                            ->label('Kategori')
+                            ->required()
+                            ->relationship('categories')
+                            ->schema([
+                                Forms\Components\Select::make('category_name')
+                                    ->label('Kategori')
+                                    ->required()
+                                    ->hiddenLabel()
+                                    ->searchable()
+                                    ->preload()
+                                    ->options(Categories::all()->pluck('category_name', 'category_name')->toArray())
+                            ])
+                            ->addable(false)
+                            ->deletable(false),
+                        Forms\Components\TextInput::make('no_renang')
+                            ->label('No Renang')
+                            ->required(),
+                        Forms\Components\TextInput::make('last_record')
+                            ->label('Rekor Terakhir'),
 
-                Forms\Components\TextInput::make('province')
-                    ->label('Provinsi')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->province ?? 'N/A'),
-
-                Forms\Components\TextInput::make('city')
-                    ->label('Kota')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->city ?? 'N/A'),
-
-                Forms\Components\TextInput::make('district')
-                    ->label('Kecamatan')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->district ?? 'N/A'),
-
-                Forms\Components\TextInput::make('school')
-                    ->label('Team')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->school ?? 'N/A'),
-
-                Forms\Components\TextInput::make('email')
-                    ->label('Email')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->participantId?->email ?? 'N/A'),
-                Forms\Components\TextInput::make('no_registration')
-                    ->label('No Registrasi')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->registrationId?->no_registration ?? 'N/A'),
-
-                Forms\Components\TextInput::make('class_name')
-                    ->label('Kelas')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->categoryEvent?->categoryClass?->classes?->class_name ?? 'N/A'),
-
-                Forms\Components\TextInput::make('category_name')
-                    ->label('Kategori')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->categoryEvent?->categoryClass?->category?->category_name ?? 'N/A'),
-
-                Forms\Components\TextInput::make('no_renang')
-                    ->label('No Renang')
-                    ->disabled()
-                    ->required(),
-                Forms\Components\TextInput::make('last_record')
-                    ->label('Rekor Terakhir')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->last_record ? $record->last_record . ' Detik' : 'N/A'),
-
-                Forms\Components\TextInput::make('created_at')
-                    ->label('Waktu Pendaftaran')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->created_at ? $record->created_at->format('d/m/Y H:i:s') : 'N/A'),
-
-                Forms\Components\TextInput::make('status')
-                    ->label('Status Bayar')
-                    ->disabled()
-                    ->formatStateUsing(fn($record) => $record->participantRegistration?->registrationId?->status ?? 'N/A')
-                    ->suffix(fn($record) => match ($record->participantRegistration?->registrationId?->status) {
-                        'Pending' => '⏳',
-                        'Success' => '✅',
-                        'Draft' => '📝',
-                        default => '❔',
-                    }),
+                        Forms\Components\TextInput::make('price')
+                            ->label('Harga')
+                            ->required(),
+                    ])->columns(2),
             ]);
     }
 
@@ -168,7 +199,7 @@ class ParticipantCategoriesResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('participantRegistration.participantId.school')
-                    ->label('Team')
+                    ->label('Tim (Sekolah/Club/Private/Ekskul)')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('participantRegistration.participantId.email')
@@ -185,6 +216,7 @@ class ParticipantCategoriesResource extends Resource
                 Tables\Columns\TextColumn::make('classId.class_name')
                     ->label('Kelas')
                     ->searchable()
+
                     ->sortable(),
                 Tables\Columns\TextColumn::make('categories.category_name')
                     ->label('Kategori')
@@ -314,14 +346,14 @@ class ParticipantCategoriesResource extends Resource
                     ]),
             ])
             ->actions([
-
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
 
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
@@ -337,7 +369,7 @@ class ParticipantCategoriesResource extends Resource
         return [
             'index' => Pages\ListParticipantCategories::route('/'),
             'create' => Pages\CreateParticipantCategories::route('/create'),
-            // 'edit' => Pages\EditParticipantCategories::route('/{record}/edit'),
+            'edit' => Pages\EditParticipantCategories::route('/{record}/edit'),
         ];
     }
 }
