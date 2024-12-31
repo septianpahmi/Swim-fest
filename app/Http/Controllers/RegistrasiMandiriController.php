@@ -176,6 +176,11 @@ class RegistrasiMandiriController extends Controller
         if (!$event) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
+        $maintenanceMode = true;
+
+        if ($maintenanceMode) {
+            return redirect()->back()->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        }
         $user = Auth::user();
         $registrasi = Registrations::where('user_id', Auth::id())->where('status', 'Pending')->where('type', 'Mandiri')->first();
         $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();
