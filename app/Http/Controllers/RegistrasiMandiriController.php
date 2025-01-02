@@ -108,10 +108,53 @@ class RegistrasiMandiriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
-        $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
+        $participantData = Session::get('participant_data');
+        $dateOfBirth = $participantData['date_of_birth'] ?? null;
+        // dd($dateOfBirth);
+        if ($dateOfBirth) {
+            $age = \Carbon\Carbon::parse($dateOfBirth)->age;
+            // dd($age);
+            $kelas = Category_events::with('categoryClass.classes')
+                ->where('event_id', $eventId->id)
+                ->get()
+                ->filter(function ($event) use ($age) {
+                    $className = $event->categoryClass->classes->class_name;
+                    if ($age >= 4 && $age <= 6) {
+                        return strpos($className, '6 TAHUN KE BAWAH') !== false;
+                    }
+                    if (strpos($className, 'TAHUN') !== false) {
+                        preg_match('/(\d+)\s*TAHUN/', $className, $matches);
+
+                        if (isset($matches[1])) {
+                            $maxAge = (int)$matches[1];
+
+                            if (strpos($className, '-') !== false) {
+                                preg_match('/(\d+)\s*-\s*(\d+)\s*TAHUN/', $className, $rangeMatches);
+                                if (isset($rangeMatches[1]) && isset($rangeMatches[2])) {
+                                    $minAge = (int)$rangeMatches[1];
+                                    $maxAge = (int)$rangeMatches[2];
+                                    return $age >= $minAge && $age <= $maxAge;
+                                }
+                            }
+
+                            return $age <= $maxAge;
+                        }
+                    }
+                    return false;
+                })
+                ->unique('categoryClass.classes.class_name');
+        } else {
+            $kelas = collect();
+        }
         $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');
+        $jarak = Category_events::with('categoryClass')
+            ->where('event_id', $eventId->id)
+            ->get()
+            ->pluck('categoryClass.jarak')
+            ->unique();
+        // dd($jarak);
         $pageTitle = 'Pilih Kelas';
-        return view('Resources.pilih-kelas', compact('event', 'kelas', 'category', 'pageTitle'));
+        return view('Resources.pilih-kelas', compact('event', 'kelas', 'category', 'jarak', 'pageTitle'));
     }
 
     public function postKelasMandiri(Request $request, $slug)

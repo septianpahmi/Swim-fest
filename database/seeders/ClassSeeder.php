@@ -14,17 +14,23 @@ class ClassSeeder extends Seeder
     public function run(): void
     {
         $classes = [
-            'TK',
-            'SD Kelas 1',
-            'SD Kelas 2',
-            'SD Kelas 3',
-            'SD Kelas 4',
-            'SD Kelas 5',
-            'SD Kelas 6',
-            'SMP Kelas 1',
-            'SMP Kelas 2',
-            'SMP Kelas 3',
+            '6 TAHUN KE BAWAH',
+            '7 TAHUN',
+            '8 TAHUN',
+            '9 TAHUN',
+            '10 - 11 TAHUN',
+            '12 - 13 TAHUN',
+            '14 - 15 TAHUN',
         ];
+        // $classes = [
+        //     'KP A',
+        //     'KP B',
+        //     'KP C',
+        //     'KP D',
+        //     'KU IV',
+        //     'KU III',
+        //     'KU II',
+        // ];
 
         foreach ($classes as $class) {
             Classes::create([

@@ -12,7 +12,7 @@
         <div class="rounded-lg">
             <!-- Image -->
             <div class="mb-6">
-                <img src="/image/Flyer Swimfest 2025.png" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
+                <img src="/image/poster1.jpeg" alt="Trieste Estate" class="rounded-lg w-80 shadow-lg">
             </div>
         </div>
         <hr class="md:hidden border border-b-2 mb-4">
@@ -77,31 +77,42 @@
                                     <thead class="top-0 bg-gray-100 z-10 text-sm">
                                         <tr>
                                             <th class="border px-4 py-2">NOMOR</th>
-                                            <th class="border px-4 py-2">BEBAS</th>
-                                            <th class="border px-4 py-2">DADA</th>
-                                            <th class="border px-4 py-2">KUPU</th>
-                                            <th class="border px-4 py-2">PUNGGUNG</th>
-                                            <th class="border px-4 py-2">KAKI BEBAS</th>
+                                            <th class="border px-4 py-2">KAKI BEBAS PAPAN</th>
                                             <th class="border px-4 py-2">KAKI DADA PAPAN</th>
-                                            <th class="border px-4 py-2">KAKI BEBAS PAPAN + FINS</th>
+                                            <th class="border px-4 py-2">KAKI BEBAS PAPAN +
+                                                FINS</th>
                                             <th class="border px-4 py-2">BEBAS + FINS</th>
                                             <th class="border px-4 py-2">KUPU + FINS</th>
                                             <th class="border px-4 py-2">PUNGGUNG + FINS</th>
+                                            <th class="border px-4 py-2" colspan="2">BEBAS
+                                            </th>
+                                            <th class="border px-4 py-2" colspan="2">DADA
+                                            </th>
+                                            <th class="border px-4 py-2" colspan="2">KUPU
+                                            </th>
+                                            <th class="border px-4 py-2" colspan="2">
+                                                PUNGGUNG</th>
+                                            <th class="border px-4 py-2">GAYA GANTI</th>
                                         </tr>
                                     </thead>
                                     <thead class="top-0 bg-gray-100 z-10 text-sm">
                                         <tr>
-                                            <th class="border">JARAK</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
-                                            <th class="border">25 M</th>
+                                            <th class="border px-4 py-2">JARAK</th>
+                                            <th class="border px-4 py-2">25 M</th>
+                                            <th class="border px-4 py-2">25 M</th>
+                                            <th class="border px-4 py-2">25 M</th>
+                                            <th class="border px-4 py-2">25 M</th>
+                                            <th class="border px-4 py-2">25 M</th>
+                                            <th class="border px-4 py-2">25 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">25 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">50 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">25 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">50 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">25 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">50 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">25 M</th>
+                                            <th class="border whitespace-nowrap px-4 py-2">50 M</th>
+                                            <th class="border px-4 py-2">100 M</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -110,15 +121,49 @@
                                                 <td class="border whitespace-nowrap px-4 py-2">
                                                     {{ $classGroup->first()->classes->class_name }}
                                                 </td>
-                                                @for ($i = 1; $i <= 10; $i++)
-                                                    <td class="border">
-                                                        @if ($classGroup->where('category_id', $i)->first())
-                                                            <span class="text-green-600 font-bold">&#10003;</span>
-                                                        @else
-                                                            <span class="text-red-600 font-bold">X</span>
-                                                        @endif
-                                                    </td>
-                                                @endfor
+                                                @php
+                                                    $categoriesWithDistances = [
+                                                        1 => ['25 M'],
+                                                        2 => ['25 M'],
+                                                        3 => ['25 M'],
+                                                        4 => ['25 M'],
+                                                        5 => ['25 M'],
+                                                        6 => ['25 M'],
+                                                        7 => ['25 M', '50 M'],
+                                                        8 => ['25 M', '50 M'],
+                                                        9 => ['25 M', '50 M'],
+                                                        10 => ['25 M', '50 M'],
+                                                        11 => ['100 M'],
+                                                    ];
+
+                                                @endphp
+                                                @foreach ($categoriesWithDistances as $categoryId => $distances)
+                                                    @foreach ($distances as $distance)
+                                                        @php
+                                                            $entry = $classGroup->firstWhere(function ($item) use (
+                                                                $categoryId,
+                                                                $distance,
+                                                            ) {
+                                                                if (
+                                                                    in_array($item->class_id, [5, 6, 7]) &&
+                                                                    in_array($categoryId, [7, 8, 9, 10, 11]) &&
+                                                                    in_array($distance, ['25 M', '50 M'])
+                                                                ) {
+                                                                    return true;
+                                                                }
+                                                                return $item->category_id == $categoryId &&
+                                                                    $item->jarak == $distance;
+                                                            });
+                                                        @endphp
+                                                        <td class="border">
+                                                            @if ($entry)
+                                                                <span class="text-green-600 font-bold">&#10003;</span>
+                                                            @else
+                                                                <span class="text-red-600 font-bold">X</span>
+                                                            @endif
+                                                        </td>
+                                                    @endforeach
+                                                @endforeach
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -23,7 +23,7 @@ class Category_events extends Model
 
     public function categoryClass()
     {
-        return $this->belongsTo(Category_classes::class, 'category_class_id');
+        return $this->belongsTo(Category_classes::class, 'category_class_id', 'id');
     }
 
     public function ParticipantCategory()

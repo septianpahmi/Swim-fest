@@ -22,31 +22,52 @@
                         <!-- Form Awal -->
                         <div class="form-template">
                             <div class="mb-4">
-                                <label id="kelas"
-                                    class="block text-sm font-medium text-[#023f5b] mb-2">Kelas</label>
+                                <label id="umur" class="block text-sm font-medium text-[#023f5b] mb-2">Pilih
+                                    Umur</label>
                                 <select id="kelas" name="category_event_id"
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
-                                    <option value="" selected>Pilih Kelas</option>
-                                    @foreach ($kelas as $kel)
-                                        <option value="{{ $kel->categoryClass->classes->id }}">
-                                            {{ $kel->categoryClass->classes->class_name }}
-                                        </option>
-                                    @endforeach
+                                    <option value="" selected>Pilih Umur</option>
+                                    @if ($kelas->isNotEmpty())
+                                        @foreach ($kelas as $kel)
+                                            <option value="{{ $kel->categoryClass->classes->id }}">
+                                                {{ $kel->categoryClass->classes->class_name }}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option selected>Tidak ada kategori yang cocok dengan usia Anda.</option>
+                                    @endif
                                 </select>
                             </div>
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-[#023f5b] mb-2">Pilih Nomor</label>
-                                <select id="nomor" name="no_participant[]"
-                                    class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
-                                    required>
-                                    <option value="" selected>Pilih Nomor</option>
-                                    @foreach ($category as $categorys)
-                                        <option value="{{ $categorys->categoryClass->category->id }}">
-                                            {{ $categorys->categoryClass->category->category_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-grow">
+                                        <label class="block text-sm font-medium text-[#023f5b] mb-2">Pilih Nomor</label>
+                                        <select id="nomor" name="no_participant[]"
+                                            class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
+                                            required>
+                                            <option value="" selected>Pilih Nomor</option>
+                                            {{-- @foreach ($category as $categorys)
+                                                <option value="{{ $categorys->categoryClass->category->id }}">
+                                                    {{ $categorys->categoryClass->category->category_name }}
+                                                </option>
+                                            @endforeach --}}
+                                        </select>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <label class="block text-sm font-medium text-[#023f5b] mb-2">Pilih Jarak</label>
+                                        <select id="jarak" name="jarak[]"
+                                            class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
+                                            required>
+                                            <option value="" selected>Pilih Jarak</option>
+                                            {{-- @foreach ($jarak as $jaraks)
+                                                <option value="{{ $jaraks }}">
+                                                    {{ $jaraks }}
+                                                </option>
+                                            @endforeach --}}
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-[#023f5b] mb-2">Catatan Waktu Terakhir
@@ -102,7 +123,58 @@
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    crossorigin="anonymous"></script>
+<script>
+    $(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+    });
+    $(function() {
+        $('#kelas').on('change', function() {
+            let category_event_id = $('#kelas').val();
+            console.log(category_event_id);
+            $.ajax({
+                type: 'post',
+                url: "{{ route('getCategory') }}",
+                data: {
+                    category_event_id: category_event_id
+                },
+                cache: false,
 
+                success: function(data) {
+                    $('#nomor').html(data);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            })
+        })
+    });
+    $(function() {
+        $('#nomor').on('change', function() {
+            let no_participant = $('#nomor').val();
+            $.ajax({
+                type: 'post',
+                url: "{{ route('getJarak') }}",
+                data: {
+                    no_participant: no_participant
+                },
+                cache: false,
+
+                success: function(data) {
+                    $('#jarak').html(data);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            })
+        })
+    });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const formContainer = document.getElementById("form-container");
@@ -143,7 +215,7 @@
 
             const newForm = formTemplate.cloneNode(true);
 
-            const classLabel = newForm.querySelector('label[id="kelas"]');
+            const classLabel = newForm.querySelector('label[id="umur"]');
             if (classLabel) classLabel.remove();
             const classSelect = newForm.querySelector('select[id="kelas"]');
             if (classSelect) classSelect.remove();
@@ -156,23 +228,37 @@
                 }
             });
 
-            const selectedNomors = Array.from(formContainer.querySelectorAll(
-                    'select[name="no_participant[]"]'))
-                .map(select => select.value);
-
-            const selectNomor = newForm.querySelector('select[name="no_participant[]"]');
-            if (selectNomor) {
-                selectNomor.querySelectorAll('option').forEach(option => {
-                    if (selectedNomors.includes(option.value)) {
-                        option.setAttribute('hidden', 'hidden');
-                    }
-                });
-            }
-
+            const nomor = newForm.querySelector('select[name="no_participant[]"]');
+            nomor.addEventListener('change', function() {
+                const no_participant = this.value;
+                const jarak = newForm.querySelector('select[name="jarak[]"]');
+                if (no_participant) {
+                    $.ajax({
+                        type: 'post',
+                        url: "{{ route('getJarak') }}",
+                        data: {
+                            no_participant: no_participant
+                        },
+                        cache: false,
+                        success: function(data) {
+                            jarak.innerHTML =
+                                data;
+                        },
+                        error: function(xhr) {
+                            console.error('Error fetching jarak:', xhr
+                                .responseText);
+                        }
+                    });
+                } else {
+                    jarak.innerHTML =
+                        '<option value="">Pilih Jarak</option>'; // Reset jarak jika kosong
+                }
+            });
             const removeButton = document.createElement('button');
             removeButton.type = 'button';
             removeButton.innerHTML = '<i class="fas fa-trash"></i>';
-            removeButton.classList.add('remove-form', 'absolute', 'top-[-20px]', 'right-0', 'px-6',
+            removeButton.classList.add('remove-form', 'absolute', 'top-[-20px]', 'right-0',
+                'px-6',
                 'py-2',
                 'text-red-400', 'hover:text-red-500');
 

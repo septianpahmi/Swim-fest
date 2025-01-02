@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('category_id');
+            $table->string('jarak');
             $table->timestamps();
             $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

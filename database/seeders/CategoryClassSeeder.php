@@ -14,66 +14,112 @@ class CategoryClassSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'BEBAS',
-            'DADA',
-            'KUPU',
-            'PUNGGUNG',
-            'KAKI BEBAS PAPAN',
-            'KAKI DADA PAPAN',
-            'KAKI BEBAS PAPAN + FINS',
-            'BEBAS + FINS',
-            'KUPU + FINS',
-            'PUNGGUNG + FINS'
+            'KAKI BEBAS PAPAN' => 1,
+            'KAKI DADA PAPAN' => 2,
+            'KAKI BEBAS PAPAN + FINS' => 3,
+            'BEBAS + FINS' => 4,
+            'KUPU + FINS' => 5,
+            'PUNGGUNG + FINS' => 6,
+            'BEBAS' => 7,
+            'DADA' => 8,
+            'KUPU' => 9,
+            'PUNGGUNG' => 10,
+            'GAYA GANTI' => 11,
         ];
-
         $levels = [
-            'TK',
-            'SD Kelas 1',
-            'SD Kelas 2',
-            'SD Kelas 3',
-            'SD Kelas 4',
-            'SD Kelas 5',
-            'SD Kelas 6',
-            'SMP Kelas 1',
-            'SMP Kelas 2',
-            'SMP Kelas 3'
-        ];
-        $categoryIdMap = [
-            'BEBAS' => 1,
-            'DADA' => 2,
-            'KUPU' => 3,
-            'PUNGGUNG' => 4,
-            'KAKI BEBAS PAPAN' => 5,
-            'KAKI DADA PAPAN' => 6,
-            'KAKI BEBAS PAPAN + FINS' => 7,
-            'BEBAS + FINS' => 8,
-            'KUPU + FINS' => 9,
-            'PUNGGUNG + FINS' => 10,
-        ];
-        $classIdMap = [
-            'TK' => 1,
-            'SD Kelas 1' => 2,
-            'SD Kelas 2' => 3,
-            'SD Kelas 3' => 4,
-            'SD Kelas 4' => 5,
-            'SD Kelas 5' => 6,
-            'SD Kelas 6' => 7,
-            'SMP Kelas 1' => 8,
-            'SMP Kelas 2' => 9,
-            'SMP Kelas 3' => 10
+            '6 TAHUN KE BAWAH' => 1,
+            '7 TAHUN' => 2,
+            '8 TAHUN' => 3,
+            '9 TAHUN' => 4,
+            '10 - 11 TAHUN' => 5,
+            '12 - 13 TAHUN' => 6,
+            '14 - 15 TAHUN' => 7,
         ];
 
-        foreach ($levels as $level) {
-            foreach ($categories as $category) {
-                if (($level === 'TK' || strpos($level, 'SD Kelas') !== false && (int)substr($level, -1) <= 2) &&
-                    in_array($category, ['KUPU', 'PUNGGUNG', 'KUPU + FINS', 'PUNGGUNG + FINS'])
-                ) {
+        $excludedCombinations = [
+            '6 TAHUN KE BAWAH' => [
+                'KUPU + FINS',
+                'PUNGGUNG + FINS',
+                'KUPU',
+                'PUNGGUNG',
+                'GAYA GANTI',
+            ],
+            '7 TAHUN' => [
+                'KUPU + FINS',
+                'PUNGGUNG + FINS',
+                'KUPU',
+                'PUNGGUNG',
+                'GAYA GANTI',
+            ],
+            '8 TAHUN' => [
+                'KUPU',
+                'PUNGGUNG',
+                'GAYA GANTI',
+            ],
+            '9 TAHUN' => [
+                'KUPU',
+                'PUNGGUNG',
+                'GAYA GANTI',
+            ],
+            '10 - 11 TAHUN' => [
+                'KAKI BEBAS PAPAN',
+                'KAKI DADA PAPAN',
+                'KAKI BEBAS PAPAN + FINS',
+                'BEBAS + FINS',
+                'KUPU + FINS',
+                'PUNGGUNG + FINS',
+            ],
+            '12 - 13 TAHUN' => [
+                'KAKI BEBAS PAPAN',
+                'KAKI DADA PAPAN',
+                'KAKI BEBAS PAPAN + FINS',
+                'BEBAS + FINS',
+                'KUPU + FINS',
+                'PUNGGUNG + FINS',
+            ],
+            '14 - 15 TAHUN' => [
+                'KAKI BEBAS PAPAN',
+                'KAKI DADA PAPAN',
+                'KAKI BEBAS PAPAN + FINS',
+                'BEBAS + FINS',
+                'KUPU + FINS',
+                'PUNGGUNG + FINS',
+            ],
+        ];
+
+        foreach ($levels as $level => $classId) {
+            foreach ($categories as $category => $categoryId) {
+                if (isset($excludedCombinations[$level]) && in_array($category, $excludedCombinations[$level])) {
                     continue;
                 }
-                Category_classes::create([
-                    'category_id' => $categoryIdMap[$category],
-                    'class_id' => $classIdMap[$level],
-                ]);
+
+                $distances = [];
+
+                if (($level === '6 TAHUN KE BAWAH' || $level === '7 TAHUN') &&
+                    in_array($category, ['KAKI BEBAS PAPAN', 'KAKI DADA PAPAN', 'KAKI BEBAS PAPAN + FINS', 'BEBAS + FINS', 'BEBAS', 'DADA'])
+                ) {
+                    $distances = ['25 M'];
+                } elseif (($level === '8 TAHUN' || $level === '9 TAHUN') &&
+                    in_array($category, ['KAKI BEBAS PAPAN', 'KAKI DADA PAPAN', 'KAKI BEBAS PAPAN + FINS', 'BEBAS + FINS', 'KUPU + FINS', 'PUNGGUNG + FINS', 'BEBAS', 'DADA'])
+                ) {
+                    $distances = ['25 M'];
+                } elseif (($level === '10 - 11 TAHUN' || $level === '12 - 13 TAHUN' || $level === '14 - 15 TAHUN') &&
+                    in_array($category, ['BEBAS', 'DADA', 'KUPU', 'PUNGGUNG'])
+                ) {
+                    $distances = ['25 M', '50 M'];
+                } elseif (($level === '10 - 11 TAHUN' || $level === '12 - 13 TAHUN' || $level === '14 - 15 TAHUN') &&
+                    in_array($category, ['GAYA GANTI'])
+                ) {
+                    $distances = ['100 M'];
+                }
+
+                foreach ($distances as $distance) {
+                    Category_classes::create([
+                        'category_id' => $categoryId,
+                        'class_id' => $classId,
+                        'jarak' => $distance,
+                    ]);
+                }
             }
         }
     }

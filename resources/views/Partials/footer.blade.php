@@ -39,8 +39,8 @@
             © 2024 <a href="#" class="hover:underline">Swimfest Indonesia</a>. All Rights Reserved.
         </span>
     </div>
-    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-        crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
     <script src="/js/style.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -46,7 +46,7 @@
         <!-- Images -->
         <div class="w-full md:w-1/2 flex justify-center space-x-4 ml-auto md:float-end -mr-35">
             <!-- Poster 1 -->
-            <img src="/image/Flyer Swimfest 2025.png" alt="Poster 1" class=" md:w-[80%] rounded-lg shadow-lg">
+            <img src="/image/poster1.jpeg" alt="Poster 1" class=" md:w-[80%] rounded-lg shadow-lg">
         </div>
     </div>
 </section>

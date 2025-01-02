@@ -13,6 +13,7 @@ class Category_classes extends Model
     protected $fillable = [
         'category_id',
         'class_id',
+        'jarak'
     ];
 
     public function category()

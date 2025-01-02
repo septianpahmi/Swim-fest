@@ -23,11 +23,11 @@ class RegistrasiKategoriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
-        $maintenanceMode = true;
+        // $maintenanceMode = true;
 
-        if ($maintenanceMode) {
-            return redirect()->route('detail.lomba', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
-        }
+        // if ($maintenanceMode) {
+        //     return redirect()->route('detail.lomba', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        // }
         $pageTitle = 'Registrasi';
         return view('Resources.registrasi', compact('event', 'pageTitle'));
     }
@@ -36,11 +36,11 @@ class RegistrasiKategoriController extends Controller
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
-        $maintenanceMode = true;
+        // $maintenanceMode = true;
 
-        if ($maintenanceMode) {
-            return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
-        }
+        // if ($maintenanceMode) {
+        //     return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        // }
         // $userRegistered = Registrations::where('event_id', $eventId)
         //     ->where('user_id', Auth::user()->id)->where('type', 'Mandiri')
         //     ->exists();
@@ -58,11 +58,11 @@ class RegistrasiKategoriController extends Controller
 
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
-        $maintenanceMode = true;
+        // $maintenanceMode = true;
 
-        if ($maintenanceMode) {
-            return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
-        }
+        // if ($maintenanceMode) {
+        //     return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        // }
         $userRegistered = Registrations::where('event_id', $eventId->id)
             ->where('user_id', Auth::user()->id)->where('type', 'Kelompok')->where('status', 'Draft')
             ->exists();
@@ -122,14 +122,24 @@ class RegistrasiKategoriController extends Controller
         }
     }
 
-    // public function getCategories(Request $request)
-    // {
-    //     $category_event_id = $request->category_event_id;
-    //     $kelas = Category_classes::where('class_id', $category_event_id)->pluck('category_id')->toArray();
-    //     $category = Categories::whereIn('id', $kelas)->get();
-    //     echo "<option value=''>Pilih Nomor</option>";
-    //     foreach ($category as $cat) {
-    //         echo "<option value='$cat->name'>$cat->category_name</option>";
-    //     }
-    // }
+    public function getCategories(Request $request)
+    {
+        $category_event_id = $request->category_event_id;
+        $kelas = Category_classes::where('class_id', $category_event_id)->pluck('category_id')->toArray();
+        $category = Categories::whereIn('id', $kelas)->get();
+        echo "<option value=''>Pilih Nomor</option>";
+        foreach ($category as $cat) {
+            echo "<option value='$cat->id'>$cat->category_name</option>";
+        }
+    }
+    public function getJarak(Request $request)
+    {
+        $no_participant = $request->no_participant;
+        $kelas = Categories::where('id', $no_participant)->first();
+        $jarak = Category_classes::where('category_id', $kelas->id)->get()->unique('jarak');
+        echo "<option value=''>Pilih Jarak</option>";
+        foreach ($jarak as $cat) {
+            echo "<option value='$cat->jarak'>$cat->jarak</option>";
+        }
+    }
 }
