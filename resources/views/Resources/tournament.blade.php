@@ -159,7 +159,6 @@
                                                                 10 => ['25 M', '50 M'],
                                                                 11 => ['100 M'],
                                                             ];
-
                                                         @endphp
                                                         @foreach ($categoriesWithDistances as $categoryId => $distances)
                                                             @foreach ($distances as $distance)
@@ -167,15 +166,8 @@
                                                                     $entry = $classGroup->firstWhere(function (
                                                                         $item,
                                                                     ) use ($categoryId, $distance) {
-                                                                        if (
-                                                                            in_array($item->class_id, [5, 6, 7]) &&
-                                                                            in_array($categoryId, [7, 8, 9, 10, 11]) &&
-                                                                            in_array($distance, ['25 M', '50 M'])
-                                                                        ) {
-                                                                            return true;
-                                                                        }
                                                                         return $item->category_id == $categoryId &&
-                                                                            $item->jarak == $distance;
+                                                                            $item->distanceId->jarak == $distance;
                                                                     });
                                                                 @endphp
                                                                 <td class="border">

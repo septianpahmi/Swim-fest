@@ -40,10 +40,7 @@ class CheckoutController extends Controller
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
 
-        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('status', 'Pending')->where('event_id', $eventId->id)->first();
-        if (!$registrations) {
-            return redirect()->route('profile', ['id' => Auth::id()])->with('error', 'Anda sudah melakukan pembayaran.');
-        }
+        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->first();
         $registrations->status = "Success";
         $registrations->save();
         $participantRegistrations = Participant_registrations::where('registration_id', $registrations->id)->get();
@@ -60,17 +57,14 @@ class CheckoutController extends Controller
         $payment->payment_method = $paymentMethod;
         $payment->save();
         $pageTitle = 'Checkout';
-        return view('Resources.transaction-success', compact('event', 'admin', 'registrations', 'payment', 'nomor', 'pageTitle'));
+        return view('Resources.transaction-success', compact('event', 'admin', 'registrations', 'payment', 'nomor', 'pageTitle', 'participantCategories'));
     }
     public function successTransactionMandiri(Request $request, $id, $slug)
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
 
-        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->where('status', 'Pending')->where('event_id', $eventId->id)->first();
-        if (!$registrations) {
-            return redirect()->route('profile', ['id' => Auth::id()])->with('error', 'Anda sudah melakukan pembayaran.');
-        }
+        $registrations = Registrations::where('user_id', Auth::id())->where('type', 'Mandiri')->where('event_id', $eventId->id)->first();
         $registrations->status = "Success";
         $registrations->save();
         $participantRegistrations = Participant_registrations::where('registration_id', $registrations->id)->get();
@@ -86,7 +80,7 @@ class CheckoutController extends Controller
         $payment->payment_method = $paymentMethod;
         $payment->save();
         $pageTitle = 'Checkout';
-        return view('Resources.transaction-success', compact('event', 'registrations', 'payment', 'admin', 'nomor', 'pageTitle'));
+        return view('Resources.transaction-success', compact('event', 'registrations', 'payment', 'admin', 'nomor', 'pageTitle', 'participantCategories'));
     }
     public function checkoutDetailLomba(Request $request, $id, $regis, $slug)
     {

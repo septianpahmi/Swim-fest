@@ -39,6 +39,12 @@ class CategoryEventSeeder extends Seeder
             '14 - 15 TAHUN' => 7,
         ];
 
+        $distances = [
+            '25 M' => 1,
+            '50 M' => 2,
+            '100 M' => 3,
+        ];
+
         $excludedCombinations = [
             '6 TAHUN KE BAWAH' => [
                 'KUPU + FINS',
@@ -95,40 +101,39 @@ class CategoryEventSeeder extends Seeder
                 if (isset($excludedCombinations[$level]) && in_array($category, $excludedCombinations[$level])) {
                     continue;
                 }
-                $distances = [];
+
+                $levelDistances = [];
 
                 if (($level === '6 TAHUN KE BAWAH' || $level === '7 TAHUN') &&
                     in_array($category, ['KAKI BEBAS PAPAN', 'KAKI DADA PAPAN', 'KAKI BEBAS PAPAN + FINS', 'BEBAS + FINS', 'BEBAS', 'DADA'])
                 ) {
-                    $distances = ['25 M'];
+                    $levelDistances = ['25 M'];
                 } elseif (($level === '8 TAHUN' || $level === '9 TAHUN') &&
                     in_array($category, ['KAKI BEBAS PAPAN', 'KAKI DADA PAPAN', 'KAKI BEBAS PAPAN + FINS', 'BEBAS + FINS', 'KUPU + FINS', 'PUNGGUNG + FINS', 'BEBAS', 'DADA'])
                 ) {
-                    $distances = ['25 M'];
+                    $levelDistances = ['25 M'];
                 } elseif (($level === '10 - 11 TAHUN' || $level === '12 - 13 TAHUN' || $level === '14 - 15 TAHUN') &&
                     in_array($category, ['BEBAS', 'DADA', 'KUPU', 'PUNGGUNG'])
                 ) {
-                    $distances = ['25 M', '50 M'];
+                    $levelDistances = ['25 M', '50 M'];
                 } elseif (($level === '10 - 11 TAHUN' || $level === '12 - 13 TAHUN' || $level === '14 - 15 TAHUN') &&
                     in_array($category, ['GAYA GANTI'])
                 ) {
-                    $distances = ['100 M'];
+                    $levelDistances = ['100 M'];
                 }
 
-                if (!empty($distances)) {
-                    foreach ($distances as $distance) {
+                if (!empty($levelDistances)) {
+                    foreach ($levelDistances as $distance) {
                         $categoryClass = Category_classes::where('category_id', $categoryId)
-                            ->where('class_id', $classId)->where('jarak', $distance)
+                            ->where('class_id', $classId)->where('distance_id', $distances[$distance])
                             ->first();
 
                         if ($categoryClass) {
                             Category_events::create([
                                 'event_id' => 1,
                                 'category_class_id' => $categoryClass->id,
-                                'price' => 100000,
                             ]);
                         } else {
-                            Example:
                             Log::error("Category class combination not found for category {$category} and level {$level}");
                         }
                     }

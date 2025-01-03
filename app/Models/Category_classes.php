@@ -13,7 +13,7 @@ class Category_classes extends Model
     protected $fillable = [
         'category_id',
         'class_id',
-        'jarak'
+        'distance_id'
     ];
 
     public function category()
@@ -24,6 +24,10 @@ class Category_classes extends Model
     public function classes()
     {
         return $this->belongsTo(Classes::class, 'class_id');
+    }
+    public function distanceId()
+    {
+        return $this->belongsTo(Distance::class, 'distance_id');
     }
 
     public function categoryClass()

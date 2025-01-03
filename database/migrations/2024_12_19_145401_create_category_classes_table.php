@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('category_id');
-            $table->string('jarak');
+            $table->unsignedBigInteger('distance_id');
             $table->timestamps();
             $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('distance_id')->references('id')->on('distances')->onDelete('cascade');
         });
     }
 

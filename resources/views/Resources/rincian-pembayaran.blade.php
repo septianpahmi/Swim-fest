@@ -18,63 +18,86 @@
                 <div>
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
                     <div class="flex justify-between">
-                        <p class="rounded-lg text-sm text-gray-500 ">Rp.
-                            {{ number_format($price, 0, '.', '.') }} X {{ $kelas }} Nomor</p>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($total, 0, '.', '.') }}
+                            @foreach ($participantCategories as $distance)
+                                @foreach ($distance->categories as $category)
+                                    <p class="rounded-lg text-sm text-gray-500">
+                                        {{ $category->category_name }} :
+                                        {{ $distance->jarak }}
+                                    </p>
+                                @endforeach
+                            @endforeach
+                        </div>
+                        <div>
+                            @foreach ($participantCategories as $distance)
+                                <p class="rounded-lg text-sm text-gray-500 ">
+                                    Rp. {{ number_format($distance->price, 0, '.', '.') }}
+                                </p>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <div>
+                            <p class="rounded-lg text-sm font-semibold text-gray-500 mr-4">
+                                TOTAL :
                             </p>
                         </div>
-                    </div>
-                </div>
+                        <div>
+                            <p class="rounded-lg text-sm font-semibold text-gray-500 ">
+                                Rp.
+                                {{ number_format($price, 0, '.', '.') }}
+                            </p>
+                        </div>
 
-                <hr class="border-b-1 border-grey mb-4 mt-6">
-                <div>
-                    <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Lain - Lain</label>
+                    </div>
+
+                    <hr class="border-b-1 border-grey mb-4 mt-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Lain - Lain</label>
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="w-full rounded-lg text-sm text-gray-500 ">Admin
+                            </div>
+                            <div>
+                                <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
+                                    {{ number_format($admin, 0, '.', '.') }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="w-full rounded-lg text-sm text-gray-500 ">Pajak
+                            </div>
+                            <div>
+                                <p class="w-full rounded-lg text-sm text-gray-500 ">2%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-b-1 border-grey mb-4 mt-6">
+
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Admin
+                            <h3 class="block text-md text-xl font-semibold text-[#023f5b] mb-2">Total</h3>
                         </div>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($admin, 0, '.', '.') }}</p>
+                            <h3 class="w-full text-xl rounded-lg font-semibold text-md font-semibold text-[#023f5b] ">
+                                Rp. {{ number_format($grand, 0, '.', '.') }}</h3>
                         </div>
                     </div>
-                    <div class="flex justify-between">
-                        <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Pajak
-                        </div>
-                        <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">2%</p>
-                        </div>
-                    </div>
-                </div>
 
-                <hr class="border-b-1 border-grey mb-4 mt-6">
-
-                <div class="flex justify-between">
-                    <div>
-                        <h3 class="block text-md text-xl font-semibold text-[#023f5b] mb-2">Total</h3>
+                    <div class="flex flex-col sm:flex-row justify-between mt-6">
+                        <button type="button"
+                            class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8"
+                            onclick="goBack()">
+                            Kembali
+                        </button>
+                        <button id="pay-button"
+                            class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
+                            Pembayaran
+                        </button>
                     </div>
-                    <div>
-                        <h3 class="w-full text-xl rounded-lg font-semibold text-md font-semibold text-[#023f5b] ">
-                            Rp. {{ number_format($grand, 0, '.', '.') }}</h3>
-                    </div>
+                    {{-- </form> --}}
                 </div>
-
-                <div class="flex flex-col sm:flex-row justify-between mt-6">
-                    <button type="button"
-                        class="py-3 px-6 text-gray-400 border border-gray-400 rounded-lg text-center font-semibold hover:text-white hover:bg-gray-500 sm:w-48 w-full mb-4 sm:mb-0 sm:mr-8"
-                        onclick="goBack()">
-                        Kembali
-                    </button>
-                    <button id="pay-button"
-                        class="py-3 px-6 text-white bg-red-500 rounded-lg text-center font-semibold hover:bg-red-600 sm:w-48 md:w-full">
-                        Pembayaran
-                    </button>
-                </div>
-                {{-- </form> --}}
-            </div>
 </section>
 @if (env('MIDTRANS_IS_PRODUCTION') == false)
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>

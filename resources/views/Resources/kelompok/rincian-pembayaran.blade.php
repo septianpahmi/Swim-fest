@@ -29,15 +29,36 @@
                     </div>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">{{ number_format($price, 0, '.', '.') }}
-                                X {{ $kelas }} Peserta
+                            @foreach ($participantCategories as $distance)
+                                @foreach ($distance->categories as $category)
+                                    <p class="rounded-lg text-sm text-gray-500">
+                                        {{ $category->category_name }} :
+                                        {{ $distance->jarak }}
+                                    </p>
+                                @endforeach
+                            @endforeach
+                        </div>
+                        <div>
+                            @foreach ($participantCategories as $distance)
+                                <p class="rounded-lg text-sm text-gray-500 ">
+                                    Rp. {{ number_format($distance->price, 0, '.', '.') }}
+                                </p>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <div>
+                            <p class="rounded-lg text-sm font-semibold text-gray-500 mr-4">
+                                TOTAL :
                             </p>
                         </div>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-500 ">Rp.
-                                {{ number_format($total, 0, '.', '.') }}
+                            <p class="rounded-lg text-sm font-semibold text-gray-500 ">
+                                Rp.
+                                {{ number_format($price, 0, '.', '.') }}
                             </p>
                         </div>
+
                     </div>
                     {{-- <div class="flex justify-between mt-3">
                         <div>

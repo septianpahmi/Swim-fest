@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_events', function (Blueprint $table) {
+        Schema::create('distances', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('event_id');
-            $table->bigInteger('category_class_id');
+            $table->string('jarak');
+            $table->integer('price');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_events');
+        Schema::dropIfExists('distances');
     }
 };

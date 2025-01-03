@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Registrations;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
+use App\Models\Distance;
 use Illuminate\Support\Facades\Auth;
 use App\Models\participant_categories;
 use Illuminate\Support\Facades\Session;
@@ -201,11 +202,12 @@ class RegistrasiMandiriController extends Controller
             $noRenang = strtoupper(bin2hex(random_bytes(3)));
             $lastRecord = $request->last_record[$index] ?? null;
             $jarak = $request->jarak[$index];
+            $priceDistance = Distance::where('jarak', $jarak)->first();
             participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
                 'category_event_id' => $class,
                 'no_participant' => $noParticipant,
-                'price' => $event->price ?? null,
+                'price' => $priceDistance->price,
                 'record' => null,
                 'last_record' => $lastRecord ?? null,
                 'jarak' => $jarak,
@@ -239,12 +241,12 @@ class RegistrasiMandiriController extends Controller
             $participantCategories = $participantCategories->merge($categories);
         }
         $kelas = $participantCategories->count();
-        $price = $kelas > 0 ? $participantCategories->sum('price') / $kelas : 0;
+        $price = $participantCategories->sum('price');
         $nomor = $peserta->count();
-        $total = $price * $kelas;
+        // $total = $price * $kelas;
         $admin = 5000;
-        $tax = $total * 0.02;
-        $grand = $total + $admin + $tax;
+        $tax = $price * 0.02;
+        $grand = $price + $admin + $tax;
         $existingCheckout = Payments::where('registration_id', $registrasi->id)->first();
         if ($existingCheckout) {
             $checkout = $existingCheckout;
@@ -253,7 +255,7 @@ class RegistrasiMandiriController extends Controller
                 'registration_id' => $registrasi->id,
                 'payment_method' => 1,
                 'sub_total' => $price,
-                'fee' => $total,
+                'fee' => $price,
                 'diskon' => 0,
                 'grand_total' => $grand,
             ]);
@@ -279,6 +281,6 @@ class RegistrasiMandiriController extends Controller
         }
         Session::put('checkout', $checkout);
         $pageTitle = 'Checkout Prosses';
-        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'total', 'grand', 'pageTitle'));
+        return view('Resources.rincian-pembayaran', compact('checkout', 'event', 'admin', 'kelas', 'nomor', 'price', 'grand', 'participantCategories', 'pageTitle'));
     }
 }

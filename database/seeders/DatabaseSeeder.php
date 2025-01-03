@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ClassSeeder::class,
             CategorySeeder::class,
+            DistanceSeeder::class,
             CategoryClassSeeder::class,
             EventSeeder::class,
             CategoryEventSeeder::class,

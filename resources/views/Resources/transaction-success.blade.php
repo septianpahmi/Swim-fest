@@ -37,13 +37,36 @@
                     <label class="block text-sm font-semibold text-[#023f5b] mb-2">Biaya Pendaftaran</label>
                     <div class="flex justify-between">
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">Rp.
-                                {{ number_format($payment->sub_total, 0, '.', '.') }} X {{ $nomor }} Nomor</p>
+                            @foreach ($participantCategories as $distance)
+                                @foreach ($distance->categories as $category)
+                                    <p class="rounded-lg text-sm text-gray-500">
+                                        {{ $category->category_name }} :
+                                        {{ $distance->jarak }}
+                                    </p>
+                                @endforeach
+                            @endforeach
                         </div>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">
-                                Rp. {{ number_format($payment->fee, 0, '.', '.') }}</p>
+                            @foreach ($participantCategories as $distance)
+                                <p class="rounded-lg text-sm text-gray-500 ">
+                                    Rp. {{ number_format($distance->price, 0, '.', '.') }}
+                                </p>
+                            @endforeach
                         </div>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <div>
+                            <p class="rounded-lg text-sm font-semibold text-gray-500 mr-4">
+                                TOTAL :
+                            </p>
+                        </div>
+                        <div>
+                            <p class="rounded-lg text-sm font-semibold text-gray-500 ">
+                                Rp.
+                                {{ number_format($payment->fee, 0, '.', '.') }}
+                            </p>
+                        </div>
+
                     </div>
                 </div>
 
@@ -76,8 +99,8 @@
                                 {{ strtoupper($payment->payment_method) }}</p>
                         </div>
                         <div>
-                            <p class="w-full rounded-lg text-sm text-gray-400 ">
-                                Rp. {{ number_format($payment->grand_total, 0, '.', '.') }}</p>
+                            <h3 class="w-full text-xl rounded-lg font-semibold text-md font-semibold text-[#023f5b] ">
+                                Rp. {{ number_format($payment->grand_total, 0, '.', '.') }}</h3>
                         </div>
                     </div>
                 </div>

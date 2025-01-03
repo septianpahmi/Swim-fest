@@ -13,7 +13,6 @@ class Category_events extends Model
     protected $fillable = [
         'event_id',
         'category_class_id',
-        'price',
     ];
 
     public function eventId()

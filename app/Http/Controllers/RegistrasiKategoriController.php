@@ -14,6 +14,7 @@ use App\Models\Registrations;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
 use App\Models\Category_classes;
+use App\Models\Distance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -49,6 +50,14 @@ class RegistrasiKategoriController extends Controller
         //     return redirect()->back()
         //         ->with('error', 'You have already registered for this event.');
         // }
+        $userRegistered = Registrations::where('event_id', $eventId->id)
+            ->where('user_id', Auth::user()->id)->where('type', 'Mandiri')->where('status', 'Pending')
+            ->exists();
+
+        if ($userRegistered) {
+            return redirect()->route('mandiri.RingkasanPembayaran', ['slug' => $eventId->slug])
+                ->with('error', 'Anda masih memiliki registrasi yang belum terselesaikan, silahka lanjutkan.');
+        }
         $provinsi = Province::orderBy('name', 'asc')->get();
         $pageTitle = 'Registrasi Mandiri';
         return view('Resources.form-registrasi-mandiri', compact('event', 'provinsi', 'pageTitle'));
@@ -63,12 +72,20 @@ class RegistrasiKategoriController extends Controller
         // if ($maintenanceMode) {
         //     return redirect()->route('registrasi.kategori', ['slug' => $eventId->slug])->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
         // }
-        $userRegistered = Registrations::where('event_id', $eventId->id)
+        $userDraftRegistered = Registrations::where('event_id', $eventId->id)
             ->where('user_id', Auth::user()->id)->where('type', 'Kelompok')->where('status', 'Draft')
             ->exists();
 
-        if ($userRegistered) {
+        if ($userDraftRegistered) {
             return redirect()->route('kelompok.listdetail', ['slug' => $eventId->slug])
+                ->with('error', 'Anda masih memiliki registrasi yang belum terselesaikan, silahka lanjutkan.');
+        }
+        $userPendingRegistered = Registrations::where('event_id', $eventId->id)
+            ->where('user_id', Auth::user()->id)->where('type', 'Kelompok')->where('status', 'Pending')
+            ->exists();
+
+        if ($userPendingRegistered) {
+            return redirect()->route('kelompok.checkoutProccess', ['slug' => $eventId->slug])
                 ->with('error', 'Anda masih memiliki registrasi yang belum terselesaikan, silahka lanjutkan.');
         }
         $provinsi = Province::orderBy('name', 'asc')->get();
@@ -135,8 +152,8 @@ class RegistrasiKategoriController extends Controller
     public function getJarak(Request $request)
     {
         $no_participant = $request->no_participant;
-        $kelas = Categories::where('id', $no_participant)->first();
-        $jarak = Category_classes::where('category_id', $kelas->id)->get()->unique('jarak');
+        $kelas = Category_classes::where('category_id', $no_participant)->pluck('distance_id')->toArray();
+        $jarak = Distance::whereIn('id', $kelas)->get();
         echo "<option value=''>Pilih Jarak</option>";
         foreach ($jarak as $cat) {
             echo "<option value='$cat->jarak'>$cat->jarak</option>";

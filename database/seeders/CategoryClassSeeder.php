@@ -36,6 +36,12 @@ class CategoryClassSeeder extends Seeder
             '14 - 15 TAHUN' => 7,
         ];
 
+        $distances = [
+            '25 M' => 1,
+            '50 M' => 2,
+            '100 M' => 3,
+        ];
+
         $excludedCombinations = [
             '6 TAHUN KE BAWAH' => [
                 'KUPU + FINS',
@@ -92,32 +98,30 @@ class CategoryClassSeeder extends Seeder
                 if (isset($excludedCombinations[$level]) && in_array($category, $excludedCombinations[$level])) {
                     continue;
                 }
-
-                $distances = [];
+                $distancesToAssign = [];
 
                 if (($level === '6 TAHUN KE BAWAH' || $level === '7 TAHUN') &&
                     in_array($category, ['KAKI BEBAS PAPAN', 'KAKI DADA PAPAN', 'KAKI BEBAS PAPAN + FINS', 'BEBAS + FINS', 'BEBAS', 'DADA'])
                 ) {
-                    $distances = ['25 M'];
+                    $distancesToAssign = ['25 M'];
                 } elseif (($level === '8 TAHUN' || $level === '9 TAHUN') &&
                     in_array($category, ['KAKI BEBAS PAPAN', 'KAKI DADA PAPAN', 'KAKI BEBAS PAPAN + FINS', 'BEBAS + FINS', 'KUPU + FINS', 'PUNGGUNG + FINS', 'BEBAS', 'DADA'])
                 ) {
-                    $distances = ['25 M'];
+                    $distancesToAssign = ['25 M'];
                 } elseif (($level === '10 - 11 TAHUN' || $level === '12 - 13 TAHUN' || $level === '14 - 15 TAHUN') &&
                     in_array($category, ['BEBAS', 'DADA', 'KUPU', 'PUNGGUNG'])
                 ) {
-                    $distances = ['25 M', '50 M'];
+                    $distancesToAssign = ['25 M', '50 M'];
                 } elseif (($level === '10 - 11 TAHUN' || $level === '12 - 13 TAHUN' || $level === '14 - 15 TAHUN') &&
                     in_array($category, ['GAYA GANTI'])
                 ) {
-                    $distances = ['100 M'];
+                    $distancesToAssign = ['100 M'];
                 }
-
-                foreach ($distances as $distance) {
+                foreach ($distancesToAssign as $distance) {
                     Category_classes::create([
                         'category_id' => $categoryId,
                         'class_id' => $classId,
-                        'jarak' => $distance,
+                        'distance_id' => $distances[$distance],
                     ]);
                 }
             }
