@@ -23,11 +23,11 @@
                         <div class="form-template">
                             <div class="mb-4">
                                 <label id="umur" class="block text-sm font-medium text-[#023f5b] mb-2">Pilih
-                                    Umur</label>
+                                    Kelompok/Umur</label>
                                 <select id="kelas" name="category_event_id"
                                     class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
                                     required>
-                                    <option value="" selected>Pilih Umur</option>
+                                    <option value="" selected>Pilih Kelompok/Umur</option>
                                     @if ($kelas->isNotEmpty())
                                         @foreach ($kelas as $kel)
                                             <option value="{{ $kel->categoryClass->classes->id }}">
@@ -40,8 +40,8 @@
                                 </select>
                             </div>
                             <div class="mb-4">
-                                <div class="flex items-center gap-4">
-                                    <div class="flex-grow">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
                                         <label class="block text-sm font-medium text-[#023f5b] mb-2">Pilih Nomor</label>
                                         <select id="nomor" name="no_participant[]"
                                             class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"
@@ -54,7 +54,7 @@
                                             @endforeach --}}
                                         </select>
                                     </div>
-                                    <div class="flex-grow">
+                                    <div>
                                         <label class="block text-sm font-medium text-[#023f5b] mb-2">Pilih Jarak</label>
                                         <select id="jarak" name="jarak[]"
                                             class="w-full border-2 p-2 border-grey rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]"

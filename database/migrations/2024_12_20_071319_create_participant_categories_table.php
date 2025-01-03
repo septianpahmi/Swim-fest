@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('no_participant');
             $table->integer('price')->nullable();
             $table->integer('record')->nullable();
+            $table->string('jarak')->nullable();
             $table->string('last_record')->nullable();
             $table->string('no_renang')->nullable();
             $table->timestamps();

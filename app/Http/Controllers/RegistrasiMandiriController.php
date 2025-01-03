@@ -168,6 +168,7 @@ class RegistrasiMandiriController extends Controller
         $validator = Validator::make($request->all(), [
             'no_participant.*' => 'required|string',
             'price.*' => 'nullable|numeric',
+            'jarak.*' => 'required|string',
             'minutes.*' => 'nullable|numeric|min:0|max:59',
             'seconds.*' => 'nullable|numeric|min:0|max:59',
             'milliseconds.*' => 'nullable|numeric|min:0|max:999',
@@ -199,6 +200,7 @@ class RegistrasiMandiriController extends Controller
         foreach ($request->no_participant as $index => $noParticipant) {
             $noRenang = strtoupper(bin2hex(random_bytes(3)));
             $lastRecord = $request->last_record[$index] ?? null;
+            $jarak = $request->jarak[$index];
             participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
                 'category_event_id' => $class,
@@ -206,6 +208,7 @@ class RegistrasiMandiriController extends Controller
                 'price' => $event->price ?? null,
                 'record' => null,
                 'last_record' => $lastRecord ?? null,
+                'jarak' => $jarak,
                 'no_renang' => $noRenang,
             ]);
         }
@@ -219,11 +222,11 @@ class RegistrasiMandiriController extends Controller
         if (!$event) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
-        $maintenanceMode = true;
+        // $maintenanceMode = true;
 
-        if ($maintenanceMode) {
-            return redirect()->back()->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
-        }
+        // if ($maintenanceMode) {
+        //     return redirect()->back()->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        // }
         $user = Auth::user();
         $registrasi = Registrations::where('user_id', Auth::id())->where('status', 'Pending')->where('type', 'Mandiri')->first();
         $participanRegistration = Participant_registrations::where('registration_id', $registrasi->id)->get();

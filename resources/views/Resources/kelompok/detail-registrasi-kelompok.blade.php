@@ -79,12 +79,21 @@
                             </p>
                         @endforeach
                     </div>
-                    <div class="ml-6">
-                        @foreach ($category as $categories)
-                            <p class="text-gray-500">
-                                {{ $categories->category_name }}
-                            </p>
-                        @endforeach
+                    <div class="flex">
+                        <div class="ml-6">
+                            @foreach ($category as $categories)
+                                <p class="text-gray-500">
+                                    {{ $categories->category_name }}
+                                </p>
+                            @endforeach
+                        </div>
+                        <div class="ml-6">
+                            @foreach ($record as $jarak)
+                                <p class="text-gray-500">
+                                    {{ $jarak->jarak }}
+                                </p>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <div class="mb-6">

@@ -1,9 +1,11 @@
 @include('Partials.header')
+
 @include('Partials.nav-blue')
 <section class="relative bg-color-white overflow-hidden">
+
     <div class="relative flex flex-col-2 container mx-auto py-12 px-6 md:px-20 h-screen z-10">
         <div class="flex gap-12 w-full justify-center p-6">
-            <ul class="min-w-[230px] inline-block py-5">
+            <ul class="min-w-[230px] inline-block py-5 hidden md:block">
                 <li id="settingTab"
                     class="tab flex items-center font-semibold text-lg text-gray-800 hover:text-blue-600 bg-gray-300 py-5 px-5 cursor-pointer transition-all">
                     <i class="fas fa-person-swimming"></i>&nbsp; Pertandingan
@@ -16,7 +18,7 @@
                     class="tab flex items-center font-semibold text-lg text-gray-800 hover:text-blue-600 py-5 px-5 cursor-pointer transition-all">
                     <i class="fas fa-lock"></i>&nbsp; Keamanan
                 </li>
-                <li id="inboxTab"
+                <li
                     class="tab flex items-center font-semibold text-lg text-gray-800 hover:text-blue-600 py-5 px-5 cursor-pointer transition-all">
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i

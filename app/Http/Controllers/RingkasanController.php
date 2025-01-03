@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Registrations;
 use App\Models\Category_events;
 use App\Http\Controllers\Controller;
+use App\Models\Category_classes;
 use App\Models\Classes;
 use Illuminate\Support\Facades\Auth;
 use App\Models\participant_categories;
@@ -29,8 +30,9 @@ class RingkasanController extends Controller
         $category = Categories::whereIn('id', $participantCategory)->get();
         $kelasEvent = Participant_categories::where('participant_registration_id',  $registrasions->id)->pluck('category_event_id')->toArray();
         $kelas = Classes::whereIn('id', $kelasEvent)->get();
+        $jarak = participant_categories::where('participant_registration_id', $registrasions->id)->pluck('jarak')->toArray();
         $pageTitle = 'Ringkasan';
-        return view('Resources.ringkasan-mandiri', compact('event', 'category', 'kelas', 'pageTitle'));
+        return view('Resources.ringkasan-mandiri', compact('event', 'category', 'kelas', 'pageTitle', 'jarak'));
     }
 
     public function RingkasanPembayaranMandiri($slug)

@@ -208,11 +208,22 @@
                         <div class="font-bold">Nomor Renang</div>
                         <div>: {{ $item->no_renang }}</div>
                         <div></div>
-                        <div class="font-bold">Kelas</div>
+                        <div class="font-bold">Nomor</div>
                         <div>: @foreach ($item->categories as $c)
                                 {{ $c->category_name }}
                             @endforeach
                         </div>
+                        <div></div>
+                        <div class="font-bold">Kelompok/ Umur</div>
+                        <div>: @foreach ($item->classId as $class)
+                                {{ $class->class_name }}
+                            @endforeach
+                        </div>
+                        <div></div>
+
+
+                        <div class="font-bold">Jarak</div>
+                        <div>: {{ $item->jarak }}</div>
                         <div></div>
 
                         <div class="font-bold">Peringkat</div>

@@ -25,11 +25,22 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-[#023f5b] mb-2">Nomor Renang</label>
-                    @foreach ($category as $item)
-                        <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
-                            {{ $item->category_name }}
-                        </p>
-                    @endforeach
+                    <div class="grid grid-cols-2">
+                        <div>
+                            @foreach ($category as $item)
+                                <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
+                                    {{ $item->category_name }}
+                                </p>
+                            @endforeach
+                        </div>
+                        <div>
+                            @foreach ($jarak as $jar)
+                                <p class="w-full rounded-lg focus:ring-[#023f5b] focus:border-[#023f5b]">
+                                    {{ $jar }}
+                                </p>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
                 <hr class="border-b-1 border-grey mb-4 mt-6">
                 <div class="flex flex-col sm:flex-row justify-between mt-6">

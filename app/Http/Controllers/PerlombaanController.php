@@ -58,7 +58,8 @@ class PerlombaanController extends Controller
         $categoryData = participant_categories::whereIn('participant_registration_id', $regisId)->pluck('no_participant')->toArray();
         $category = Categories::where('id', $categoryData)->get();
         $checkout = Payments::where('registration_id', $regisData->id)->first();
-        return view('Resources.participant.detail-lomba', compact('event', 'checkout', 'parCat', 'categoryClass', 'kelas', 'category', 'regisData'));
+        $pageTitle = "Detail lomba";
+        return view('Resources.participant.detail-lomba', compact('event', 'checkout', 'parCat', 'categoryClass', 'kelas', 'category', 'regisData', 'pageTitle'));
     }
 
     public function facturDownload($id, $regis, $slug)
@@ -82,6 +83,6 @@ class PerlombaanController extends Controller
         $checkout = Payments::where('registration_id', $regisData->id)->first();
         $pdf = Pdf::loadView('Layouts.faktur', compact('event', 'checkout', 'parCat', 'categoryClass', 'kelas', 'category', 'regisData'));
 
-        return $pdf->download('faktur-pembayaran.pdf');
+        return $pdf->download("invoice-{$checkout->reff_id}.pdf");
     }
 }

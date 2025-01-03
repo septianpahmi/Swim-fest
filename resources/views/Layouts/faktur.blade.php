@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Faktur</title>
+    <title>Inovice - {{ $checkout->reff_id }}</title>
 
     <style>
         .invoice-box {
@@ -151,17 +151,28 @@
 
                 <tr class="item">
                     <td>No Renang</td>
-
                     <td>{{ $item->no_renang }}</td>
                 </tr>
                 <tr class="item">
-                    <td>Kelas</td>
+                    <td>Nomor</td>
 
                     <td>
                         @foreach ($item->categories as $c)
                             {{ $c->category_name }}
                         @endforeach
                     </td>
+                </tr>
+                <tr class="item">
+                    <td>Kelompok/ Umur</td>
+                    <td>
+                        @foreach ($item->classId as $class)
+                            {{ $class->class_name }}
+                        @endforeach
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td>Jarak</td>
+                    <td>{{ $item->jarak }}</td>
                 </tr>
             @endforeach
             <tr class="total">

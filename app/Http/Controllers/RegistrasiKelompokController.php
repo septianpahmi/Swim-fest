@@ -150,10 +150,52 @@ class RegistrasiKelompokController extends Controller
     {
         $eventId = Events::where('slug', $slug)->first();
         $event = Category_events::where('event_id', $eventId->id)->first();
-        $kelas = Category_events::with('categoryClass.classes')->where('event_id', $eventId->id)->get()->unique('categoryClass.classes.class_name');
+        $participantData = Session::get('form_kelompok');
+        $dateOfBirth = $participantData['date_of_birth'] ?? null;
+        // dd($dateOfBirth);
+        if ($dateOfBirth) {
+            $age = \Carbon\Carbon::parse($dateOfBirth)->age;
+            // dd($age);
+            $kelas = Category_events::with('categoryClass.classes')
+                ->where('event_id', $eventId->id)
+                ->get()
+                ->filter(function ($event) use ($age) {
+                    $className = $event->categoryClass->classes->class_name;
+                    if ($age >= 4 && $age <= 6) {
+                        return strpos($className, '6 TAHUN KE BAWAH') !== false;
+                    }
+                    if (strpos($className, 'TAHUN') !== false) {
+                        preg_match('/(\d+)\s*TAHUN/', $className, $matches);
+
+                        if (isset($matches[1])) {
+                            $maxAge = (int)$matches[1];
+
+                            if (strpos($className, '-') !== false) {
+                                preg_match('/(\d+)\s*-\s*(\d+)\s*TAHUN/', $className, $rangeMatches);
+                                if (isset($rangeMatches[1]) && isset($rangeMatches[2])) {
+                                    $minAge = (int)$rangeMatches[1];
+                                    $maxAge = (int)$rangeMatches[2];
+                                    return $age >= $minAge && $age <= $maxAge;
+                                }
+                            }
+
+                            return $age <= $maxAge;
+                        }
+                    }
+                    return false;
+                })
+                ->unique('categoryClass.classes.class_name');
+        } else {
+            $kelas = collect();
+        }
         $category = Category_events::with('categoryClass.category')->where('event_id', $eventId->id)->get()->unique('categoryClass.category.category_name');
+        $jarak = Category_events::with('categoryClass')
+            ->where('event_id', $eventId->id)
+            ->get()
+            ->pluck('categoryClass.jarak')
+            ->unique();
         $pageTitle = 'Pilih Kelas';
-        return view('Resources.kelompok.pilih-kelas', compact('event', 'kelas', 'category', 'pageTitle'));
+        return view('Resources.kelompok.pilih-kelas', compact('event', 'kelas', 'jarak', 'category', 'pageTitle'));
     }
     // public function newKelas($slug)
     // {
@@ -168,6 +210,7 @@ class RegistrasiKelompokController extends Controller
         $event = Category_events::where('event_id', $eventId->id)->first();
         $validator = Validator::make($request->all(), [
             'no_participant.*' => 'required|numeric',
+            'jarak.*' => 'required|string',
             'minutes.*' => 'nullable|numeric|min:0|max:59',
             'seconds.*' => 'nullable|numeric|min:0|max:59',
             'milliseconds.*' => 'nullable|numeric|min:0|max:999',
@@ -200,6 +243,7 @@ class RegistrasiKelompokController extends Controller
         foreach ($request->no_participant as $index => $noParticipant) {
             $noRenang = strtoupper(bin2hex(random_bytes(3)));
             $lastRecord = $request->last_record[$index] ?? null;
+            $jarak = $request->jarak[$index];
             $participanCetgory = Participant_categories::create([
                 'participant_registration_id' => $participantRegistration->id,
                 'category_event_id' => $class,
@@ -207,6 +251,7 @@ class RegistrasiKelompokController extends Controller
                 'price' => $event->price ?? null,
                 'record' => null,
                 'last_record' => $lastRecord ?? null,
+                'jarak' => $jarak,
                 'no_renang' => $noRenang,
             ]);
         }
@@ -287,11 +332,11 @@ class RegistrasiKelompokController extends Controller
         if (!$event) {
             return redirect()->back()->with('error', 'Event tidak ditemukan.');
         }
-        $maintenanceMode = true;
+        // $maintenanceMode = true;
 
-        if ($maintenanceMode) {
-            return redirect()->back()->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
-        }
+        // if ($maintenanceMode) {
+        //     return redirect()->back()->with('error', 'Halaman ini sedang dalam tahap pemeliharaan. Silakan coba lagi nanti.');
+        // }
         $user = Auth::user();
         $registrasi = Registrations::where('user_id', Auth::id())->where('type', 'Kelompok')->where('event_id', $eventId->id)->whereIn('status', ['Draft', 'Pending'])->first();
         $registrasi->status = "Pending";
